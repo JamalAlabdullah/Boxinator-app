@@ -1,0 +1,26 @@
+.container.login{
+  margin-left: 40%;
+  
+}
+
+
+.form-control{
+    text-align: center;
+    width: 300px;
+}
+
+
+.imageLogo{
+    width: 100px;
+    height: 100px;
+    margin-left: 80px;
+}
+.btn.guest{
+margin-top: 50px;
+margin-right: 100px;
+
+}
+
+.btn.register{
+ margin-top: 50px;
+}
