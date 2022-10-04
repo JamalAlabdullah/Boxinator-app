@@ -5,7 +5,10 @@ body {
 }
 
 h2 {
-    color: red;
+    color: white;
+    border-bottom: 4px solid yellow;
+    width: 30%;
+    margin: 30px auto;
 }
 
 input {
