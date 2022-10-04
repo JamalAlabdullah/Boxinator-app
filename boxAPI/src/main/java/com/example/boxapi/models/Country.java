@@ -14,7 +14,7 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int country_id;
     @Column(length = 50)
-    private String name;
+    private String country_name;
     @Column(length = 10)
     private String multiplier;
 
