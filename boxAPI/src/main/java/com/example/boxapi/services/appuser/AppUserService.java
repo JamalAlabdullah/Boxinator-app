@@ -1,4 +1,4 @@
-package com.example.boxapi.services.packages;
+package com.example.boxapi.services.appuser;
 
 import com.example.boxapi.models.AppUser;
 import com.example.boxapi.services.CrudService;
