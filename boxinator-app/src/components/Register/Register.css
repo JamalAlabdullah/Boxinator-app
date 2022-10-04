@@ -1,0 +1,54 @@
+body {
+    margin: 0 auto;
+    text-align: center;
+    background-color: #303030;
+}
+
+h2 {
+    color: red;
+}
+
+input {
+    background-color: purple;
+    border: 2px solid purple;
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+}
+
+::placeholder {
+    color: white;
+    opacity: 0.5;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+fieldset {
+    color: white;
+    display: grid;
+    margin-top: 10px;
+    grid-template-columns: 30% 70%;
+    row-gap: 15px;
+    column-gap: 5px;
+    align-items: center;
+    border: none;
+}
+
+form {
+    margin: 0 auto;
+    width: 40%;
+    border: 7px solid purple;
+    border-radius: 10px;
+    background-color: #424242;
+    padding: 30px;
+}
+
+button {
+    margin-top: 30px;
+    border-radius: 20px;
+    border: none;
+    padding: 10px;
+    width: 50%;
+}
