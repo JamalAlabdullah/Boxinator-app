@@ -1,29 +1,22 @@
 package com.example.boxapi.models;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-public class User {
+public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(length = 50)
-    private Date birthday;
-    @Column(length = 50)
-    private String country;
+    private String name;
     @Column(length = 10)
-    private int postal_code;
-    @Column(length = 15)
-    private int phone_number;
-
+    private String multiplier;
 
     //Navigation/relationships
     @OneToMany(mappedBy = "package")
