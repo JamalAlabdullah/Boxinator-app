@@ -6,12 +6,11 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-public class User {
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int user_id;
@@ -26,6 +25,6 @@ public class User {
 
 
     //Navigation/relationships
-    @OneToMany(mappedBy = "package")
-    private Set<Package> packages;
+    //@OneToMany(mappedBy = "package")
+    //private Set<Package> packages;
 }

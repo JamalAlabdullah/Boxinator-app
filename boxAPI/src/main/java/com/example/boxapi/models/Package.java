@@ -39,12 +39,12 @@ public class Package {
     @Column(length = 100)
     private String mail;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    //@ManyToOne
+    //@JoinColumn(name = "user_id")
+    //private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "country_id")
-    private Country country;
+    //@ManyToOne
+    //@JoinColumn(name = "country_id")
+    //private Country country;
 
 }

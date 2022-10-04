@@ -1,7 +1,7 @@
 package com.example.boxapi.models.dto;
 
 import com.example.boxapi.models.Country;
-import com.example.boxapi.models.User;
+import com.example.boxapi.models.AppUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +21,6 @@ public class PackageDTO {
     private Date date;
     private String status;
     private String mail;
-    private User user;
-    private Country country;
+    private AppUser Appuser;
+    //private Country country;
 }

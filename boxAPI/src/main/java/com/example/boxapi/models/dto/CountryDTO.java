@@ -12,5 +12,5 @@ public class CountryDTO {
     private int country_id;
     private String country_name;
     private int multiplier;
-    private Set<Integer> packages;
+    //private Set<Integer> packages;
 }
