@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+
+import Login from './components/Login';
+
+>>>>>>> jam-login
 import './App.css';
 import {
   BrowserRouter,
@@ -7,8 +13,10 @@ import {
 import Register from './views/Register';
 import Navbar from './components/Navbar/Navbar';
 
+
 function App() {
   return (
+<<<<<<< HEAD
       <BrowserRouter>
       <div className="App">
 
@@ -21,6 +29,11 @@ function App() {
 
       </div>
     </BrowserRouter>
+=======
+    <div className="App">
+     <Login/>
+    </div>
+>>>>>>> jam-login
   );
 }
 
