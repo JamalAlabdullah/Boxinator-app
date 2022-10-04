@@ -1,0 +1,37 @@
+nav {
+    margin: 0;
+    background-color: darkmagenta;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 100px;
+}
+
+ul {
+    padding: 0;
+    display: flex;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+li {
+    list-style-type: none;
+    color: white;
+}
+
+a {
+    padding: 41px;
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    background-color: #424242;
+}
+
+h1 {
+    text-align: left;
+    margin: 0;
+    margin-left: 20px;
+    color: yellow;
+}
