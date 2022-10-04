@@ -12,7 +12,7 @@ import java.util.Set;
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int country_id;
     @Column(length = 50)
     private String name;
     @Column(length = 10)
