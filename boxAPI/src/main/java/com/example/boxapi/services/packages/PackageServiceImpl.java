@@ -1,9 +1,11 @@
 package com.example.boxapi.services.packages;
 
 import com.example.boxapi.models.Package;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+@Service
 public class PackageServiceImpl implements PackageService {
     @Override
     public Package findById(Integer integer) {

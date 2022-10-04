@@ -1,9 +1,11 @@
 package com.example.boxapi.services.appuser;
 
 import com.example.boxapi.models.AppUser;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+@Service
 public class AppUserServiceImpl implements AppUserService{
     @Override
     public AppUser findById(Integer integer) {

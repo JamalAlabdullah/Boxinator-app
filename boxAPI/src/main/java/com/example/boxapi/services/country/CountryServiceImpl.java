@@ -1,9 +1,11 @@
 package com.example.boxapi.services.country;
 
 import com.example.boxapi.models.Country;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+@Service
 public class CountryServiceImpl implements CountryService{
     @Override
     public Country findById(Integer integer) {
