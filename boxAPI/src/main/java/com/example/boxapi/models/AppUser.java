@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -15,7 +16,7 @@ public class AppUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int user_id;
     @Column(length = 50)
-    private Date birthday;
+    private LocalDate birthday;
     @Column(length = 50)
     private String country;
     @Column(length = 10)
@@ -25,6 +26,7 @@ public class AppUser {
 
 
     //Navigation/relationships
-    //@OneToMany(mappedBy = "package")
-    //private Set<Package> packages;
+    @OneToMany(mappedBy = "app_user")
+    private Set<Package> packages;
+
 }

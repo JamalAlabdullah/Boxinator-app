@@ -19,6 +19,6 @@ public class Country {
     private String multiplier;
 
     //Navigation/relationships
-    //@OneToMany(mappedBy = "package")
-    //private Set<Package> packages;
+    @OneToMany(mappedBy = "country")
+    private Set<Package> packages;
 }

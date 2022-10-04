@@ -4,7 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+
 
 /**
  * package_id pk
@@ -28,23 +29,23 @@ public class Package {
     private int package_id;
     @Column(length = 100)
     private String receiver_name;
-    @Column(length = 50)
+    @Enumerated(EnumType.STRING)
     private String weight;
     @Column(length = 50)
     private String color;
     @Column(length = 50)
-    private Date date;
-    @Column(length = 50)
+    private LocalDate date;
+    @Enumerated(EnumType.STRING)
     private String status;
     @Column(length = 100)
     private String mail;
 
-    //@ManyToOne
-    //@JoinColumn(name = "user_id")
-    //private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private AppUser app_user;
 
-    //@ManyToOne
-    //@JoinColumn(name = "country_id")
-    //private Country country;
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
 
 }

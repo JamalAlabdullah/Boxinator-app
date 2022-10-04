@@ -22,5 +22,5 @@ public class PackageDTO {
     private String status;
     private String mail;
     private AppUser Appuser;
-    //private Country country;
+    private Country country;
 }
