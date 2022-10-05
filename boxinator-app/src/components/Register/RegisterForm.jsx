@@ -5,6 +5,7 @@ const RegisterForm = () => {
     return (
         <>
             <h2>Register</h2>
+            <div></div>
             <form>
                 <fieldset>
 
