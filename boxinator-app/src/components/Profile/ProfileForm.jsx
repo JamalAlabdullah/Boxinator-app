@@ -1,11 +1,8 @@
-import './Register.css'
-
-const RegisterForm = () => {
-
+const ProfileForm = () => {
     return (
         <form>
-            <fieldset>
 
+            <fieldset>
                 <label htmlFor="fName">First name: </label>
                 <input id="fName" type="text" placeholder="first name..." />
 
@@ -29,13 +26,11 @@ const RegisterForm = () => {
 
                 <label htmlFor="conNumb">Contact number: </label>
                 <input id="conNumb" type="number" placeholder="contact number..." />
-
             </fieldset>
+            <button id="btnContinue" type="submit">Save Changes</button>
 
-            <button id="btnContinue" type="submit">Register</button>
         </form>
     )
-
 }
 
-export default RegisterForm
+export default ProfileForm
