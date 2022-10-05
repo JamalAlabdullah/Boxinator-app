@@ -1,6 +1,5 @@
 
 import Login from './components/Login/Login';
-import './App.css';
 import {
   BrowserRouter,
   Routes,

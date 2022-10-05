@@ -1,6 +1,10 @@
 .container.login{
-  margin-left: 40%;
+  margin: 0 auto;
   
+}
+
+h1 {
+  margin: 0 auto;
 }
 
 
