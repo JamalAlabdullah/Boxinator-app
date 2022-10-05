@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 import Register from './views/Register';
 import Navbar from './components/Navbar/Navbar';
+import HomePage from './views/HomePage';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
 
           <Route path="/register" element={ <Register /> }/>
           <Route path="/" element={ <Login /> } />
+          <Route path="/home" element={ <HomePage /> } />
           
         </Routes>
 
