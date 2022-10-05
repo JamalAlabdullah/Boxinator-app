@@ -1,19 +1,20 @@
+import { ntc } from "../../utils/ntc" // Used to convert hex and rgb to a color name
+
 const ProfileForm = () => {
+
+    // Experiment start -------------------------------- 
+    let color = ntc.name("AAFFFF");
+    let rgb = color[0];
+    let colorName = color[1];
+    console.log(colorName);
+    // Experiment end ----------------------------------
+
     return (
         <form>
-
+            <button style={{
+                backgroundColor: rgb,
+            }}>{colorName}</button>
             <fieldset>
-                <label htmlFor="fName">First name: </label>
-                <input id="fName" type="text" placeholder="first name..." />
-
-                <label htmlFor="lName">Last name: </label>
-                <input id="lName" type="text" placeholder="last name..." />
-
-                <label htmlFor="email">E-mail: </label>
-                <input id="email" type="email" placeholder="email..." />
-
-                <label htmlFor="password">Password: </label>
-                <input id="password" type="password" placeholder="password..." />
 
                 <label htmlFor="dateBirth">Date of birth: </label>
                 <input id="dateBirth" type="date" placeholder="date og birth..." />
