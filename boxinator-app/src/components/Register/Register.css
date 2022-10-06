@@ -1,17 +1,12 @@
-body {
-    margin: 0 auto;
-    text-align: center;
-    background-color: wheat;
-}
-
-h2 {
+#pageH2 {
     color: black;
     border-bottom: 4px solid #FCF7DD;
     width: 30%;
     margin: 30px auto;
+    text-align: center;
 }
 
-input {
+#profField input {
     border: none;
     background-color: #EEEEEE;
     border-left: 8px solid #FCF7DD;
@@ -29,7 +24,7 @@ input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
-fieldset {
+#profField {
     color: white;
     display: grid;
     margin-top: 10px;
@@ -40,7 +35,7 @@ fieldset {
     border: none;
 }
 
-form {
+#profForm {
     margin: 0 auto;
     width: 40%;
     border: 2px solid #B0916E;
@@ -50,12 +45,14 @@ form {
     margin-bottom: 40px;
 }
 
-button {
+#btnContinue {
+    margin: 0 auto;
     margin-top: 30px;
     border-radius: 20px;
     border: none;
     padding: 10px;
     width: 50%;
+    text-align: center;
 }
 
 #stampImg {

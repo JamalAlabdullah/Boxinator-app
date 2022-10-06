@@ -3,8 +3,8 @@ import './Register.css'
 const RegisterForm = () => {
 
     return (
-        <form>
-            <fieldset>
+        <form id="profForm">
+            <fieldset id="profField">
 
                 <label htmlFor="fName">First name: </label>
                 <input id="fName" type="text" placeholder="first name..." />

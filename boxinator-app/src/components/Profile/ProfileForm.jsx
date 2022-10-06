@@ -11,14 +11,14 @@ const ProfileForm = () => {
     // Experiment end ----------------------------------
 
     return (
-        <form>
+        <form id="profForm">
             <img id="stampImg" src={source} alt="Stamp SVG" 
                 style={{
                     border:"6px solid" + rgb,
                     backgroundColor: rgb,
                     
                 }}/>
-            <fieldset>
+            <fieldset id="profField">
 
                 <label htmlFor="dateBirth">Date of birth: </label>
                 <input id="dateBirth" type="date" placeholder="date og birth..." />

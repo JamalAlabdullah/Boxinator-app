@@ -1,4 +1,4 @@
-nav {
+#navBar {
     margin: 0;
     background-color: #a0522d;
     display: flex;
@@ -20,13 +20,13 @@ nav {
     color: white;
 }
 
-a {
+#navLi a {
     padding: 41px;
     color: white;
     text-decoration: none;
 }
 
-a:hover {
+#navLi a:hover {
     background-color: #FCF7DD;
     color: black;
 }

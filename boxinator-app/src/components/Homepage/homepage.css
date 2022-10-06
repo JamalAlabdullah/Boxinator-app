@@ -1,0 +1,47 @@
+html {
+    background-color: wheat;
+}
+
+.App {
+    background-color: wheat;
+}
+
+#packGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    row-gap: 50px;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+
+#packUl {
+    list-style: none;
+    background-color: #B0916E;
+    width: 80%;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+
+#packLi {
+    background-color: #EEEEEE;
+    margin: 10px;
+    padding: 10px;
+    border-left: 8px solid #FCF7DD;
+    border-right: 8px solid #FCF7DD;
+}
+
+#homeH1 {
+    margin: 10px;
+    text-align: center;
+}
+
+#btnHome {
+    margin: 0 auto;
+}
+
+#homeBody {
+    margin: 0 auto;
+}
