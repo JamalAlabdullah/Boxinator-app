@@ -1,10 +1,11 @@
 nav {
     margin: 0;
-    background-color: darkmagenta;
+    background-color: #a0522d;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 100px;
+    border-bottom: 8px solid #FCF7DD;
 }
 
 #navUl {
@@ -33,5 +34,5 @@ a:hover {
     text-align: left;
     margin: 0;
     margin-left: 20px;
-    color: yellow;
+    color: white;
 }

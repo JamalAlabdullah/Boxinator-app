@@ -3,7 +3,7 @@ import { ntc } from "../../utils/ntc" // Used to convert hex and rgb to a color 
 const ProfileForm = () => {
 
     // Experiment start -------------------------------- 
-    let color = ntc.name("AAFFFF");
+    let color = ntc.name("#AAFFFF");
     let rgb = color[0];
     let colorName = color[1];
     console.log(colorName);
