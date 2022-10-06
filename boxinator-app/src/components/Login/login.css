@@ -1,3 +1,44 @@
+.loginBtn{
+  margin-right: 10px;
+  margin-bottom: 60px;
+  width: 100px;
+}
+
+
+.registerBtn{
+  margin-right: 170px;
+  margin-bottom: 20px;
+  width: 100px;
+}
+
+.guestBtn{
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+.passwordLabel{
+  color: white;
+}
+
+
+.emailLabel{
+  color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+     
 .container.login{
   margin: 0 auto;
   
@@ -28,3 +69,7 @@ margin-right: 100px;
 .btn.register{
  margin-top: 50px;
 }
+
+
+
+   */

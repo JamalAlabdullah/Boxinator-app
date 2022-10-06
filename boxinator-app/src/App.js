@@ -1,3 +1,4 @@
+import Login from './components/Login/LoginForm';
 import {
   BrowserRouter,
   Routes,
@@ -7,6 +8,7 @@ import Navbar from './components/Navbar/Navbar';
 import Register from './views/Register';
 import Login from './components/Login/Login';
 import Profile from './views/Profile';
+import HomePage from './views/HomePage';
 
 
 function App() {
@@ -20,6 +22,7 @@ function App() {
           <Route path="/register" element={ <Register /> } />
           <Route path="/profile" element={ <Profile /> } />
           <Route path="/" element={ <Login /> } />
+          <Route path="/home" element={ <HomePage /> } />
           
         </Routes>
 
