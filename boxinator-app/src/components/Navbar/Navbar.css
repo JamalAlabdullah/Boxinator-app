@@ -1,20 +1,21 @@
 nav {
     margin: 0;
-    background-color: darkmagenta;
+    background-color: #a0522d;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 100px;
+    border-bottom: 8px solid #FCF7DD;
 }
 
-ul {
+#navUl {
     padding: 0;
     display: flex;
     padding-top: 25px;
     padding-bottom: 25px;
 }
 
-li {
+#navLi {
     list-style-type: none;
     color: white;
 }
@@ -26,12 +27,13 @@ a {
 }
 
 a:hover {
-    background-color: #424242;
+    background-color: #FCF7DD;
+    color: black;
 }
 
-h1 {
+#navH1 {
     text-align: left;
     margin: 0;
     margin-left: 20px;
-    color: yellow;
+    color: white;
 }

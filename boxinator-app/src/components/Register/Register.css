@@ -1,26 +1,27 @@
 /*body {
     margin: 0 auto;
     text-align: center;
-    background-color: #303030;
+    background-color: wheat;
 }
 
 h2 {
-    color: white;
-    border-bottom: 4px solid yellow;
+    color: black;
+    border-bottom: 4px solid #FCF7DD;
     width: 30%;
     margin: 30px auto;
 }
 
 input {
-    background-color: purple;
-    border: 2px solid purple;
-    border-radius: 10px;
+    border: none;
+    background-color: #EEEEEE;
+    border-left: 8px solid #FCF7DD;
+    border-right: 8px solid #FCF7DD;
     padding: 10px;
-    color: white;
+    color: black;
 }
 
 ::placeholder {
-    color: white;
+    color: black;
     opacity: 0.5;
 }
 
@@ -42,10 +43,11 @@ fieldset {
 form {
     margin: 0 auto;
     width: 40%;
-    border: 7px solid purple;
+    border: 2px solid #B0916E;
     border-radius: 10px;
-    background-color: #424242;
+    background-color: #B0916E;
     padding: 30px;
+    margin-bottom: 40px;
 }
 
 button {
@@ -55,4 +57,9 @@ button {
     padding: 10px;
     width: 50%;
 }
-*/
+
+#stampImg {
+    width: 20%;
+    border-radius: 10px;
+    background-color: #EEEEEE;
+}
