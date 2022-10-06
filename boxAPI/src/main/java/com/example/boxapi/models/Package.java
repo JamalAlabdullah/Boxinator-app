@@ -1,5 +1,7 @@
 package com.example.boxapi.models;
 
+import com.example.boxapi.models.enums.Status;
+import com.example.boxapi.models.enums.Weight;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,13 +32,13 @@ public class Package {
     @Column(length = 100)
     private String receiver_name;
     @Enumerated(EnumType.STRING)
-    private String weight;
+    private Weight weight;
     @Column(length = 50)
     private String color;
     @Column(length = 50)
     private LocalDate date;
     @Enumerated(EnumType.STRING)
-    private String status;
+    private Status status;
     @Column(length = 100)
     private String mail;
 

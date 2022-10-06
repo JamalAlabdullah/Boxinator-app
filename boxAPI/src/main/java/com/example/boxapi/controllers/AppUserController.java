@@ -1,42 +1,45 @@
 package com.example.boxapi.controllers;
 
 
+import com.example.boxapi.models.AppUser;
+import com.example.boxapi.models.Role;
 import com.example.boxapi.models.dto.AppUserDTO;
 import com.example.boxapi.services.appuser.AppUserService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.boxapi.services.appuser.AppUserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.Collection;
+import java.net.URI;
+import java.security.Principal;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "api/v1")
 public class AppUserController {
 
     //private final AppUserMapper appUserMapper;
     private final AppUserService appUserService;
 
-    private AppUserController(AppUserService appUserService){
-        this.appUserService = appUserService;
-    }
-
-    @Operation(summary = "Get all characters")
-    @GetMapping(path = "/characters")// GET: localhost:8080/api/v1/characters
-    public ResponseEntity<Collection<Character>> getAll() {
-        return ResponseEntity.ok(AppUserService.findAll());
-    }
-
-    // Get characters by id
     @Operation(summary = "Gets character by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -48,11 +51,70 @@ public class AppUserController {
                     content = @Content)
 
     })
-    @GetMapping("/appuser/{id}") // GET: localhost:8080/api/v1/characters/1
+    @GetMapping("/characters/{id}") // GET: localhost:8080/api/v1/characters/1
     public ResponseEntity getById(@PathVariable int id) {
-        AppUserDTO characterDTO = appUserMapper.appusertouserDTO(
-                AppUserService.findById(id)
-        );
+        AppUser characterDTO = appUserService.findById(id);
         return ResponseEntity.ok(characterDTO);
     }
+
+
+    @GetMapping("/users")
+    public ResponseEntity<List<AppUser>> getUsers() {
+        return ResponseEntity.ok().body(appUserService.getUsers());
+    }
+
+    @PostMapping("/user/save")
+    public ResponseEntity<AppUser> saveUser(@RequestBody AppUser user) {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/user/save").toUriString());
+        return ResponseEntity.created(uri).body(appUserService.saveUser(user));
+    }
+    @PostMapping("/role/save")
+    public ResponseEntity<Role> saveRole(@RequestBody Role role) {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/role/save").toUriString());
+        return ResponseEntity.created(uri).body(appUserService.saveRole(role));
+    }
+
+    @PostMapping("/role/addtouser")
+    public ResponseEntity<?> saveRole(@RequestBody RoleToUserForm form) {
+        appUserService.addRoleToUser(form.getUsername(), form.getRoleName());
+        return ResponseEntity.ok().build();
+    }
+
+
+
+    // This endpoint just shows the information from the token
+    // The token is received through the @AuthenticationPrincipal via Spring Security.
+   /* @GetMapping
+    public Map<String, Object> getUserInfo(@AuthenticationPrincipal Jwt principal) {
+        Map<String, String> map = new Hashtable<String, String>();
+        map.put("user_name", principal.getClaimAsString("preferred_username"));
+        map.put("email", principal.getClaimAsString("email"));
+        map.put("first_name", principal.getClaimAsString("given_name"));
+        map.put("last_name", principal.getClaimAsString("family_name"));
+        map.put("roles", String.valueOf(principal.getClaimAsStringList("roles")));
+        return Collections.unmodifiableMap(map);
+    }
+
+    // This lets us see the entire principal object that spring security keeps of our user
+    @GetMapping("/principal")
+    public Principal getUser(Principal user){
+        return user;
+    }
+
+    @PostMapping
+    public ResponseEntity<AppUser> addNewUser(@AuthenticationPrincipal Jwt principal){
+        if(appUserService.checkIfUserExists(principal.getClaimAsString("email")))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+
+        return ResponseEntity.ok(appUserService.createNewUserProfileFromJWT(principal));
+    }*/
+
 }
+
+@Getter
+@Setter
+class RoleToUserForm {
+    private String username;
+    private String roleName;
+}
+

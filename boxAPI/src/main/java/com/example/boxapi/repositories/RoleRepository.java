@@ -1,9 +1,10 @@
 package com.example.boxapi.repositories;
 
-import com.example.boxapi.models.Country;
+import com.example.boxapi.models.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CountryRepository extends JpaRepository<Country, Integer> {
+public interface RoleRepository extends JpaRepository<Role,Integer> {
+    Role getRoleByName(String name);
 }
