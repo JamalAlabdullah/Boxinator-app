@@ -16,6 +16,6 @@ public class AppUserDTO {
     private int postal_code;
     private int phone_number;
     private Set<Integer> packages;
-    private String username;
+    private Set<Integer> roles;
 }
 

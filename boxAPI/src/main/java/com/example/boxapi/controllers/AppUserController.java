@@ -1,24 +1,20 @@
 package com.example.boxapi.controllers;
 
 
+import com.example.boxapi.mappers.AppUserMapper;
 import com.example.boxapi.models.AppUser;
 import com.example.boxapi.models.Role;
 import com.example.boxapi.models.dto.AppUserDTO;
 import com.example.boxapi.services.appuser.AppUserService;
-import com.example.boxapi.services.appuser.AppUserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,35 +22,33 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.security.Principal;
-import java.util.Collections;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "api/v1")
 public class AppUserController {
 
-    //private final AppUserMapper appUserMapper;
+
+    private final AppUserMapper appUserMapper;
     private final AppUserService appUserService;
 
-    @Operation(summary = "Gets character by id")
+
+    @Operation(summary = "Gets user by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Success",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppUserDTO.class))}),
             @ApiResponse(responseCode = "404",
-                    description = "Character not found with supplied ID",
+                    description = "User not found with supplied ID",
                     content = @Content)
 
     })
-    @GetMapping("/characters/{id}") // GET: localhost:8080/api/v1/characters/1
+    @GetMapping("/user/{id}") // GET: localhost:8080/api/v1/characters/1
     public ResponseEntity getById(@PathVariable int id) {
-        AppUser characterDTO = appUserService.findById(id);
-        return ResponseEntity.ok(characterDTO);
+        AppUserDTO appUserDTO = appUserMapper.packageToAppUserDTO(appUserService.findById(id));
+        return ResponseEntity.ok(appUserDTO);
     }
 
 
