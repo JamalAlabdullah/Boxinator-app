@@ -1,4 +1,3 @@
-import Login from './components/Login/LoginForm';
 import {
   BrowserRouter,
   Routes,
@@ -6,9 +5,9 @@ import {
 } from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar';
 import Register from './views/Register';
-import Login from './components/Login/Login';
 import Profile from './views/Profile';
 import HomePage from './views/HomePage';
+import Login from './components/Login/LoginForm';
 
 
 function App() {

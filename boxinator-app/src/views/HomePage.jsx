@@ -1,5 +1,4 @@
 import { useState } from "react"
-import ColorPicker from "../components/PackageModal/ColorPicker";
 import PackageModal from "../components/PackageModal/PackageModal";
 
 const HomePage = () => {
