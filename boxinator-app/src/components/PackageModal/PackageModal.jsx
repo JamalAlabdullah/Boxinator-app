@@ -1,18 +1,25 @@
 
-import {Modal, Form, Dropdown, Button } from 'react-bootstrap'
+import { useState } from 'react';
+import {Modal, Form, Button } from 'react-bootstrap'
 import '../PackageModal/packagemodal.css'
 
+import ColorPicker from './ColorPicker';
+import DropdownWeight from '../Dropdown/DropdownWeight';
+import DropdownDestination from '../Dropdown/DropdownDestination';
+
 const PackageModal = ({setIsOpen}) => {
-
-
 const handleClose = () => setIsOpen(false);
+
+const [showColorPicker, setShowColorPicker] = useState(false)
+
 
 return (
 
   <Modal show={setIsOpen} onHide={handleClose}>
 
 <Modal.Header>
-      <Modal.Title id="modal-title">Fill out form to send a package</Modal.Title>
+      <Modal.Title id="modal-title">Who is the lucky receiver?</Modal.Title>
+      <button id="modal-close-button" onClick={handleClose}>X</button>
     </Modal.Header>
     <Modal.Body id="modal-body">
       {/* RECEIVER NAME*/}
@@ -26,56 +33,23 @@ return (
           />
         </Form.Group>
 
-           {/* BOX COLOR*/}
-           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Box colour</Form.Label>
-          <Form.Control
-            type="name"
-            autoFocus
-          />
-        </Form.Group>
-
-
+             {/* BOX COLOR*/}
+             <label id="form-label">Box colour</label>
+          <Button id="button-color-box" onClick={() => setShowColorPicker(true)}></Button>
+          {showColorPicker && <ColorPicker  setShowColorPicker/>}
+         
 
         {/* WEIGHT OPTIONS DROPDOWN*/}
-
-        <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-toggle">
-        Weight
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu id="dropdown-menu">
-        <Dropdown.Item id="dropdown-item" href="#/action-1">Basic 1 kg</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Humble 2 kg</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Deluxe 5 kg</Dropdown.Item>
-        <Dropdown.Item href="#/action-4">Premium 8 kg</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
+            <DropdownWeight/>
        
 
-
-
           {/* DESTINATION DROPDOWN*/}
-          <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Destination
-      </Dropdown.Toggle>
+           <DropdownDestination/>
 
-      <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Norway</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Sweden</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Denmark</Dropdown.Item>
-        <Dropdown.Item href="#/action-4">Finland</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
-
-<Button>Send package</Button>
-
-
+          
+          <Button>Send package</Button>
       </Form>
     </Modal.Body>
-
-<Button onClick={handleClose}>X</Button>
   </Modal>
     
     
