@@ -27,7 +27,8 @@ a {
 }
 
 a:hover {
-    background-color: #424242;
+    background-color: #FCF7DD;
+    color: black;
 }
 
 #navH1 {

@@ -1,9 +1,10 @@
 import { ntc } from "../../utils/ntc" // Used to convert hex and rgb to a color name
+import source from "../../stamp-svgrepo-com.svg"
 
 const ProfileForm = () => {
 
     // Experiment start -------------------------------- 
-    let color = ntc.name("#AAFFFF");
+    let color = ntc.name("#FFAAEE");
     let rgb = color[0];
     let colorName = color[1];
     console.log(colorName);
@@ -11,9 +12,12 @@ const ProfileForm = () => {
 
     return (
         <form>
-            <button style={{
-                backgroundColor: rgb,
-            }}>{colorName}</button>
+            <img id="stampImg" src={source} alt="Stamp SVG" 
+                style={{
+                    border:"6px solid" + rgb,
+                    backgroundColor: rgb,
+                    
+                }}/>
             <fieldset>
 
                 <label htmlFor="dateBirth">Date of birth: </label>
