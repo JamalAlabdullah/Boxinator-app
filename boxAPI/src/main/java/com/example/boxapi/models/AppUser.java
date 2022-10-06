@@ -1,7 +1,10 @@
 package com.example.boxapi.models;
 
 
+import com.example.boxapi.models.enums.RoleType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +14,8 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,16 +28,19 @@ public class AppUser {
     private int postal_code;
     @Column(length = 15)
     private int phone_number;
+    @Enumerated(EnumType.STRING)
+    private RoleType role;
 
+    private String username;
     private String name;
-    private String surname;
     private String email;
+    private String password;
 
     //Navigation/relationships
     @OneToMany(mappedBy = "app_user")
     private Set<Package> packages;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER) //because when we fetch the user we always want the role at the same time?
     @JoinTable(
             name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id")},
@@ -104,12 +112,12 @@ public class AppUser {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getname() {
+        return name;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setname(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

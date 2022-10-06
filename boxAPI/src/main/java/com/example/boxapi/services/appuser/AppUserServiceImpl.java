@@ -5,21 +5,25 @@ import com.example.boxapi.models.Role;
 import com.example.boxapi.models.enums.RoleType;
 import com.example.boxapi.repositories.AppUserRepository;
 import com.example.boxapi.repositories.RoleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
+@Transactional
+@Slf4j //logging
 public class AppUserServiceImpl implements AppUserService{
 
-    @Autowired
-    private AppUserRepository appUserRepository;
-    @Autowired
-    private RoleRepository roleRepository;
+
+    private final AppUserRepository appUserRepository;
+    private final RoleRepository roleRepository;
 
     public boolean checkIfUserExists(String email){
         return appUserRepository.existsByEmail(email);
@@ -33,7 +37,7 @@ public class AppUserServiceImpl implements AppUserService{
         AppUser newUser = new AppUser();
         newUser.setEmail(principal.getClaimAsString("email"));
         newUser.setName(principal.getClaimAsString("given_name"));
-        newUser.setSurname(principal.getClaimAsString("family_name"));
+        newUser.setname(principal.getClaimAsString("family_name"));
         // There are cleaner ways of doing this - this is just an example
         List<String> roles = principal.getClaimAsStringList("roles");
         HashSet<Role> dbRoles = new HashSet<>();
@@ -46,10 +50,6 @@ public class AppUserServiceImpl implements AppUserService{
         return newUser;
     }
 
-
-    public AppUserServiceImpl(AppUserRepository appUserRepository) {
-        this.appUserRepository = appUserRepository;
-    }
 
     @Override
     public AppUser findById(Integer id) {
@@ -79,5 +79,40 @@ public class AppUserServiceImpl implements AppUserService{
     @Override
     public void delete(AppUser entity) {
 
+    }
+
+    @Override
+    public AppUser saveUser(AppUser user) {
+        log.info("Saving new user {} to the database", user.getName());
+        return appUserRepository.save(user);
+    }
+
+    @Override
+    public Role saveRole(Role role) {
+        log.info("Saving new role {} to the database", role.getName());
+        return roleRepository.save(role);
+    }
+
+    @Override
+    public void addRoleToUser(String username, String roleName) {
+        log.info("Adding role {} to user {}", roleName, username);
+        AppUser user = appUserRepository.findAppUserByUsername(username);
+        Role role = roleRepository.getRoleByName(roleName);
+        user.getRoles().add(role);
+
+    }
+
+    @Override
+    public AppUser getUser(String username) {
+        log.info("Fetching user {}", username);
+
+        return appUserRepository.findAppUserByUsername(username);
+    }
+
+    @Override
+    public List<AppUser> getUsers() {
+        log.info("Fetching all users");
+
+        return appUserRepository.findAll();
     }
 }
