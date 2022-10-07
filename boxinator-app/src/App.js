@@ -3,11 +3,12 @@ import {
   Routes,
   Route
 } from 'react-router-dom'
+import HomePage from './views/HomePage';
+import Login from './views/Login';
 import Navbar from './components/Navbar/Navbar';
 import Register from './views/Register';
 import Profile from './views/Profile';
-import HomePage from './views/HomePage';
-import Login from './components/Login/LoginForm';
+import './App.css'
 
 
 function App() {

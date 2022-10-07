@@ -1,4 +1,4 @@
-nav {
+#navBar {
     margin: 0;
     background-color: #a0522d;
     display: flex;
@@ -13,20 +13,22 @@ nav {
     display: flex;
     padding-top: 25px;
     padding-bottom: 25px;
+    justify-content: center;
+    align-items: center;
 }
 
-#navLi {
+#liReg, #liProf, #liHome {
     list-style-type: none;
     color: white;
 }
 
-a {
-    padding: 41px;
+#liReg a, #liProf a, #liHome a {
+    padding: 43px;
     color: white;
     text-decoration: none;
 }
 
-a:hover {
+#liReg a:hover, #liProf a:hover, #liHome a:hover {
     background-color: #FCF7DD;
     color: black;
 }

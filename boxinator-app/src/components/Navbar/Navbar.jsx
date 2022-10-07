@@ -4,11 +4,12 @@ import { NavLink } from "react-router-dom"
 const Navbar = () => {
 
     return (
-        <nav>
+        <nav id="navBar">
             <h1 id="navH1">Boxinator</h1>
             <ul id="navUl">
-                <li id="navLi"><NavLink to="/register">Register</NavLink></li>
-                <li id="navLi"><NavLink to="/profile">Profile</NavLink></li>
+                <li id="liReg"><NavLink to="/register">Register</NavLink></li>
+                <li id="liProf"><NavLink to="/profile">Profile</NavLink></li>
+                <li id="liHome"><NavLink to="/home">Home</NavLink></li>
             </ul>
         </nav>
     )
