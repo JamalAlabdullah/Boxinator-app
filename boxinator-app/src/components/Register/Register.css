@@ -54,9 +54,3 @@ input[type=number]::-webkit-inner-spin-button {
     width: 50%;
     text-align: center;
 }
-
-#stampImg {
-    width: 20%;
-    border-radius: 10px;
-    background-color: #EEEEEE;
-}

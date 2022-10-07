@@ -13,20 +13,22 @@
     display: flex;
     padding-top: 25px;
     padding-bottom: 25px;
+    justify-content: center;
+    align-items: center;
 }
 
-#navLi {
+#liReg, #liProf, #liHome {
     list-style-type: none;
     color: white;
 }
 
-#navLi a {
-    padding: 41px;
+#liReg a, #liProf a, #liHome a {
+    padding: 43px;
     color: white;
     text-decoration: none;
 }
 
-#navLi a:hover {
+#liReg a:hover, #liProf a:hover, #liHome a:hover {
     background-color: #FCF7DD;
     color: black;
 }
