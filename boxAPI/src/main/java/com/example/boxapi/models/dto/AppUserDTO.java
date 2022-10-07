@@ -1,5 +1,6 @@
 package com.example.boxapi.models.dto;
 
+import com.example.boxapi.models.enums.RoleType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,6 @@ public class AppUserDTO {
     private int postal_code;
     private int phone_number;
     private Set<Integer> packages;
-    private Set<Integer> roles;
+    private RoleType role;
 }
 

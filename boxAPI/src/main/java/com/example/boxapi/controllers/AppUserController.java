@@ -6,6 +6,7 @@ import com.example.boxapi.models.AppUser;
 import com.example.boxapi.models.Role;
 import com.example.boxapi.models.dto.AppUserDTO;
 import com.example.boxapi.services.appuser.AppUserService;
+import com.example.boxapi.services.appuser.AppUserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -22,16 +23,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "api/v1")
+@RequestMapping(path = "api/v1/account")
 public class AppUserController {
 
 
     private final AppUserMapper appUserMapper;
-    private final AppUserService appUserService;
+    private final AppUserServiceImpl appUserService;
 
 
     @Operation(summary = "Gets user by id")
@@ -43,37 +45,69 @@ public class AppUserController {
             @ApiResponse(responseCode = "404",
                     description = "User not found with supplied ID",
                     content = @Content)
-
     })
-    @GetMapping("/user/{id}") // GET: localhost:8080/api/v1/characters/1
+    @GetMapping("/{id}") // GET: localhost:8080/api/v1/account/1
     public ResponseEntity getById(@PathVariable int id) {
-        AppUserDTO appUserDTO = appUserMapper.packageToAppUserDTO(appUserService.findById(id));
+        AppUserDTO appUserDTO = appUserMapper.appUserToAppUserDTO(appUserService.findById(id));
         return ResponseEntity.ok(appUserDTO);
     }
 
 
-    @GetMapping("/users")
-    public ResponseEntity<List<AppUser>> getUsers() {
-        return ResponseEntity.ok().body(appUserService.getUsers());
-    }
+    @GetMapping
+    public ResponseEntity<Collection<AppUserDTO>> getUsers() {
+        Collection<AppUserDTO> appUsers = appUserMapper.appuserToAppuserDTO(
+                appUserService.getUsers()
+        );
 
-    @PostMapping("/user/save")
+        return ResponseEntity.ok(appUsers);
+    }
+/*
+    @PostMapping("/save")
     public ResponseEntity<AppUser> saveUser(@RequestBody AppUser user) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/user/save").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/account/save").toUriString());
         return ResponseEntity.created(uri).body(appUserService.saveUser(user));
     }
-    @PostMapping("/role/save")
+
+ */
+
+
+    @Operation(summary = "Add user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Created",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppUserDTO.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "Movie cannot be created",
+                    content = @Content)
+    })
+    @PostMapping()
+    public ResponseEntity add(@RequestBody AppUserDTO appUserDTO) {
+        AppUser newAppuser = appUserService.add(
+                appUserMapper.appUserDTOtoAppUser(appUserDTO)
+        );
+        URI uri = URI.create("account/" + newAppuser.getUser_id());
+        return ResponseEntity.created(uri).build();
+    }
+
+
+
+
+    /*PostMapping("/role/save")
     public ResponseEntity<Role> saveRole(@RequestBody Role role) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/role/save").toUriString());
         return ResponseEntity.created(uri).body(appUserService.saveRole(role));
     }
 
-    @PostMapping("/role/addtouser")
+     */
+
+    /*PostMapping("/role/addtouser")
     public ResponseEntity<?> saveRole(@RequestBody RoleToUserForm form) {
         appUserService.addRoleToUser(form.getUsername(), form.getRoleName());
         return ResponseEntity.ok().build();
     }
 
+     */
 
 
     // This endpoint just shows the information from the token

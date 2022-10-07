@@ -2,6 +2,8 @@ package com.example.boxapi.models.dto;
 
 import com.example.boxapi.models.Country;
 import com.example.boxapi.models.AppUser;
+import com.example.boxapi.models.enums.Status;
+import com.example.boxapi.models.enums.Weight;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,10 +18,10 @@ public class PackageDTO {
 
     private int package_id;
     private String receiver_name;
-    private String weight;
+    private Weight weight;
     private String color;
     private Date date;
-    private String status;
+    private Status status;
     private String mail;
     private AppUser Appuser;
     private Country country;

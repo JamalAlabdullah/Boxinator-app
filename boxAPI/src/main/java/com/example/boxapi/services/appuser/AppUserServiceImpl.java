@@ -5,25 +5,29 @@ import com.example.boxapi.models.Role;
 import com.example.boxapi.models.enums.RoleType;
 import com.example.boxapi.repositories.AppUserRepository;
 import com.example.boxapi.repositories.RoleRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.oauth2.jwt.Jwt;
+//import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+//RequiredArgsConstructor
 @Transactional
 @Slf4j //logging
 public class AppUserServiceImpl implements AppUserService{
 
-
+    @Autowired
     private final AppUserRepository appUserRepository;
     private final RoleRepository roleRepository;
+
+    public AppUserServiceImpl(AppUserRepository appUserRepository, RoleRepository roleRepository) {
+        this.appUserRepository = appUserRepository;
+        this.roleRepository = roleRepository;
+    }
 
     public boolean checkIfUserExists(String email){
         return appUserRepository.existsByEmail(email);
@@ -33,6 +37,7 @@ public class AppUserServiceImpl implements AppUserService{
         return false;
     }
 
+    /*
     public AppUser createNewUserProfileFromJWT(Jwt principal) {
         AppUser newUser = new AppUser();
         newUser.setEmail(principal.getClaimAsString("email"));
@@ -50,10 +55,13 @@ public class AppUserServiceImpl implements AppUserService{
         return newUser;
     }
 
+     */
+
 
     @Override
     public AppUser findById(Integer id) {
-        return (AppUser) appUserRepository.findById(id).get();
+        log.info("Hallo findById fungerer=");
+        return appUserRepository.findById(id).get();
     }
 
     @Override
@@ -63,7 +71,7 @@ public class AppUserServiceImpl implements AppUserService{
 
     @Override
     public AppUser add(AppUser entity) {
-        return null;
+        return appUserRepository.save(entity);
     }
 
     @Override
@@ -87,13 +95,14 @@ public class AppUserServiceImpl implements AppUserService{
         return appUserRepository.save(user);
     }
 
-    @Override
+    /*Override
     public Role saveRole(Role role) {
         log.info("Saving new role {} to the database", role.getName());
         return roleRepository.save(role);
     }
 
-    @Override
+     */
+    /*Override
     public void addRoleToUser(String username, String roleName) {
         log.info("Adding role {} to user {}", roleName, username);
         AppUser user = appUserRepository.findAppUserByUsername(username);
@@ -101,6 +110,8 @@ public class AppUserServiceImpl implements AppUserService{
         user.getRoles().add(role);
 
     }
+
+     */
 
     @Override
     public AppUser getUser(String username) {
@@ -110,7 +121,7 @@ public class AppUserServiceImpl implements AppUserService{
     }
 
     @Override
-    public List<AppUser> getUsers() {
+    public Collection<AppUser> getUsers() {
         log.info("Fetching all users");
 
         return appUserRepository.findAll();

@@ -22,33 +22,21 @@ public class Role {
 
     private String name;
 
-    @ManyToMany(mappedBy="roles")
+   /* @ManyToMany(mappedBy="roles")
     public Set<AppUser> users;
 
-    // props
-    public int getId() {
-        return Id;
-    }
+    */
 
-    public void setId(int id) {
-        Id = id;
-    }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<AppUser> getUsers() {
+   /* public Set<AppUser> getUsers() {
         return users;
     }
 
     public void setUsers(Set<AppUser> users) {
         this.users = users;
     }
+
+    */
 }
 
 
