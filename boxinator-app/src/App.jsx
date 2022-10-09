@@ -1,8 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route
-} from 'react-router-dom'
+import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import HomePage from './views/HomePage';
 import Login from './views/Login';
 import Navbar from './components/Navbar/Navbar';
@@ -11,22 +7,38 @@ import Profile from './views/Profile';
 import './App.css'
 
 
+import KeycloakRoute from './routes/KeycloakRoute';
+import {ROLES} from "./const/roles";
+
+
 function App() {
   return (
       <BrowserRouter>
-      <div className="App">
+  
 
         <Navbar />
+        <main className='container'>
         <Routes>
-
-          <Route path="/register" element={ <Register /> } />
-          <Route path="/profile" element={ <Profile /> } />
           <Route path="/" element={ <Login /> } />
+          <Route path="/register" element={ <Register /> } />
           <Route path="/home" element={ <HomePage /> } />
+
+          <Route 
+          path="/profile" 
+          element={ 
+            <KeycloakRoute role={ ROLES.User }>
+          <Profile /> 
+          </KeycloakRoute>
+
+          } />
+          
+        
           
         </Routes>
 
-      </div>
+        </main>
+
+   
     </BrowserRouter>
   );
 }

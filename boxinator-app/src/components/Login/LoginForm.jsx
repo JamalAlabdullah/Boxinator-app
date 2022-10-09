@@ -2,6 +2,10 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./login.css";
 
+
+
+import keycloak from "../../keycloak";
+
 const LoginForm = () => {
   return (
     <>
@@ -9,21 +13,29 @@ const LoginForm = () => {
         <h1>Login page </h1>
 
         <Form>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label className="emailLabel">Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
-          </Form.Group>
+       
+          
+          {!keycloak.authenticated && (
+             <Button className="loginBtn"
+              variant="primary"
+               type="submit"
+               onClick={() => keycloak.login()}
+               >Login
+             </Button>
+          )}
+            {keycloak.authenticated && (
+          <button onClick={() => keycloak.logout()}>Logout</button>
+        )}
+         
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label className="passwordLabel">Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
-          </Form.Group>
+         {keycloak.token && (
+        <div>
+          <h4>Token</h4>
+          <pre>{keycloak.token}</pre>
+        </div>
+      )}
 
-          <Button className="loginBtn" variant="primary" type="submit">
-            {" "}
-            Login
-          </Button>
-          <br></br>
+
           <Button className="registerBtn" variant="primary" type="submit">
             Register
           </Button>
