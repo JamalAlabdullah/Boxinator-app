@@ -16,6 +16,7 @@ import './App.css';
 
 function App() {
   return (
+  
     <BrowserRouter>
       <Navbar/>
       <main className="container">
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/register" element={ <Register/> } />
           <Route path="/home" element={ <HomePage /> } />
+          
 
           <Route 
           path="/profile" 
@@ -38,8 +40,13 @@ function App() {
          
           
         </Routes>
+      
       </main>
+      
     </BrowserRouter>
+  
+  
+     
   );
 }
 

@@ -13,8 +13,11 @@ body {
     
   }
   
-  .allCard{
+  #allCard{
     margin: 15px;
+    height: 200px;
+    border-radius: 30px;
+    box-shadow: 7px 7px ;
 
   }
   
@@ -22,8 +25,8 @@ body {
   margin-top: 150px;
  }
   
-  
-  
+
+ 
   
   /*
        

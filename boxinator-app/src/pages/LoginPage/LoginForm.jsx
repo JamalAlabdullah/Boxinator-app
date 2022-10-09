@@ -15,7 +15,7 @@ const LoginForm = () => {
   return (
     <>
       <CardGroup className="groubcard">
-        <Card className="allCard">
+        <Card id="allCard">
           <Card.Body>
             <Card.Text>
               Have you already registered? Go ahead and login.
@@ -36,10 +36,10 @@ const LoginForm = () => {
             )}
           </Card.Footer>
         </Card>
-        <Card className="allCard">
+        <Card id="allCard">
           <Card.Body>
             <Card.Text>
-              You want to add a package without registering? Use the Guest
+              Do you want to add a package without registering? Use the Guest
               button.
             </Card.Text>
           </Card.Body>
@@ -49,7 +49,7 @@ const LoginForm = () => {
             </Button>
           </Card.Footer>
         </Card>
-        <Card className="allCard">
+        <Card id="allCard">
           <Card.Body>
             <Card.Text>
               If you have not registered before, then click on register button
