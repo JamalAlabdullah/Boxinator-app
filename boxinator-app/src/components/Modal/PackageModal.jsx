@@ -1,5 +1,5 @@
 import {Modal } from 'react-bootstrap'
-import './packagemodal.css'
+import './packagemodal.css';
 
 
 import PackageForm from '../Form/PackageForm';

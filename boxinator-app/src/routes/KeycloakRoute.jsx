@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 
 
 
-function KeycloakRoute({ children, role, redirectTo = "/login" }) {
+function KeycloakRoute({ children, role, redirectTo = "/" }) {
 
     if (!keycloak.authenticated) {
       return <Navigate replace to={redirectTo} />;

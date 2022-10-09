@@ -1,7 +1,7 @@
 
-import { Form, Button } from 'react-bootstrap'
-import {useForm} from 'react-hook-form'
-import '../Modal/packagemodal.css'
+import { Form, Button } from 'react-bootstrap';
+import {useForm} from 'react-hook-form';
+import '../Modal/packagemodal.css';
 
 
 const packageConfig = {

@@ -1,25 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { initialize } from "./keycloak";
+import Loading from "./components/Loading/loading";
+
 import './index.css';
-import App from './App';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+import App from "./App";
 
-
-
-import { initialize } from './keycloak';
-import Loading from "./components/loading/loading";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 
-// Display a loading screen when connecting to Keycloak
+// To show connectiong message to keycloak
 root.render(<Loading message="Connecting to Keycloak..." />)
 
-// Initialize Keycloak
+
+
+// Initialize Keycloak with catch error if it does not work. 
 initialize()
-  .then(() => { // If No Keycloak Error occurred - Display the App
+  .then(() => { 
     root.render(
       <React.StrictMode>
         <App />
@@ -33,5 +33,3 @@ initialize()
       </React.StrictMode>
     );
   });
-
-

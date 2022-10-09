@@ -1,7 +1,7 @@
 import packages from './packages.json'
 import './homepage.css'
 //import { ntc } from "../../utils/ntc" // Used to convert hex and rgb to a color name
-import source from "../../stamp-svgrepo-com.svg"
+import source from "../../stamp-svgrepo-com.svg";
 
 const HomePackages = () => {
 
@@ -28,7 +28,9 @@ const HomePackages = () => {
                             <img id="stampImg" src={source} alt="Stamp SVG" 
                             style={{
                                 border:"6px solid" + color,
-                                backgroundColor: color,  
+                                backgroundColor: color, 
+                                width:50,
+                                height:50 
                             }}/>
                         </li>
 
