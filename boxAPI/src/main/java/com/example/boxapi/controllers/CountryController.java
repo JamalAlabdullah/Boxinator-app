@@ -44,7 +44,7 @@ public class CountryController {
         return ResponseEntity.ok(countries);
 
     }
-    @Operation(summary = "Gets countreies by id")
+    @Operation(summary = "Add a new country")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Success",
@@ -62,7 +62,7 @@ public class CountryController {
         URI uri = URI.create("account/" + newCountry.getCountry_id());
         return ResponseEntity.created(uri).build();
     }
-    @Operation(summary = "Gets countreies by id")
+    @Operation(summary = "Update existing country")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Success",
