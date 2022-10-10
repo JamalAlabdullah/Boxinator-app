@@ -2,12 +2,15 @@ package com.example.boxapi.services.packages;
 
 import com.example.boxapi.models.Package;
 import com.example.boxapi.repositories.PackageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 
 @Service
+@Transactional
+@Slf4j
 public class PackageServiceImpl implements PackageService {
 
     private final PackageRepository packageRepository;
@@ -44,5 +47,11 @@ public class PackageServiceImpl implements PackageService {
     @Override
     public void delete(Package entity) {
 
+    }
+
+    @Override
+    public Collection<Package> getPackages() {
+        log.info("Fetching all packages");
+        return packageRepository.findAll();
     }
 }
