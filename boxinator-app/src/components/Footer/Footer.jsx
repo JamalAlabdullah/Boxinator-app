@@ -12,7 +12,7 @@ const Footer = () => {
         return (
         
           
-      <h1>foooooooter</h1>
+      <h1>footer</h1>
  
         );
 
