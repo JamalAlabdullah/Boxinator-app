@@ -52,7 +52,7 @@ public class AppUserController {
     @GetMapping
     public ResponseEntity<Collection<AppUserDTO>> getUsers() {
         Collection<AppUserDTO> appUsers = appUserMapper.appuserToAppuserDTO(
-                appUserService.getUsers()
+                appUserService.findAll()
         );
 
         return ResponseEntity.ok(appUsers);

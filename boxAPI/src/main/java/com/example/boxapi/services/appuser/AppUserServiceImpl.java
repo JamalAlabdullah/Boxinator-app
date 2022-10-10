@@ -62,7 +62,7 @@ public class AppUserServiceImpl implements AppUserService{
 
     @Override
     public Collection<AppUser> findAll() {
-        return null;
+        return appUserRepository.findAll();
     }
 
     @Override
