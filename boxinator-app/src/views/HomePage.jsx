@@ -1,5 +1,5 @@
 import { useState } from "react"
-import HomePackages from "../components/Homepage/HomePackages";
+import HomePackages from "../pages/HomePage/HomePackages";
 import PackageModal from "../components/Modal/PackageModal";
 
 const HomePage = () => {

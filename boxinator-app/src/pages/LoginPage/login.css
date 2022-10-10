@@ -1,0 +1,66 @@
+body {
+    margin: 0 auto;
+    text-align: center;
+    background-color: wheat;
+  }
+  
+
+
+  .Btn{
+    margin-right: 10px;
+    border-radius: 20px;
+    width: 100px;
+    
+  }
+  
+  #allCard{
+    margin: 15px;
+    height: 200px;
+    border-radius: 30px;
+    box-shadow: 7px 7px ;
+
+  }
+  
+ .groubcard{
+  margin-top: 150px;
+ }
+  
+
+ 
+  
+  /*
+       
+  .container.login{
+    margin: 0 auto;
+    
+  }
+  
+  h1 {
+    margin: 0 auto;
+  }
+  
+  
+  .form-control{
+      text-align: center;
+      width: 300px;
+  }
+  
+  
+  .imageLogo{
+      width: 100px;
+      height: 100px;
+      margin-left: 80px;
+  }
+  .btn.guest{
+  margin-top: 50px;
+  margin-right: 100px;
+  
+  }
+  
+  .btn.register{
+   margin-top: 50px;
+  }
+  
+  
+  
+     */
