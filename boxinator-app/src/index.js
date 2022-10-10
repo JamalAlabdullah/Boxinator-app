@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { initialize } from "./keycloak";
-import Loading from "./components/Loading/loading";
+import Loading from "./components/loading/loading";
 
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
