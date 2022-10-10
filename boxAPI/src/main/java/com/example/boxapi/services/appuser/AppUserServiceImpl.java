@@ -1,10 +1,8 @@
 package com.example.boxapi.services.appuser;
 
 import com.example.boxapi.models.AppUser;
-import com.example.boxapi.models.Role;
 import com.example.boxapi.models.enums.RoleType;
 import com.example.boxapi.repositories.AppUserRepository;
-import com.example.boxapi.repositories.RoleRepository;
 import lombok.extern.slf4j.Slf4j;
 //import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +20,9 @@ public class AppUserServiceImpl implements AppUserService{
 
     @Autowired
     private final AppUserRepository appUserRepository;
-    private final RoleRepository roleRepository;
 
-    public AppUserServiceImpl(AppUserRepository appUserRepository, RoleRepository roleRepository) {
+    public AppUserServiceImpl(AppUserRepository appUserRepository) {
         this.appUserRepository = appUserRepository;
-        this.roleRepository = roleRepository;
     }
 
     public boolean checkIfUserExists(String email){

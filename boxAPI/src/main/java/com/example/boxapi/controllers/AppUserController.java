@@ -3,9 +3,7 @@ package com.example.boxapi.controllers;
 
 import com.example.boxapi.mappers.AppUserMapper;
 import com.example.boxapi.models.AppUser;
-import com.example.boxapi.models.Role;
 import com.example.boxapi.models.dto.AppUserDTO;
-import com.example.boxapi.services.appuser.AppUserService;
 import com.example.boxapi.services.appuser.AppUserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -20,11 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Collection;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -137,12 +133,5 @@ public class AppUserController {
         return ResponseEntity.ok(appUserService.createNewUserProfileFromJWT(principal));
     }*/
 
-}
-
-@Getter
-@Setter
-class RoleToUserForm {
-    private String username;
-    private String roleName;
 }
 
