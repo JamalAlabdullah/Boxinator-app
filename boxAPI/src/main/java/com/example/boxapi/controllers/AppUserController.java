@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
 
@@ -50,6 +51,11 @@ public class AppUserController {
     public ResponseEntity getById(@PathVariable int id) {
         AppUserDTO appUserDTO = appUserMapper.appUserToAppUserDTO(appUserService.findById(id));
         return ResponseEntity.ok(appUserDTO);
+    }
+
+    @GetMapping("/principal")
+    public Principal getUser(Principal user){
+        return user;
     }
 
 
