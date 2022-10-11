@@ -4,7 +4,8 @@ import source from "../../stamp-svgrepo-com.svg";
 import axios from 'axios'; //Axios
 import React from 'react';
 
-const baseURL = "https://jsonplaceholder.typicode.com/posts/"; // Api connection
+//const baseURL = "https://jsonplaceholder.typicode.com/posts/"; // Api connection
+const baseURL = "localhost:8080/api/v1/account"; // Api connection
 
 const HomePackages = () => {
 
