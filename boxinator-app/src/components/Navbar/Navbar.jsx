@@ -14,20 +14,17 @@ const Navbar = () => {
 
                 {keycloak.authenticated && (
                     <>
-                     <li id="liReg"><NavLink to="/register">Register</NavLink></li>
-                     <li id="liProf"><NavLink to="/profile">Profile</NavLink></li>
+                    
+                    <li id="liProf"><NavLink to="/profile">Profile</NavLink></li>
                     <li id="liHome"><NavLink to="/home">Home</NavLink></li>
+                    <li id="liLogout"><NavLink><button id="logoutBtn" onClick={() => keycloak.logout()}>Logout</button></NavLink></li>
+                   
                     </>
                 )}  
+
             </ul>
 
-            {keycloak.authenticated && (
-                     <ul>
-                     <li>
-                       <button onClick={() => keycloak.logout()}>Logout</button>
-                     </li>
-                   </ul>
-                )}
+            
         </nav>
     )
 

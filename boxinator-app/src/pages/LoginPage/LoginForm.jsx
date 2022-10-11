@@ -2,15 +2,21 @@ import Button from "react-bootstrap/Button";
 
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
+//import { useEffect } from "react";
+//import { useNavigate } from "react-router-dom";
 
 import "./login.css";
 
 import keycloak from "../../keycloak";
 
 const LoginForm = () => {
+  
   const handelregisterbtn = () => {
     window.location.assign("/register");
   };
+
+
+
 
   return (
     <>
@@ -25,15 +31,11 @@ const LoginForm = () => {
             {!keycloak.authenticated && (
               <Button
               className="Btn"
-               
-                onClick={() => keycloak.login()}
-              >
+                onClick={() => keycloak.login()}>
                 Login
               </Button>
             )}
-            {keycloak.authenticated && (
-              <button onClick={() => keycloak.logout()}>Logout</button>
-            )}
+        
           </Card.Footer>
         </Card>
         <Card id="allCard">
