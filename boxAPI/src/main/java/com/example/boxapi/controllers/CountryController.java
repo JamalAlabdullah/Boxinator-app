@@ -17,6 +17,7 @@ import java.net.URI;
 import java.util.Collection;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequiredArgsConstructor
 @RequestMapping(path = "api/v1/settings/countries")
 public class CountryController {
