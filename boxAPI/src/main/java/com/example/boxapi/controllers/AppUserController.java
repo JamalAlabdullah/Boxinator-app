@@ -27,6 +27,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequiredArgsConstructor
 @RequestMapping(path = "api/v1/account")
 public class AppUserController {
@@ -46,7 +47,7 @@ public class AppUserController {
                     description = "User not found with supplied ID",
                     content = @Content)
     })
-    @GetMapping("/{id}") // GET: localhost:8080/api/v1/account/1
+    @GetMapping("{id}") // GET: localhost:8080/api/v1/account/1
     public ResponseEntity getById(@PathVariable int id) {
         AppUserDTO appUserDTO = appUserMapper.appUserToAppUserDTO(appUserService.findById(id));
         return ResponseEntity.ok(appUserDTO);
