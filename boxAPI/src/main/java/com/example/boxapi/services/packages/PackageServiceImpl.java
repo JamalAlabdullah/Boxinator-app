@@ -1,7 +1,9 @@
 package com.example.boxapi.services.packages;
 
 import com.example.boxapi.models.Package;
+import com.example.boxapi.models.enums.Status;
 import com.example.boxapi.repositories.PackageRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -10,14 +12,11 @@ import java.util.Collection;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 @Slf4j
 public class PackageServiceImpl implements PackageService {
 
     private final PackageRepository packageRepository;
-
-    public PackageServiceImpl(PackageRepository packageRepository) {
-        this.packageRepository = packageRepository;
-    }
 
     @Override
     public Package findById(Integer id) {
@@ -53,5 +52,9 @@ public class PackageServiceImpl implements PackageService {
     public Collection<Package> getPackages() {
         log.info("Fetching all packages");
         return packageRepository.findAll();
+    }
+    @Override
+    public Collection<Package> findByStatus(Status status) {
+        return packageRepository.findByStatus(status);
     }
 }

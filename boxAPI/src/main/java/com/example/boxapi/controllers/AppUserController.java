@@ -74,7 +74,7 @@ public class AppUserController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppUserDTO.class))}),
             @ApiResponse(responseCode = "404",
-                    description = "Movie cannot be created",
+                    description = "User cannot be created",
                     content = @Content)
     })
     @PostMapping()

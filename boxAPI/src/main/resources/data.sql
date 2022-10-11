@@ -23,3 +23,11 @@ VALUES('Pernille Ofte', 'BASIC', 'white', 'pernille.ofte@no.experis.com');
 INSERT INTO package (receiver_name, weight, color, mail)
 VALUES('Ole Syverinsen', 'HUMBLE', 'pink', 'ole.syverinsen@no.experis.com');
 
+INSERT INTO package (receiver_name, weight, color, mail, status)
+VALUES('Ole Syverinsen', 'HUMBLE', 'pink', 'ole.syverinsen@no.experis.com', 'COMPLETED');
+
+INSERT INTO package (receiver_name, weight, color, mail, status)
+VALUES('Ole Syverinsen', 'HUMBLE', 'pink', 'oXXXXXXXXXXXXXXX', 'CREATED');
+
+INSERT INTO package (receiver_name, weight, color, mail, status)
+VALUES('Ole Syverinsen', 'HUMBLE', 'pink', 'oXXXXXXXXXXXXXXX', 'CANCELLED');
