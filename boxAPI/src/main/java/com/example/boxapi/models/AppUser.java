@@ -40,13 +40,4 @@ public class AppUser {
     @OneToMany(mappedBy = "app_user")
     private Set<Package> packages;
 
-    /* @ManyToMany(fetch = FetchType.EAGER) //because when we fetch the user we always want the role at the same time?
-     @JoinTable(
-             name = "user_role",
-             joinColumns = {@JoinColumn(name = "user_id")},
-             inverseJoinColumns = {@JoinColumn(name = "role_id")}
-     )
-     public Set<Role> roles;
-     */
-
 }

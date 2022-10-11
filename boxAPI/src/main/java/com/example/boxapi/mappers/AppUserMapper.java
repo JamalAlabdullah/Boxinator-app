@@ -2,11 +2,9 @@ package com.example.boxapi.mappers;
 
 import com.example.boxapi.models.AppUser;
 import com.example.boxapi.models.Package;
-import com.example.boxapi.models.Role;
 import com.example.boxapi.models.dto.AppUserDTO;
 import com.example.boxapi.services.appuser.AppUserService;
 import com.example.boxapi.services.packages.PackageService;
-import com.example.boxapi.services.role.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -25,7 +23,6 @@ public abstract class AppUserMapper {
     protected AppUserService appUserService;
     @Autowired
     protected PackageService packageService;
-    //protected RoleService roleService;
 
     //Mapping(target = "roles", source = "roles", qualifiedByName = "mapRoleToId")
     @Mapping(target = "packages", source = "packages", qualifiedByName = "mapPackageToId")
@@ -40,7 +37,7 @@ public abstract class AppUserMapper {
     Set<Integer> mapPackageToId(Set<Package> source) {
         log.info(" mapPackageToId: TULL Er det her det krøller seg)=");
         log.info(source + "Source mapPackageToId");
-        if (source == null || source.isEmpty()) {
+        if (source == null) {
             log.info(" XXXXX mapPackageToId: Er det her det krøller seg)=");
             return null;
         }
@@ -50,7 +47,7 @@ public abstract class AppUserMapper {
 
     @Named("mapIdToPackage")
     Set<Package> mapIdToPackage(Set<Integer> source) {
-        if (source == null || source.isEmpty()) {
+        if (source == null) {
             return null;}
         return source.stream()
                 .map(i -> packageService.findById(i))

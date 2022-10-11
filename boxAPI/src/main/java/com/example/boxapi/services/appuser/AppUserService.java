@@ -1,11 +1,9 @@
 package com.example.boxapi.services.appuser;
 
 import com.example.boxapi.models.AppUser;
-import com.example.boxapi.models.Role;
 import com.example.boxapi.services.CrudService;
 
 import java.util.Collection;
-import java.util.List;
 
 public interface AppUserService extends CrudService<AppUser, Integer> {
     AppUser saveUser(AppUser user);
