@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import java.net.URI;
+import java.security.Principal;
 import java.util.Collection;
 
 @RestController
@@ -44,12 +45,18 @@ public class AppUserController {
                     description = "User not found with supplied ID",
                     content = @Content)
     })
-    @GetMapping("{id}") // GET: localhost:8080/api/v1/account/1
-    //RolesAllowed("user") //case sensitive!
-    public ResponseEntity getById(@PathVariable int id) {
-        AppUserDTO appUserDTO = appUserMapper.appUserToAppUserDTO(appUserService.findById(id));
-        return ResponseEntity.ok(appUserDTO);
+    // This lets us see the entire principal object that spring security keeps of our user
+    @GetMapping("/principal")
+    public Principal getUser(Principal user){
+        return user;
     }
+
+    //@GetMapping("{id}") // GET: localhost:8080/api/v1/account/1
+    //RolesAllowed("user") //case sensitive!
+    //public ResponseEntity getById(@PathVariable int id) {
+    //    AppUserDTO appUserDTO = appUserMapper.appUserToAppUserDTO(appUserService.findById(id));
+    //    return ResponseEntity.ok(appUserDTO);
+    //}
 
 
     @GetMapping

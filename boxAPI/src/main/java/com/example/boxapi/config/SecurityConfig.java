@@ -33,6 +33,7 @@ public class SecurityConfig {
                         //.mvcMatchers("/api/v1/account/").hasRole("ADMIN")
                         // All remaining paths require authentication
                         //.anyRequest().authenticated()
+                        .antMatchers().permitAll()
                         .anyRequest().permitAll()
                 )
                 .oauth2ResourceServer()
