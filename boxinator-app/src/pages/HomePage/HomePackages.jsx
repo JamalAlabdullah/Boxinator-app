@@ -1,7 +1,10 @@
-import packages from './packages.json'
 import './homepage.css'
 //import { ntc } from "../../utils/ntc" // Used to convert hex and rgb to a color name
 import source from "../../stamp-svgrepo-com.svg";
+import axios from 'axios'; //Axios
+import React from 'react';
+
+const baseURL = "https://jsonplaceholder.typicode.com/posts/"; // Api connection
 
 const HomePackages = () => {
 
@@ -14,32 +17,47 @@ const HomePackages = () => {
     //console.log(color);
     // Experiment end ----------------------------------
 
+    // Axios ------------------------------
+    const [user, setUser] = React.useState(null);
+
+    React.useEffect(() => {
+        axios.get(baseURL).then((response) => {
+            setUser(response.data);
+        });
+    }, []);
+
+    if (!user) return null;
+
+
+    let temp = []; //Array used to temporarly store users packages
+
+    for (let i = 0; i < user.length; i++) { //Pushes a spesific users packages to temp[] array
+        if(user[i].userId === 2) {
+            temp.push(user[i]);
+        }
+    }
+
     return (
         <div id="packGrid">
 
-            
-
-            {packages && packages.map(({id, color, weight, first_name, last_name, destination}) => (
+            {temp && temp.map(({id, title, body}) => (
                 <div key={id}>
                     <ul id="packUl">
-                        
+
                         <li id="packLiImg">
-                            <p id="pName">{first_name} {last_name}</p>
+                            <p id="pName">{title}</p>
                             <img id="stampImg" src={source} alt="Stamp SVG" 
-                            style={{
-                                border:"6px solid" + color,
-                                backgroundColor: color, 
-                                width:50,
-                                height:50 
-                            }}/>
+                                style={{
+                                    border:"6px solid yellow",
+                                    backgroundColor: "yellow", 
+                                }}/>
                         </li>
 
-                        <li id="packLi">{color}</li>
-                        <li id="packLi">{weight} KG</li>
-                        <li id="packLi">{destination}</li>
+                        <li id="packLi">{body}</li>
                     </ul> 
                 </div>
             ))}
+
         </div>
     )
 
