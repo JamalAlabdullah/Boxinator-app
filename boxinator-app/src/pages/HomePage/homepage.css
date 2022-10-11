@@ -59,13 +59,14 @@ html {
 
 #homeBody {
     margin: 0 auto;
+    width: 100%;
 }
 
 #stampImg {
-    width: 20%;
+    width: 25%;
+    margin: 10px;
     border-radius: 10px;
     background-color: #EEEEEE;
-    margin: 10px;
     padding: 5px;
 }
 
@@ -81,5 +82,5 @@ html {
     padding: 10px;
     border-left: 8px solid #FCF7DD;
     border-right: 8px solid #FCF7DD;
-    width: 100%;
+    width: 60%;
 }
