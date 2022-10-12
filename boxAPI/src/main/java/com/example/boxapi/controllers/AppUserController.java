@@ -13,7 +13,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Role;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,6 +61,29 @@ public class AppUserController {
     //    return ResponseEntity.ok(appUserDTO);
     //}
 
+    /*
+    @GetMapping("current")
+    public ResponseEntity getCurrentlyLoggedInUser(@AuthenticationPrincipal Jwt jwt) {
+        return ResponseEntity.ok(
+                appUserService.findById(
+                        jwt.getClaimAsString("sub")
+                )
+        );
+    }
+    */
+
+
+    /*
+    @PostMapping("register")
+    public ResponseEntity addNewUserFromJwt(@AuthenticationPrincipal Jwt jwt) {
+        AppUser user = appUserService.add(jwt.getClaimAsString("sub"));
+        URI uri = URI.create("api/v1/account/" + user.getUser_id());
+        return ResponseEntity.created(uri).build();
+    }
+    */
+
+
+
 
     @GetMapping
     //RolesAllowed("admin") //case sensitive
@@ -87,6 +113,15 @@ public class AppUserController {
         URI uri = URI.create("account/" + newAppuser.getUser_id());
         return ResponseEntity.created(uri).build();
     }
+
+    /*@PostMapping
+    public ResponseEntity<AppUser> addNewUser(@AuthenticationPrincipal Jwt principal){
+        if(appUserService.checkIfUserExists(principal.getClaimAsString("email")))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+
+        return ResponseEntity.ok(appUserService.createNewUserProfileFromJWT(principal));
+    }*/
+
 
     @Operation(summary = "Update existing user")
     @ApiResponses(value = {
