@@ -40,7 +40,7 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public void deleteById(Integer integer) {
-
+        packageRepository.deleteById(integer);
     }
 
     @Override

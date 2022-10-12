@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
@@ -157,7 +158,7 @@ public class PackagesController {
     }
 
      */
-
+    // TODO Need to fix admin/user rights
     @Operation(summary = "Update existing shipment")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -175,6 +176,28 @@ public class PackagesController {
         packageService.update(
                 packageMapper.packageDTOtoPackage(packageDTO)
         );
+        return ResponseEntity.noContent().build();
+    }
+
+    // TODO Need to make this so only ADMIN can delete:
+    // TODO Also fix pointers?
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Shipment successfully deleted",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class))}),
+            @ApiResponse(responseCode = "404",
+            description = "Shipment not found with supplied ID",
+            content = @Content)
+    })
+    @Operation(summary = "Delete shipment by ID")
+    @DeleteMapping(":{id}")
+    public ResponseEntity delete(@PathVariable int id) {
+        packageService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }
