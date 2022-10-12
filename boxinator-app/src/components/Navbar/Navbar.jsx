@@ -1,4 +1,4 @@
-import './navbar.css'
+import './Navbar.css'
 import { NavLink } from "react-router-dom";
 
 import keycloak from '../../keycloak';
