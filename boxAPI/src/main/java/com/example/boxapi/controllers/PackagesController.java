@@ -1,13 +1,10 @@
 package com.example.boxapi.controllers;
 
 
-import com.example.boxapi.mappers.AppUserMapper;
 import com.example.boxapi.mappers.PackageMapper;
-import com.example.boxapi.models.dto.AppUserDTO;
+import com.example.boxapi.models.Package;
 import com.example.boxapi.models.dto.PackageDTO;
 import com.example.boxapi.models.enums.Status;
-import com.example.boxapi.services.appuser.AppUserServiceImpl;
-import com.example.boxapi.services.packages.PackageService;
 import com.example.boxapi.services.packages.PackageServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.Collection;
 
 @RestController
@@ -41,7 +39,7 @@ public class PackagesController {
     })
     @GetMapping
     public ResponseEntity<Collection<PackageDTO>> getPackages() {
-        Collection<PackageDTO> packages = packageMapper.packageToPackageDTO(
+        Collection<PackageDTO> packages = packageMapper.packagesToPackageDTOs(
                 packageService.getPackages()
         );
 
@@ -60,12 +58,11 @@ public class PackagesController {
     })
     @GetMapping("/complete")
     public ResponseEntity getCompletedShipments() {
-        Collection<PackageDTO> packages = packageMapper.packageToPackageDTO(
+        Collection<PackageDTO> packages = packageMapper.packagesToPackageDTOs(
                 packageService.findByStatus(Status.COMPLETED)
         );
         return ResponseEntity.ok(packages);
     }
-
 
 
     @Operation(summary = "Gets cancelled shipments")
@@ -80,10 +77,29 @@ public class PackagesController {
     })
     @GetMapping("/cancelled")
     public ResponseEntity getCancelledShipments() {
-        Collection<PackageDTO> packages = packageMapper.packageToPackageDTO(
+        Collection<PackageDTO> packages = packageMapper.packagesToPackageDTOs(
                 packageService.findByStatus(Status.CANCELLED)
         );
         return ResponseEntity.ok(packages);
     }
 
+
+    @Operation(summary = "Add package")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Created",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = PackageDTO.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "Package cannot be created",
+                    content = @Content)
+    })
+    @PostMapping()
+    public ResponseEntity addPackage(@RequestBody PackageDTO packageDTO) {
+        Package newPackage = packageService.add(
+                packageMapper.packageDTOtoPackage(packageDTO)
+        );
+        URI uri = URI.create("shipment/" + newPackage.getId());
+        return ResponseEntity.created(uri).build();
+    }
 }

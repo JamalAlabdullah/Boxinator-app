@@ -1,15 +1,15 @@
 package com.example.boxapi.mappers;
 
+import com.example.boxapi.models.AppUser;
 import com.example.boxapi.models.Package;
 import com.example.boxapi.models.dto.PackageDTO;
+import com.example.boxapi.services.appuser.AppUserService;
 import com.example.boxapi.services.packages.PackageService;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Collection;
 import java.util.Set;
@@ -21,12 +21,42 @@ public abstract class PackageMapper {
 
     @Autowired
     protected PackageService packageService;
+    @Autowired
+    protected AppUserService appUserService;
 
 
-    @Mapping(target = "appuser", source = "appuser.id", qualifiedByName = "mapPackageToId")
-    public abstract  Collection<PackageDTO> packageToPackageDTO(Collection<Package> packageDTOs);
+    @Mapping(target = "appUser", source = "appUser.id")//, qualifiedByName = "mapAppuserToId")
+    @Mapping(target = "country", source = "country.id")
+    public abstract  PackageDTO packageToPackageDTO(Package package1);
+    public abstract  Collection<PackageDTO> packagesToPackageDTOs(Collection<Package> packageDTOs);
 
-    @Mapping(target = "appuser.id", source = "appuser", qualifiedByName = "mapidToPackage")
-    public abstract  Collection<PackageDTO> PackageDTOTopackage(Collection<PackageDTO> packages);
+    @Mapping(target = "appUser.id", source = "appUser") //, qualifiedByName = "mapIdToAppuser")
+    @Mapping(target = "country.id", source = "country")
+    public abstract Package packageDTOtoPackage(PackageDTO packageDTO);
+    public abstract  Collection<PackageDTO> packageDTOsTopackages(Collection<PackageDTO> packages);
+
+
+
+/*
+    @Named("mapAppuserToId")
+    Integer mapAppuserToId(AppUser source) {
+        log.info("mapAppuserToId + " + source);
+        if(source == null) {
+            return  null;
+        }
+        return source.getId();
+    }
+
+    @Named("mapIdToAppuser")
+    AppUser mapIdToAppuser(Integer source) {
+        if(source == null) {
+            return null;
+        }
+        return appUserService.findById(source);
+    }
+
+ */
+
+
 
 }

@@ -30,7 +30,7 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public Package add(Package entity) {
-        return null;
+        return packageRepository.save(entity);
     }
 
     @Override

@@ -10,9 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +49,7 @@ public class AppUserController {
 
     @GetMapping
     public ResponseEntity<Collection<AppUserDTO>> getUsers() {
-        Collection<AppUserDTO> appUsers = appUserMapper.appuserToAppuserDTO(
+        Collection<AppUserDTO> appUsers = appUserMapper.appUsersToAppuserDTOs(
                 appUserService.getUsers()
         );
 
@@ -82,7 +80,7 @@ public class AppUserController {
         AppUser newAppuser = appUserService.add(
                 appUserMapper.appUserDTOtoAppUser(appUserDTO)
         );
-        URI uri = URI.create("account/" + newAppuser.getUser_id());
+        URI uri = URI.create("account/" + newAppuser.getId());
         return ResponseEntity.created(uri).build();
     }
 
