@@ -89,8 +89,8 @@ public class AppUserController {
     @GetMapping
     //RolesAllowed("admin") //case sensitive
     public ResponseEntity<Collection<AppUserDTO>> getUsers() {
-        Collection<AppUserDTO> appUsers = appUserMapper.appuserToAppuserDTO(
-                appUserService.findAll()
+        Collection<AppUserDTO> appUsers = appUserMapper.appUsersToAppuserDTOs(
+                appUserService.getUsers()
         );
 
         return ResponseEntity.ok(appUsers);
@@ -111,7 +111,7 @@ public class AppUserController {
         AppUser newAppuser = appUserService.add(
                 appUserMapper.appUserDTOtoAppUser(appUserDTO)
         );
-        URI uri = URI.create("account/" + newAppuser.getUser_id());
+        URI uri = URI.create("account/" + newAppuser.getId());
         return ResponseEntity.created(uri).build();
     }
 
