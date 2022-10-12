@@ -77,7 +77,14 @@ public class AppUserServiceImpl implements AppUserService{
 
     @Override
     public void deleteById(Integer integer) {
+        if (appUserRepository.existsById(integer)) {
+            AppUser appUser = appUserRepository.findById(integer).get();
+            appUser.getPackages().forEach(p -> p.setAppUser(null));
+            appUserRepository.delete(appUser);
+        } else {
+            log.warn("No appuser exist with ID: " + integer);
 
+        }
     }
 
     @Override
