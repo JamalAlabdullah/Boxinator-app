@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -122,7 +123,7 @@ public class PackagesController {
                     content = @Content)
     })
     @GetMapping("{id}")
-    public ResponseEntity getById(@PathVariable int id){
+    public ResponseEntity getById(@PathVariable int id) {
         PackageDTO packageDTO = packageMapper.packageToPackageDTO(packageService.findById(id));
         return ResponseEntity.ok(packageDTO);
     }
@@ -140,7 +141,7 @@ public class PackagesController {
     })
 
     @GetMapping("customer/{id}")
-    public ResponseEntity getPackagesFromCustomer(@PathVariable int id){
+    public ResponseEntity getPackagesFromCustomer(@PathVariable int id) {
         AppUser appUser = appUserService.findById(id);
         Collection<PackageDTO> packages = appUser.getPackages().stream().map(
                 packageMapper::packageToPackageDTO
@@ -156,4 +157,24 @@ public class PackagesController {
     }
 
      */
+
+    @Operation(summary = "Update existing shipment")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Success",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = PackageDTO.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "Package not found with supplied id",
+                    content = @Content)
+    })
+    @PutMapping(":{id}")
+    public ResponseEntity update(@RequestBody PackageDTO packageDTO, @PathVariable int id) {
+        if (packageDTO.getId() != id)
+            ResponseEntity.badRequest().build();
+        packageService.update(
+                packageMapper.packageDTOtoPackage(packageDTO)
+        );
+        return ResponseEntity.noContent().build();
+    }
 }
