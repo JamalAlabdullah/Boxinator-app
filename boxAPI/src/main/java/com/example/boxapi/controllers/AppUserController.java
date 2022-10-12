@@ -137,7 +137,7 @@ public class AppUserController {
     @PutMapping ("{id}") // GET: localhost:8080/api/v1/settings/countries:1
     //RolesAllowed("user")
     public ResponseEntity update(@RequestBody AppUserDTO appUserDTO, @PathVariable int id) {
-        if (appUserDTO.getUser_id() != id) {
+        if (appUserDTO.getId() != id) {
             ResponseEntity.badRequest().build();
         }
         AppUser updatedUser = appUserService.update(

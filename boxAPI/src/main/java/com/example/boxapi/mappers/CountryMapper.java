@@ -30,14 +30,11 @@ public abstract class CountryMapper {
 
     @Named("mapPackageToId")
     Set<Integer> mapPackageToId(Set<Package> source) {
-        log.info(" mapPackageToId: TULL Er det her det krøller seg)=");
-        log.info(source + "Source mapPackageToId");
         if (source == null) {
-            log.info(" XXXXX mapPackageToId: Er det her det krøller seg)=");
             return null;
         }
         return source.stream()
-                .map(Package::getPackage_id).collect(Collectors.toSet());
+                .map(Package::getId).collect(Collectors.toSet());
     }
 
     @Named("mapIdToPackage")
