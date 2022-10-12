@@ -32,16 +32,16 @@ const ProfileForm = () => {
             <fieldset id="profField">
 
                 <label htmlFor="dateBirth">Date of birth: </label>
-                <input id="dateBirth" type="date" placeholder={temp[0].birthday} />
+                <input id="dateBirth" type="date" defaultValue={temp[0].birthday} />
 
                 <label htmlFor="country">Country: </label>
-                <input id="country" type="text" placeholder={temp[0].country} />
+                <input id="country" type="text" name="country" defaultValue={temp[0].country} />
 
                 <label htmlFor="postCode">Postal code: </label>
-                <input id="postCode" type="number" placeholder={temp[0].postal_code} />
+                <input id="postCode" type="number" defaultValue={temp[0].postal_code} />
 
                 <label htmlFor="conNumb">Contact number: </label>
-                <input id="conNumb" type="number" placeholder={temp[0].phone_number} />
+                <input id="conNumb" type="number" defaultValue={temp[0].phone_number} />
             </fieldset>
             <button id="btnContinue" type="submit">Save Changes</button>
 
