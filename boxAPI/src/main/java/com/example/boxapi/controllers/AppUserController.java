@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.context.annotation.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -144,6 +145,26 @@ public class AppUserController {
                 appUserMapper.appUserDTOtoAppUser(appUserDTO)
         );
 
+        return ResponseEntity.noContent().build();
+    }
+
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "User successfully deleted",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "User not found with supplied ID",
+                    content = @Content)
+    })
+    @Operation(summary = "Delete user by ID")
+    @DeleteMapping(":{id}")
+    public ResponseEntity delete(@PathVariable int id) {
+        appUserService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
