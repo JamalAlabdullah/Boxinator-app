@@ -48,6 +48,7 @@ public class AppUserController {
                     description = "User not found with supplied ID",
                     content = @Content)
     })
+
     // This lets us see the entire principal object that spring security keeps of our user
     @GetMapping("/principal")
     public Principal getUser(Principal user){
