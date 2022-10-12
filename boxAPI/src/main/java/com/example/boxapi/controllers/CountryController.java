@@ -78,7 +78,7 @@ public class CountryController {
         if (countryDTO.getId() != id) {
             ResponseEntity.badRequest().build();
         }
-        Country updatedCountry = countryService.update(
+        countryService.update(
                 countryMapper.countryDTOtoCountry(countryDTO)
         );
 

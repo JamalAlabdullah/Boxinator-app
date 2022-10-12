@@ -17,14 +17,14 @@ VALUES('Belgium', 5);
 
 
 -- Packages
-INSERT INTO package (receiver_name, weight, color, mail)
-VALUES('Pernille Ofte', 'BASIC', 'white', 'pernille.ofte@no.experis.com');
+INSERT INTO package (receiver_name, weight, color, mail, user_id)
+VALUES('Pernille Ofte', 'BASIC', 'white', 'pernille.ofte@no.experis.com', 1);
 
-INSERT INTO package (receiver_name, weight, color, mail)
-VALUES('Ole Syverinsen', 'HUMBLE', 'pink', 'ole.syverinsen@no.experis.com');
+INSERT INTO package (receiver_name, weight, color, mail, user_id)
+VALUES('Ole Syverinsen', 'HUMBLE', 'pink', 'ole.syverinsen@no.experis.com', 2);
 
-INSERT INTO package (receiver_name, weight, color, mail, status)
-VALUES('Ole Syverinsen', 'HUMBLE', 'pink', 'ole.syverinsen@no.experis.com', 'COMPLETED');
+INSERT INTO package (receiver_name, weight, color, mail, status, user_id)
+VALUES('Ole Syverinsen', 'HUMBLE', 'pink', 'ole.syverinsen@no.experis.com', 'COMPLETED', 2);
 
 INSERT INTO package (receiver_name, weight, color, mail, status)
 VALUES('Ole Syverinsen', 'HUMBLE', 'pink', 'oXXXXXXXXXXXXXXX', 'CREATED');

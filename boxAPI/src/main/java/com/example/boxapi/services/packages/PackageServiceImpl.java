@@ -35,12 +35,12 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public Package update(Package entity) {
-        return null;
+        return packageRepository.save(entity);
     }
 
     @Override
     public void deleteById(Integer integer) {
-
+        packageRepository.deleteById(integer);
     }
 
     @Override
