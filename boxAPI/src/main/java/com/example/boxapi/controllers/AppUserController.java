@@ -175,6 +175,5 @@ public class AppUserController {
 
         return ResponseEntity.ok(appUserService.createNewUserProfileFromJWT(principal));
     }*/
-
 }
 
