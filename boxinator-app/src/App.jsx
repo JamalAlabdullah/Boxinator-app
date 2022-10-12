@@ -6,13 +6,22 @@ import {ROLES} from "./const/roles";
 import Register from "./views/Register";
 
 import HomePage from "./views/HomePage";
-
 import Login from "./views/Login";
-
 import Profile from "./views/Profile";
-
 import './App.css';
 
+
+/*
+  <Route 
+          path="/profile" 
+          element={ 
+        
+            <KeycloakRoute role={ROLES.User}>
+              <Profile /> 
+            </KeycloakRoute>
+          } 
+          />
+*/
 
 function App() {
   return (
@@ -24,20 +33,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/register" element={ <Register/> } />
           <Route path="/home" element={ <HomePage /> } />
-          
-
-          <Route 
-          path="/profile" 
-          element={ 
-          
-          <KeycloakRoute role={ROLES.User}>
-             <Profile /> 
-          </KeycloakRoute>
-         
-          
-          } 
-          />
-         
+          <Route path="/profile" element={ <Profile /> } />
           
         </Routes>
       
