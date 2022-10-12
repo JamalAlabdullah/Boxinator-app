@@ -4,6 +4,7 @@ package com.example.boxapi.controllers;
 import com.example.boxapi.mappers.AppUserMapper;
 import com.example.boxapi.models.AppUser;
 import com.example.boxapi.models.dto.AppUserDTO;
+import com.example.boxapi.models.dto.CountryDTO;
 import com.example.boxapi.services.appuser.AppUserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,16 +12,23 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Role;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.net.URI;
+import java.security.Principal;
 import java.util.Collection;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequiredArgsConstructor
 @RequestMapping(path = "api/v1/account")
 public class AppUserController {
@@ -40,14 +48,46 @@ public class AppUserController {
                     description = "User not found with supplied ID",
                     content = @Content)
     })
-    @GetMapping("/{id}") // GET: localhost:8080/api/v1/account/1
-    public ResponseEntity getById(@PathVariable int id) {
-        AppUserDTO appUserDTO = appUserMapper.appUserToAppUserDTO(appUserService.findById(id));
-        return ResponseEntity.ok(appUserDTO);
+
+    // This lets us see the entire principal object that spring security keeps of our user
+    @GetMapping("/principal")
+    public Principal getUser(Principal user){
+        return user;
     }
+
+    //@GetMapping("{id}") // GET: localhost:8080/api/v1/account/1
+    //RolesAllowed("user") //case sensitive!
+    //public ResponseEntity getById(@PathVariable int id) {
+    //    AppUserDTO appUserDTO = appUserMapper.appUserToAppUserDTO(appUserService.findById(id));
+    //    return ResponseEntity.ok(appUserDTO);
+    //}
+
+    /*
+    @GetMapping("current")
+    public ResponseEntity getCurrentlyLoggedInUser(@AuthenticationPrincipal Jwt jwt) {
+        return ResponseEntity.ok(
+                appUserService.findById(
+                        jwt.getClaimAsString("sub")
+                )
+        );
+    }
+    */
+
+
+    /*
+    @PostMapping("register")
+    public ResponseEntity addNewUserFromJwt(@AuthenticationPrincipal Jwt jwt) {
+        AppUser user = appUserService.add(jwt.getClaimAsString("sub"));
+        URI uri = URI.create("api/v1/account/" + user.getUser_id());
+        return ResponseEntity.created(uri).build();
+    }
+    */
+
+
 
 
     @GetMapping
+    //RolesAllowed("admin") //case sensitive
     public ResponseEntity<Collection<AppUserDTO>> getUsers() {
         Collection<AppUserDTO> appUsers = appUserMapper.appUsersToAppuserDTOs(
                 appUserService.getUsers()
@@ -55,17 +95,8 @@ public class AppUserController {
 
         return ResponseEntity.ok(appUsers);
     }
-/*
-    @PostMapping("/save")
-    public ResponseEntity<AppUser> saveUser(@RequestBody AppUser user) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/account/save").toUriString());
-        return ResponseEntity.created(uri).body(appUserService.saveUser(user));
-    }
 
- */
-
-
-    @Operation(summary = "Add user")
+    @Operation(summary = "Add new user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
                     description = "Created",
@@ -84,24 +115,39 @@ public class AppUserController {
         return ResponseEntity.created(uri).build();
     }
 
+    /*@PostMapping
+    public ResponseEntity<AppUser> addNewUser(@AuthenticationPrincipal Jwt principal){
+        if(appUserService.checkIfUserExists(principal.getClaimAsString("email")))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+
+        return ResponseEntity.ok(appUserService.createNewUserProfileFromJWT(principal));
+    }*/
 
 
+    @Operation(summary = "Update existing user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Success",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CountryDTO.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "User not found with supplied ID",
+                    content = @Content)
+    })
+    @PutMapping ("{id}") // GET: localhost:8080/api/v1/settings/countries:1
+    //RolesAllowed("user")
+    public ResponseEntity update(@RequestBody AppUserDTO appUserDTO, @PathVariable int id) {
+        if (appUserDTO.getUser_id() != id) {
+            ResponseEntity.badRequest().build();
+        }
+        AppUser updatedUser = appUserService.update(
+                appUserMapper.appUserDTOtoAppUser(appUserDTO)
+        );
 
-    /*PostMapping("/role/save")
-    public ResponseEntity<Role> saveRole(@RequestBody Role role) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/role/save").toUriString());
-        return ResponseEntity.created(uri).body(appUserService.saveRole(role));
+        return ResponseEntity.noContent().build();
     }
 
-     */
 
-    /*PostMapping("/role/addtouser")
-    public ResponseEntity<?> saveRole(@RequestBody RoleToUserForm form) {
-        appUserService.addRoleToUser(form.getUsername(), form.getRoleName());
-        return ResponseEntity.ok().build();
-    }
-
-     */
 
 
     // This endpoint just shows the information from the token
@@ -130,6 +176,5 @@ public class AppUserController {
 
         return ResponseEntity.ok(appUserService.createNewUserProfileFromJWT(principal));
     }*/
-
 }
 
