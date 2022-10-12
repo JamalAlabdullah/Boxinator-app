@@ -11,7 +11,7 @@ import java.util.Set;
 @Setter
 public class AppUserDTO {
 
-    private int user_id;
+    private int id;
     private Date birthday;
     private String country;
     private int postal_code;

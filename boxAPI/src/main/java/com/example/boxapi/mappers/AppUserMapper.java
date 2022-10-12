@@ -35,25 +35,21 @@ public abstract class AppUserMapper {
 
     @Named("mapPackageToId")
     Set<Integer> mapPackageToId(Set<Package> source) {
-        log.info(" mapPackageToId: TULL Er det her det krøller seg)=");
-        log.info(source + "Source mapPackageToId");
         if (source == null) {
-            log.info(" XXXXX mapPackageToId: Er det her det krøller seg)=");
             return null;
         }
         return source.stream()
-                .map(Package::getPackage_id).collect(Collectors.toSet());
+                .map(Package::getId).collect(Collectors.toSet());
     }
 
     @Named("mapIdToPackage")
     Set<Package> mapIdToPackage(Set<Integer> source) {
         if (source == null) {
-            return null;}
+            return null;
+        }
         return source.stream()
                 .map(i -> packageService.findById(i))
                 .collect(Collectors.toSet());
-
-
     }
 
 /*
@@ -74,6 +70,6 @@ public abstract class AppUserMapper {
 
  */
 
-    public abstract Collection<AppUserDTO> appuserToAppuserDTO(Collection<AppUser> appUsersDTOs);
+    public abstract Collection<AppUserDTO> appUsersToAppuserDTOs(Collection<AppUser> appUsersDTOs);
 
 }
