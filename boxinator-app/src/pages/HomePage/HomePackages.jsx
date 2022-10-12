@@ -5,7 +5,7 @@ import axios from 'axios'; //Axios
 import React from 'react';
 
 //const baseURL = "https://jsonplaceholder.typicode.com/posts/"; // Api connection
-const baseURL = "localhost:8080/api/v1/account"; // Api connection
+const baseURL = "http://localhost:8080/api/v1/account"; // Api connection
 
 const HomePackages = () => {
 
