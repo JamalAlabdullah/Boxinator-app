@@ -29,9 +29,9 @@ public class AppUserServiceImpl implements AppUserService{
         return appUserRepository.existsByEmail(email);
     }
 
-    public boolean assignRolesToUser(AppUser user, List<RoleType> roles){
-        return false;
-    }
+   // public boolean assignRolesToUser(AppUser user, List<RoleType> roles){
+       // return false;
+    //}
 
     /*
     public AppUser createNewUserProfileFromJWT(Jwt principal) {
@@ -62,7 +62,7 @@ public class AppUserServiceImpl implements AppUserService{
 
     @Override
     public Collection<AppUser> findAll() {
-        return null;
+        return appUserRepository.findAll();
     }
 
     @Override

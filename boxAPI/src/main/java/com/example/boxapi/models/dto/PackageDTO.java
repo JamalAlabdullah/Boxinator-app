@@ -16,13 +16,13 @@ import java.util.Date;
 @Setter
 public class PackageDTO {
 
-    private int package_id;
+    private int id;
     private String receiver_name;
     private Weight weight;
     private String color;
     private Date date;
     private Status status;
     private String mail;
-    private AppUser Appuser;
-    private Country country;
+    private int appUser;
+    private int country;
 }
