@@ -74,7 +74,7 @@ public class CountryController {
                     content = @Content)
     })
     @PutMapping (":{id}") // GET: localhost:8080/api/v1/settings/countries:1
-    public ResponseEntity update(@RequestBody CountryDTO countryDTO, @PathVariable int id) {
+    public ResponseEntity update(@RequestBody CountryDTO countryDTO, @PathVariable String id) {
         if (countryDTO.getId() != id) {
             ResponseEntity.badRequest().build();
         }

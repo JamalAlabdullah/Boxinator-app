@@ -18,7 +18,7 @@ public class CountryServiceImpl implements CountryService{
     }
 
     @Override
-    public Country findById(Integer id) {
+    public Country findById(String id) {
         return countryRepository.findById(id).get();
     }
 
@@ -38,9 +38,10 @@ public class CountryServiceImpl implements CountryService{
     }
 
     @Override
-    public void deleteById(Integer integer) {
+    public void deleteById(String s) {
 
     }
+
 
     @Override
     public void delete(Country entity) {
