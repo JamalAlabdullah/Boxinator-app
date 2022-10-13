@@ -2,7 +2,6 @@ import axios from 'axios'; //Axios
 import React, { useState } from 'react';
 
 const baseURL = "http://localhost:8080/api/v1/account"; // Api connection
-//const countryURL = "http://localhost:8080/api/v1/settings/countries"
 
 const ProfileForm = () => {
 
@@ -31,7 +30,7 @@ const ProfileForm = () => {
             temp.push(user[i]);
         }
     }
-    //console.log(new Date(temp[0].birthday.toDateString()));
+    //console.log(user[0].birthday);
 
     // Makes sure values isn't lost if not changed 
     if(updatedDate === "") {
