@@ -6,6 +6,7 @@ import com.example.boxapi.models.enums.WeightType;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -16,10 +17,10 @@ public class PackageDTO {
     private String receiver_name;
     private int weight;
     private String color;
-    private Date date;
+    private LocalDate date;
     private Status status;
     private String mail;
     private int appUser;
-    private int country;
+    private String country;
 
 }
