@@ -51,7 +51,7 @@ const ProfileForm = () => {
         event.preventDefault();
         
         axios.post(baseURL, { 
-            user_id: "2", 
+            id: "2", 
             birthday: updatedDate, 
             country: updatedCountry,
             postal_code: updatedPost,

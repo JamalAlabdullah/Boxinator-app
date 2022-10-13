@@ -4,8 +4,7 @@ import {useEffect, useState} from 'react'
 import '../Modal/packagemodal.css';
 import axios from 'axios';
 
-
-const baseURL = 'http://localhost:8080/api/v1/settings/countries'; 
+const baseURL = 'http://localhost:8080/api/v1'; 
 
 const packageConfig = {
   required: true,
@@ -17,9 +16,10 @@ const PackageForm = () => {
   const {register, handleSubmit, reset} = useForm()
 
   const [countries, setCountries] = useState([])
+  const [resStatus, setResStatus] = useState("");
 
     useEffect(() => {
-      axios.get(baseURL)
+      axios.get(baseURL +'/settings/countries')
       .then(res => {
         console.log(res.data)
         setCountries(res.data)
@@ -31,35 +31,37 @@ const PackageForm = () => {
 
     
   const onSubmit = (data)=> {
-    console.log(data) 
-    alert('success' + JSON.stringify(data, null,4))
-    reset()
-};
 
+    axios
+    .post(baseURL + '/shipments', data , {
+      appUser: "1",
+      country: "0"
+    })
+    .then(function (response) {
+      console.log(response.status);
+      if (response.status === 200) {
+        setResStatus("Successful Registration!");
+      } else {
+        setResStatus("error");
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    reset()
+    console.log(resStatus);
+};
 
  return <div>
      <Form onSubmit={handleSubmit(onSubmit)} id="form-container" >
-     
      {/* RECEIVER FIRST NAME*/}
         <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Receivers First name</Form.Label>
           <Form.Control
           type="text"
-          name="first_name"
+          name="receiver_name"
           placeholder="first name..."
-          { ... register("first_name", packageConfig)}
-          />
-        </Form.Group>
-
-          {/* RECEIVER LAST NAME*/}
-        <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Receivers Last name</Form.Label>
-          <Form.Control
-         
-          type="text"
-          name="last_name"
-          placeholder="last name..."
-          { ... register("last_name", packageConfig)}
+          { ... register("receiver", packageConfig)}
           />
         </Form.Group>
 
@@ -91,22 +93,17 @@ const PackageForm = () => {
           </Form.Select> 
         </Form.Group>
 
-          {/* DESTINATION SELECT*/}
+          {/* DESTINATION SELECT */}
           <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Destination</Form.Label>
           <Form.Select name="destination"  { ... register("destination", packageConfig)}>
             <option></option>
            {countries.map((country)  => ( 
-            <option key={country.country_id}>{country.country_name}</option>
+            <option key={country.id}>{country.country_name}</option>
            ))}
-  
-
           </Form.Select > 
-          
         </Form.Group>
           <Button type="submit" >Send package</Button>
-        
-         
       </Form>
 
      

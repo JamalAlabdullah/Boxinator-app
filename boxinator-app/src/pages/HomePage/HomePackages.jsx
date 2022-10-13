@@ -32,7 +32,7 @@ const HomePackages = () => {
     let temp = []; //Array used to temporarly store users packages
 
     for (let i = 0; i < user.length; i++) { //Pushes a spesific users packages to temp[] array
-        if(user[i].user_id === 2) {
+        if(user[i].id === 2) {
             temp.push(user[i]);
         }
     }
@@ -40,8 +40,8 @@ const HomePackages = () => {
     return (
         <div id="packGrid">
 
-            {temp && temp.map(({user_id, country, postal_code}) => (
-                <div key={user_id}>
+            {temp && temp.map(({id, country, postal_code}) => (
+                <div key={id}>
                     <ul id="packUl">
 
                         <li id="packLiImg">
