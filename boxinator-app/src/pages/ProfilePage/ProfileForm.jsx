@@ -1,11 +1,18 @@
 import axios from 'axios'; //Axios
-import React from 'react';
+import React, { useState } from 'react';
 
 const baseURL = "http://localhost:8080/api/v1/account"; // Api connection
+//const countryURL = "http://localhost:8080/api/v1/settings/countries"
 
 const ProfileForm = () => {
 
+    const [ updatedDate, setDate  ] = useState('');
+    const [ updatedCountry, setCountry ] = useState('');
+    const [ updatedPost, setPost  ] = useState('');
+    const [ updatedNumb, setNumb  ] = useState('');
+
     // Axios ------------------------------
+
     const [user, setUser] = React.useState(null);
 
     React.useEffect(() => {
@@ -15,33 +22,78 @@ const ProfileForm = () => {
     }, []);
 
     if (!user) return null;
-
     
-    let temp = []; //Array used to temporarly store users packages
+    //Array used to temporarly store users packages
+    let temp = [];
 
-    for (let i = 0; i < user.length; i++) { //Pushes a spesific users packages to temp[] array
+    for (let i = 0; i < user.length; i++) { //Pushes a specific users packages to temp[] array
         if(user[i].user_id === 2) {
             temp.push(user[i]);
         }
     }
+    //console.log(new Date(temp[0].birthday.toDateString()));
+
+    // Makes sure values isn't lost if not changed 
+    if(updatedDate === "") {
+        setDate(temp[0].birthday);
+    }
+    if(updatedCountry === "") {
+        setCountry(temp[0].country);
+    }
+    if(updatedPost === "") {
+        setPost(temp[0].postal_code);
+    }
+    if(updatedNumb === "") {
+        setNumb(temp[0].phone_number);
+    }
+
+    const onSubmit = event => {
+        event.preventDefault();
+        
+        axios.post(baseURL, { 
+            user_id: "2", 
+            birthday: updatedDate, 
+            country: updatedCountry,
+            postal_code: updatedPost,
+            phone_number: updatedNumb 
+        })
+        .then(res=>{
+            console.log(res);
+            console.log(res.data);
+            window.location = "/profile" //This line of code will redirect you once the submission is succeed
+        })
+    }
 
 
     return (
-        <form id="profForm">
+        <form id="profForm" onSubmit={onSubmit}>
 
             <fieldset id="profField">
 
                 <label htmlFor="dateBirth">Date of birth: </label>
-                <input id="dateBirth" type="date" defaultValue={temp[0].birthday} />
+                <input id="dateBirth" type="date" 
+                    defaultValue={temp[0].birthday}
+                    onChange={event => setDate(event.target.value)}
+                />
 
                 <label htmlFor="country">Country: </label>
-                <input id="country" type="text" name="country" defaultValue={temp[0].country} />
+                <input id="country" type="text" name="country"
+                    defaultValue={temp[0].country} 
+                    onChange={event => setCountry(event.target.value)}
+                />
 
                 <label htmlFor="postCode">Postal code: </label>
-                <input id="postCode" type="number" defaultValue={temp[0].postal_code} />
+                <input id="postCode" type="number" 
+                    defaultValue={temp[0].postal_code}
+                    onChange={event => setPost(event.target.value)} 
+                />
 
                 <label htmlFor="conNumb">Contact number: </label>
-                <input id="conNumb" type="number" defaultValue={temp[0].phone_number} />
+                <input id="conNumb" type="number" 
+                    defaultValue={temp[0].phone_number}
+                    onChange={event => setNumb(event.target.value)} 
+                />
+
             </fieldset>
             <button id="btnContinue" type="submit">Save Changes</button>
 
