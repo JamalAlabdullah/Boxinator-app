@@ -9,7 +9,17 @@ import "./login.css";
 
 import keycloak from "../../keycloak";
 
+import { useState } from "react";
+import PackageModalGuest from "../../components/Modal/PackageModalGuest";
+
+
+
+
+
+
 const LoginForm = () => {
+
+const [isOpen, setIsOpen] = useState(false)
   
   const handelregisterbtn = () => {
     window.location.assign("/register");
@@ -46,24 +56,22 @@ const LoginForm = () => {
             </Card.Text>
           </Card.Body>
           <Card.Footer>
-            <Button className="Btn">
+            <Button 
+            className="Btn"
+            onClick={() => setIsOpen(true)}>
               Guest
             </Button>
           </Card.Footer>
         </Card>
-        <Card id="allCard">
-          <Card.Body>
-            <Card.Text>
-              If you have not registered before, then click on register button
-            </Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            <Button className="Btn" onClick={handelregisterbtn}>
-              Register
-            </Button>
-          </Card.Footer>
-        </Card>
       </CardGroup>
+
+      {isOpen && <PackageModalGuest setIsOpen={setIsOpen} />}
+
+    
+
+
+
+
     </>
   );
 };
