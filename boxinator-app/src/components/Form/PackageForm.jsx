@@ -31,11 +31,14 @@ const PackageForm = () => {
 
     
   const onSubmit = (data)=> {
-
+    console.log("Data: " + data.country);
     axios
-    .post(baseURL + '/shipments', data , {
+    .post(baseURL + '/shipments', {
+      receiver_name: data.receiver_name,
+      weight: data.weight,
+      color: data.color, 
       appUser: "1",
-      country: "0"
+      country: "1"
     })
     .then(function (response) {
       console.log(response.status);
@@ -61,7 +64,7 @@ const PackageForm = () => {
           type="text"
           name="receiver_name"
           placeholder="first name..."
-          { ... register("receiver", packageConfig)}
+          { ... register("receiver_name", packageConfig)}
           />
         </Form.Group>
 
@@ -96,7 +99,7 @@ const PackageForm = () => {
           {/* DESTINATION SELECT */}
           <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Destination</Form.Label>
-          <Form.Select name="destination"  { ... register("destination", packageConfig)}>
+          <Form.Select name="country"  { ... register("country", packageConfig)}>
             <option></option>
            {countries.map((country)  => ( 
             <option key={country.id}>{country.country_name}</option>

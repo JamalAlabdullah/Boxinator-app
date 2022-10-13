@@ -27,7 +27,7 @@ const ProfileForm = () => {
     let temp = [];
 
     for (let i = 0; i < user.length; i++) { //Pushes a specific users packages to temp[] array
-        if(user[i].user_id === 2) {
+        if(user[i].id === 2) {
             temp.push(user[i]);
         }
     }
