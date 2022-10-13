@@ -30,7 +30,7 @@ const [isOpen, setIsOpen] = useState(false)
         <Card id="allCard">
           <Card.Body>
             <Card.Text>
-              Have you already registered? Go ahead and login.
+              Here you can login or register a new account.
             </Card.Text>
           </Card.Body>
           <Card.Footer>
@@ -38,7 +38,7 @@ const [isOpen, setIsOpen] = useState(false)
               <Button
               className="Btn"
                 onClick={() => keycloak.login()}>
-                Login
+                Login/Register
               </Button>
             )}
         
