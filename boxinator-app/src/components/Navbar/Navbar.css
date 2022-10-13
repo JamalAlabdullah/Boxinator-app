@@ -31,10 +31,8 @@
 
   
 #liReg a:hover, #liProf a:hover, #liHome a:hover, #liLogout a:hover, #logoutBtn:hover{
- 
-   background-color: #FCF7DD;
+    background-color: #FCF7DD;
     color: black;
-  
 }
  
 
@@ -52,4 +50,8 @@
     color: white;
     border: none;
     cursor: pointer;
+}
+
+:root {
+    --bs-body-line-height: auto;
 }
