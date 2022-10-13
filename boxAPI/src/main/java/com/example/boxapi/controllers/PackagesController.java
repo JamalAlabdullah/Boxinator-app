@@ -8,6 +8,7 @@ import com.example.boxapi.models.Package;
 import com.example.boxapi.models.dto.AppUserDTO;
 import com.example.boxapi.models.dto.PackageDTO;
 import com.example.boxapi.models.enums.Status;
+import com.example.boxapi.models.enums.WeightType;
 import com.example.boxapi.services.appuser.AppUserService;
 import com.example.boxapi.services.packages.PackageServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
