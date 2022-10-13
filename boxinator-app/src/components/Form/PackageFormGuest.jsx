@@ -5,6 +5,15 @@ import '../Modal/packagemodal.css';
 import axios from 'axios';
 
 
+import { useRef  } from 'react';
+
+import emailjs from '@emailjs/browser';
+
+
+
+
+
+
 const baseURL = 'http://localhost:8080/api/v1/settings/countries'; 
 
 const packageConfig = {
@@ -12,6 +21,25 @@ const packageConfig = {
 }
 
 const PackageFormGuest = () => {
+
+
+
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    console.log("send email");
+    e.preventDefault();
+
+    emailjs.sendForm('service_l9m9lqc', 'template_oj01046', form.current, 'V_2P5fiDzw13IJkRm')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      }
+      );
+      e.target.reset()
+      
+  };
 
   //HOOKS
   const {register, handleSubmit, reset} = useForm()
@@ -32,25 +60,44 @@ const PackageFormGuest = () => {
     
   const onSubmit = (data)=> {
     console.log(data) 
+      
     alert('success' + JSON.stringify(data, null,4))
     reset()
 };
 
 
  return <div>
+    <form ref={form} onSubmit={sendEmail}>
+    
+      <label>Email</label>
+      <input type="email" name="user_email" />
+     
+    </form>
      <Form onSubmit={handleSubmit(onSubmit)} id="form-container">
+      
      
      {/* Sender's email*/}
+          {/*
+           <form ref={form} onSubmit={sendEmail}>
+
         <Form.Group id="form-group" className="mb-3" controlId="formBasicEmail">
           <Form.Label>Sender's email</Form.Label>
           <Form.Control
           type="email"
-          name="sender_email"
-          placeholder="Enter email"
-          { ... register("sender_email", packageConfig)}
+          name="user_email" required 
+          placeholder="Email"
+          { ... register("user_email", packageConfig)}
           />
         </Form.Group>
 
+        </form>
+      */}
+       
+
+
+
+
+         {/* RECEIVER FIRST NAME*/}
         <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Receivers First name</Form.Label>
           <Form.Control
@@ -114,7 +161,7 @@ const PackageFormGuest = () => {
           </Form.Select > 
           
         </Form.Group>
-          <Button type="submit" >Send package</Button>
+          <Button  sendEmail type="submit" onClick={sendEmail}>Send package</Button>
         
          
       </Form>

@@ -21,11 +21,7 @@ const LoginForm = () => {
 
 const [isOpen, setIsOpen] = useState(false)
   
-  const handelregisterbtn = () => {
-    window.location.assign("/register");
-  };
-
-
+ 
 
 
   return (
