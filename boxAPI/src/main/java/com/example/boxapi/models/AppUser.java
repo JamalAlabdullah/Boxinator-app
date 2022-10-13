@@ -19,7 +19,8 @@ import java.util.Set;
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int user_id;
+    @Column(name = "user_id")
+    private int id;
     @Column(length = 50)
     private LocalDate birthday;
     @Column(length = 50)
@@ -37,7 +38,7 @@ public class AppUser {
     private String password;
 
     //Navigation/relationships
-    @OneToMany(mappedBy = "app_user")
+    @OneToMany(mappedBy = "appUser")
     private Set<Package> packages;
 
 }

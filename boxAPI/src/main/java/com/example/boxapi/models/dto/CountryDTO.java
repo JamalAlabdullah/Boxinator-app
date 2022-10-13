@@ -9,7 +9,7 @@ import java.util.Set;
 @Getter
 @Setter
 public class CountryDTO {
-    private int country_id;
+    private int id;
     private String country_name;
     private int multiplier;
     private Set<Integer> packages;

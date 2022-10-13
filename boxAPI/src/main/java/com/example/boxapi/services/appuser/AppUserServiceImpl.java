@@ -29,9 +29,9 @@ public class AppUserServiceImpl implements AppUserService{
         return appUserRepository.existsByEmail(email);
     }
 
-    public boolean assignRolesToUser(AppUser user, List<RoleType> roles){
-        return false;
-    }
+   // public boolean assignRolesToUser(AppUser user, List<RoleType> roles){
+       // return false;
+    //}
 
     /*
     public AppUser createNewUserProfileFromJWT(Jwt principal) {
@@ -62,7 +62,7 @@ public class AppUserServiceImpl implements AppUserService{
 
     @Override
     public Collection<AppUser> findAll() {
-        return null;
+        return appUserRepository.findAll();
     }
 
     @Override
@@ -77,7 +77,14 @@ public class AppUserServiceImpl implements AppUserService{
 
     @Override
     public void deleteById(Integer integer) {
+        if (appUserRepository.existsById(integer)) {
+            AppUser appUser = appUserRepository.findById(integer).get();
+            appUser.getPackages().forEach(p -> p.setAppUser(null));
+            appUserRepository.delete(appUser);
+        } else {
+            log.warn("No appuser exist with ID: " + integer);
 
+        }
     }
 
     @Override
