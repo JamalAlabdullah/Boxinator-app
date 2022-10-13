@@ -85,13 +85,6 @@ public class AppUserController {
     */
 
 
-
-    @GetMapping("/principal")
-    public Principal getUser(Principal user){
-        return user;
-    }
-
-
     @GetMapping
     //RolesAllowed("admin") //case sensitive
     public ResponseEntity<Collection<AppUserDTO>> getUsers() {

@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -20,7 +21,7 @@ public class PackageDTO {
     private String receiver_name;
     private Weight weight;
     private String color;
-    private Date date;
+    private LocalDate date;
     private Status status;
     private String mail;
     private int appUser;
