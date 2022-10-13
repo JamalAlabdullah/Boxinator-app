@@ -4,7 +4,6 @@ import source from "../../stamp-svgrepo-com.svg";
 import axios from 'axios'; //Axios
 import React from 'react';
 
-//const baseURL = "https://jsonplaceholder.typicode.com/posts/"; // Api connection
 const baseURL = "http://localhost:8080/api/v1/account"; // Api connection
 
 const HomePackages = () => {
@@ -33,7 +32,7 @@ const HomePackages = () => {
     let temp = []; //Array used to temporarly store users packages
 
     for (let i = 0; i < user.length; i++) { //Pushes a spesific users packages to temp[] array
-        if(user[i].userId === 2) {
+        if(user[i].user_id === 2) {
             temp.push(user[i]);
         }
     }
@@ -41,12 +40,12 @@ const HomePackages = () => {
     return (
         <div id="packGrid">
 
-            {temp && temp.map(({id, title, body}) => (
-                <div key={id}>
+            {temp && temp.map(({user_id, country, postal_code}) => (
+                <div key={user_id}>
                     <ul id="packUl">
 
                         <li id="packLiImg">
-                            <p id="pName">{title}</p>
+                            <p id="pName">{country}</p>
                             <img id="stampImg" src={source} alt="Stamp SVG" 
                                 style={{
                                     border:"6px solid yellow",
@@ -54,7 +53,7 @@ const HomePackages = () => {
                                 }}/>
                         </li>
 
-                        <li id="packLi">{body}</li>
+                        <li id="packLi">{postal_code}</li>
                     </ul> 
                 </div>
             ))}
