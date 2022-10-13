@@ -27,11 +27,13 @@ public abstract class PackageMapper {
 
     @Mapping(target = "appUser", source = "appUser.id")//, qualifiedByName = "mapAppuserToId")
     @Mapping(target = "country", source = "country.id")
+    @Mapping(target = "weight", source = "weight.id")
     public abstract  PackageDTO packageToPackageDTO(Package package1);
     public abstract  Collection<PackageDTO> packagesToPackageDTOs(Collection<Package> packageDTOs);
 
     @Mapping(target = "appUser.id", source = "appUser") //, qualifiedByName = "mapIdToAppuser")
     @Mapping(target = "country.id", source = "country")
+    @Mapping(target = "weight.id", source = "weight")
     public abstract Package packageDTOtoPackage(PackageDTO packageDTO);
     public abstract  Collection<PackageDTO> packageDTOsTopackages(Collection<PackageDTO> packages);
 
