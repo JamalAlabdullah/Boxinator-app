@@ -6,6 +6,7 @@ import Loading from "./components/loading/loading";
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from "./App";
+import AppContext from "./context/AppContext";
 
 
 
@@ -22,7 +23,9 @@ initialize()
   .then(() => { 
     root.render(
       <React.StrictMode>
+        <AppContext>
         <App />
+        </AppContext>
       </React.StrictMode>
     );
   })

@@ -84,3 +84,7 @@ html {
     border-right: 8px solid #FCF7DD;
     width: 60%;
 }
+
+#country::placeholder, #postCode::placeholder, #conNumb::placeholder {
+    opacity: 1;
+}
