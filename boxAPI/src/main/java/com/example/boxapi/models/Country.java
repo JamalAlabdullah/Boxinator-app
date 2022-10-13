@@ -11,11 +11,11 @@ import java.util.Set;
 @Setter
 public class Country {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "country_id")
-    private int id;
-    @Column(length = 50)
-    private String country_name;
+    //GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(length = 100, name = "country_id")
+    private String id;
+    //Column(length = 50)
+    //private String country_name;
     @Column(length = 10)
     private String multiplier;
 
