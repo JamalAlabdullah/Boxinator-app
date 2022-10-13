@@ -60,7 +60,7 @@ public class CountryController {
         Country newCountry = countryService.add(
                 countryMapper.countryDTOtoCountry(countryDTO)
         );
-        URI uri = URI.create("account/" + newCountry.getCountry_id());
+        URI uri = URI.create("account/" + newCountry.getId());
         return ResponseEntity.created(uri).build();
     }
     @Operation(summary = "Update existing country")
@@ -75,10 +75,10 @@ public class CountryController {
     })
     @PutMapping (":{id}") // GET: localhost:8080/api/v1/settings/countries:1
     public ResponseEntity update(@RequestBody CountryDTO countryDTO, @PathVariable int id) {
-        if (countryDTO.getCountry_id() != id) {
+        if (countryDTO.getId() != id) {
             ResponseEntity.badRequest().build();
         }
-        Country updatedCountry = countryService.update(
+        countryService.update(
                 countryMapper.countryDTOtoCountry(countryDTO)
         );
 

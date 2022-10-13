@@ -8,6 +8,10 @@ import Register from "./views/Register";
 import HomePage from "./views/HomePage";
 import Login from "./views/Login";
 import Profile from "./views/Profile";
+
+
+import keycloak from './keycloak';
+
 import './App.css';
 
 
@@ -33,7 +37,21 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/register" element={ <Register/> } />
           <Route path="/home" element={ <HomePage /> } />
-          <Route path="/profile" element={ <Profile /> } />
+        
+          
+
+          <Route 
+          path="/profile" 
+          element={ 
+          
+          <KeycloakRoute role={ROLES.User}>
+             <Profile /> 
+          </KeycloakRoute>
+        
+          
+          } 
+          />
+       
           
         </Routes>
       

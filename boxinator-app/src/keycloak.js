@@ -16,7 +16,14 @@ export const initialize = () => {
       window.location.origin + "/silent-check-sso.html",
   };
   return keycloak.init(config);
+  
 };
 
-/** @type { Keycloak } keycloak */
+
+
+
+
+
+
+
 export default keycloak;

@@ -5,14 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Set;
 
 @Getter
 @Setter
 public class AppUserDTO {
 
-    private int user_id;
+    private int id;
     private LocalDate birthday;
     private String country;
     private int postal_code;

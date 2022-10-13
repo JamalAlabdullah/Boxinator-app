@@ -38,6 +38,7 @@ public class SecurityConfig {
                         //.mvcMatchers("/api/v1/account/").hasRole("ADMIN")
                         // All remaining paths require authentication
                         //.anyRequest().authenticated()
+                        .antMatchers().permitAll()
                         .anyRequest().permitAll()
                 )
                 .oauth2ResourceServer()
@@ -60,7 +61,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("OPTIONS", "HEAD", "GET", "PUT", "POST", "DELETE", "PATCH"));
@@ -73,5 +74,6 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
 }
 

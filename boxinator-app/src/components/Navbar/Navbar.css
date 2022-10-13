@@ -10,32 +10,46 @@
 
 #navUl {
     padding: 0;
+    margin: 0;
     display: flex;
-    padding-top: 25px;
-    padding-bottom: 25px;
     justify-content: center;
     align-items: center;
 }
 
-#liReg, #liProf, #liHome {
+#liReg, #liProf, #liHome, #liLogout{
     list-style-type: none;
     color: white;
 }
 
-#liReg a, #liProf a, #liHome a {
-    padding: 43px;
+#liReg a, #liProf a, #liHome a , #logoutBtn{
+    padding: 41px;
+    padding-left: 25px;
+    padding-right: 25px;
     color: white;
     text-decoration: none;
 }
 
-#liReg a:hover, #liProf a:hover, #liHome a:hover {
-    background-color: #FCF7DD;
+  
+#liReg a:hover, #liProf a:hover, #liHome a:hover, #liLogout a:hover, #logoutBtn:hover{
+ 
+   background-color: #FCF7DD;
     color: black;
+  
 }
+ 
 
 #navH1 {
     text-align: left;
     margin: 0;
-    margin-left: 20px;
+    margin-left: 10px;
     color: white;
+}
+
+
+
+#logoutBtn {
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
 }

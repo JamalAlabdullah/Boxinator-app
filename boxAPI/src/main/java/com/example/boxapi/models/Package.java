@@ -8,27 +8,14 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-
-/**
- * package_id pk
- * user_id fk
- * country_id fk
- * receiverName
- * weight
- * color
- * date
- * status
- * mail
- */
-
 @Entity
 @Getter
 @Setter
 public class Package {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(length = 100, nullable = false)
-    private int package_id;
+    @Column(name = "package_id")
+    private int id;
     @Column(length = 100)
     private String receiver_name;
     @Enumerated(EnumType.STRING)
@@ -44,7 +31,7 @@ public class Package {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private AppUser app_user;
+    private AppUser appUser;
 
     @ManyToOne
     @JoinColumn(name = "country_id")
