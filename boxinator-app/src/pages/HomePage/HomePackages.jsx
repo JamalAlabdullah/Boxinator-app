@@ -4,7 +4,7 @@ import source from "../../stamp-svgrepo-com.svg";
 import axios from 'axios'; //Axios
 import React from 'react';
 
-const baseURL = "http://localhost:8080/api/v1/account"; // Api connection
+const baseURL = "http://localhost:8080/api/v1/shipments"; // Api connection
 
 const HomePackages = () => {
 
@@ -18,42 +18,44 @@ const HomePackages = () => {
     // Experiment end ----------------------------------
 
     // Axios ------------------------------
-    const [user, setUser] = React.useState(null);
+    const [packages, setPackage] = React.useState(null);
 
     React.useEffect(() => {
         axios.get(baseURL).then((response) => {
-            setUser(response.data);
+            setPackage(response.data);
         });
     }, []);
 
-    if (!user) return null;
+    if (!packages) return null;
 
 
-    let temp = []; //Array used to temporarly store users packages
+    let temp = []; //Array used to temporarly store packages packages
 
-    for (let i = 0; i < user.length; i++) { //Pushes a spesific users packages to temp[] array
-        if(user[i].id === 2) {
-            temp.push(user[i]);
+    for (let i = 0; i < packages.length; i++) { //Pushes a spesific packages packages to temp[] array
+        if(packages[i].appUser === 2) {
+            temp.push(packages[i]);
         }
     }
 
     return (
         <div id="packGrid">
 
-            {temp && temp.map(({user_id, country, postal_code}) => (
-                <div key={user_id}>
+            {temp && temp.map(({id, receiver_name, color, weight, country}) => (
+                <div key={id}>
                     <ul id="packUl">
 
                         <li id="packLiImg">
-                            <p id="pName">{country}</p>
+                            <p id="pName">{receiver_name}</p>
                             <img id="stampImg" src={source} alt="Stamp SVG" 
                                 style={{
-                                    border:"6px solid yellow",
-                                    backgroundColor: "yellow", 
+                                    border:"6px solid " + color,
+                                    backgroundColor: color, 
                                 }}/>
                         </li>
 
-                        <li id="packLi">{postal_code}</li>
+                        <li id="packLi">{weight}</li>
+                        <li id="packLi">{color}</li>
+                        <li id="packLi">{country}</li>
                     </ul> 
                 </div>
             ))}
