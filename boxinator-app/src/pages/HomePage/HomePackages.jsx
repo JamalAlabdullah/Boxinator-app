@@ -32,7 +32,7 @@ const HomePackages = () => {
     let temp = []; //Array used to temporarly store users packages
 
     for (let i = 0; i < user.length; i++) { //Pushes a spesific users packages to temp[] array
-        if(user[i].user_id === 2) {
+        if(user[i].id === 2) {
             temp.push(user[i]);
         }
     }

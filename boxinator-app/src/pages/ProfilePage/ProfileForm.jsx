@@ -2,7 +2,6 @@ import axios from 'axios'; //Axios
 import React, { useState } from 'react';
 
 const baseURL = "http://localhost:8080/api/v1/account"; // Api connection
-//const countryURL = "http://localhost:8080/api/v1/settings/countries"
 
 const ProfileForm = () => {
 
@@ -27,11 +26,11 @@ const ProfileForm = () => {
     let temp = [];
 
     for (let i = 0; i < user.length; i++) { //Pushes a specific users packages to temp[] array
-        if(user[i].user_id === 2) {
+        if(user[i].id === 2) {
             temp.push(user[i]);
         }
     }
-    //console.log(new Date(temp[0].birthday.toDateString()));
+    //console.log(user[0].birthday);
 
     // Makes sure values isn't lost if not changed 
     if(updatedDate === "") {
@@ -51,7 +50,7 @@ const ProfileForm = () => {
         event.preventDefault();
         
         axios.post(baseURL, { 
-            user_id: "2", 
+            id: "2", 
             birthday: updatedDate, 
             country: updatedCountry,
             postal_code: updatedPost,
