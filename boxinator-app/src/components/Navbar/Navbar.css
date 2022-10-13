@@ -22,7 +22,7 @@
 }
 
 #liReg a, #liProf a, #liHome a , #logoutBtn{
-    padding: 41px;
+    padding: 40px;
     padding-left: 25px;
     padding-right: 25px;
     color: white;
@@ -31,10 +31,8 @@
 
   
 #liReg a:hover, #liProf a:hover, #liHome a:hover, #liLogout a:hover, #logoutBtn:hover{
- 
-   background-color: #FCF7DD;
+    background-color: #FCF7DD;
     color: black;
-  
 }
  
 
@@ -52,4 +50,8 @@
     color: white;
     border: none;
     cursor: pointer;
+}
+
+:root {
+    --bs-body-line-height: auto;
 }
