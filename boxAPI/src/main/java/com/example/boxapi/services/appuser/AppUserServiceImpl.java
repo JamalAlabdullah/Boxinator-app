@@ -3,8 +3,10 @@ package com.example.boxapi.services.appuser;
 import com.example.boxapi.models.AppUser;
 import com.example.boxapi.models.enums.RoleType;
 import com.example.boxapi.repositories.AppUserRepository;
+import com.example.boxapi.services.appuser.appuserExceptions.AppUserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 //import org.springframework.security.oauth2.jwt.Jwt;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,7 @@ import java.util.List;
 //RequiredArgsConstructor
 @Transactional
 @Slf4j //logging
-public class AppUserServiceImpl implements AppUserService{
+public class AppUserServiceImpl implements AppUserService {
 
     @Autowired
     private final AppUserRepository appUserRepository;
@@ -25,12 +27,12 @@ public class AppUserServiceImpl implements AppUserService{
         this.appUserRepository = appUserRepository;
     }
 
-    public boolean checkIfUserExists(String email){
+    public boolean checkIfUserExists(String email) {
         return appUserRepository.existsByEmail(email);
     }
 
-   // public boolean assignRolesToUser(AppUser user, List<RoleType> roles){
-       // return false;
+    // public boolean assignRolesToUser(AppUser user, List<RoleType> roles){
+    // return false;
     //}
 
     /*
@@ -55,9 +57,11 @@ public class AppUserServiceImpl implements AppUserService{
 
 
     @Override
-    public AppUser findById(Integer id) {
-        log.info("Hallo findById fungerer=");
-        return appUserRepository.findById(id).get();
+    public AppUser findById(Integer id) throws AppUserNotFoundException {
+        //log.info(String.valueOf(new AppUserNotFoundException(id)));
+        return appUserRepository
+                .findById(id)
+                .orElseThrow(() -> new AppUserNotFoundException(id));
     }
 
     @Override
@@ -76,14 +80,15 @@ public class AppUserServiceImpl implements AppUserService{
     }
 
     @Override
-    public void deleteById(Integer integer) {
+    public void deleteById(Integer integer) throws AppUserNotFoundException {
         if (appUserRepository.existsById(integer)) {
             AppUser appUser = appUserRepository.findById(integer).get();
             appUser.getPackages().forEach(p -> p.setAppUser(null));
             appUserRepository.delete(appUser);
+            log.info("IS THIS HAPPENING AS WELL:MSD");
         } else {
             log.warn("No appuser exist with ID: " + integer);
-
+            throw new AppUserNotFoundException(integer);
         }
     }
 
