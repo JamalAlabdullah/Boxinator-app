@@ -18,7 +18,7 @@ public class WeightController {
     private final WeightService weightService;
     @GetMapping("{id}") // GET: localhost:8080/api/v1/account/1
     //RolesAllowed("user") //case sensitive!
-    public ResponseEntity getById(@PathVariable int id) {
+    public ResponseEntity getById(@PathVariable WeightType id) {
         WeightDTO weightDTO = weightMapper.weightToWeightDTO(weightService.findById(id));
         return ResponseEntity.ok(weightDTO);
     }

@@ -15,12 +15,13 @@ public class PackageDTO {
 
     private int id;
     private String receiver_name;
-    private int weight;
+    private WeightType weight;
     private String color;
     private LocalDate date;
     private Status status;
-    private String mail;
-    private int appUser;
+    //private String mail;
+    private String appUser;
     private String country;
+    private int totalSum;
 
 }

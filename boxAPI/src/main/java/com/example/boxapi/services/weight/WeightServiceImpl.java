@@ -1,6 +1,7 @@
 package com.example.boxapi.services.weight;
 
 import com.example.boxapi.models.Weight;
+import com.example.boxapi.models.enums.WeightType;
 import com.example.boxapi.repositories.WeightRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,9 +18,16 @@ public class WeightServiceImpl implements WeightService{
 
     private final WeightRepository weightRepository;
 
+    /*@Override
+    public Weight findById(String id) {
+        return weightRepository.findById(id).get();
+    }
+
+     */
+
     @Override
-    public Weight findById(Integer integer) {
-        return weightRepository.findById(integer).get();
+    public Weight findById(WeightType weightType) {
+        return weightRepository.findById(weightType).get();
     }
 
     @Override
@@ -38,9 +46,14 @@ public class WeightServiceImpl implements WeightService{
     }
 
     @Override
-    public void deleteById(Integer integer) {
+    public void deleteById(WeightType weightType) {
 
     }
+/*
+    @Override
+    public void deleteById(String id) {
+
+    }*/
 
     @Override
     public void delete(Weight entity) {

@@ -18,9 +18,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class AppUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private int id;
+    private String id; //email?
     @Column(length = 50)
     private LocalDate birthday;
     @Column(length = 50)
@@ -34,7 +33,6 @@ public class AppUser {
 
     private String username;
     private String name;
-    private String email;
     private String password;
 
     //Navigation/relationships

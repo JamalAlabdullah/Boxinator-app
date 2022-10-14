@@ -27,12 +27,14 @@ public class AppUserServiceImpl implements AppUserService {
         this.appUserRepository = appUserRepository;
     }
 
-    public boolean checkIfUserExists(String email) {
+    /*public boolean checkIfUserExists(String email){
         return appUserRepository.existsByEmail(email);
     }
 
-    // public boolean assignRolesToUser(AppUser user, List<RoleType> roles){
-    // return false;
+     */
+
+   // public boolean assignRolesToUser(AppUser user, List<RoleType> roles){
+       // return false;
     //}
 
     /*
@@ -54,6 +56,7 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
      */
+
 
 
     @Override
@@ -91,6 +94,7 @@ public class AppUserServiceImpl implements AppUserService {
             log.warn("No appuser exist with ID: " + id);
             throw new AppUserNotFoundException(id);
         }
+
     }
 
     @Override

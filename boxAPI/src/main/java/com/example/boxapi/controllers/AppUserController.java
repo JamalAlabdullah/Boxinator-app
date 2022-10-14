@@ -144,7 +144,7 @@ public class AppUserController {
         if (appUserDTO.getId() != id) {
             ResponseEntity.badRequest().build();
         }
-        AppUser updatedUser = appUserService.update(
+        appUserService.update(
                 appUserMapper.appUserDTOtoAppUser(appUserDTO)
         );
 
