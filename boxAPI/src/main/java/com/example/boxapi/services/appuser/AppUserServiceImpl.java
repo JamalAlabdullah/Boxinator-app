@@ -89,7 +89,6 @@ public class AppUserServiceImpl implements AppUserService {
             AppUser appUser = appUserRepository.findById(id).get();
             appUser.getPackages().forEach(p -> p.setAppUser(null));
             appUserRepository.delete(appUser);
-            log.info("IS THIS HAPPENING AS WELL:MSD");
         } else {
             log.warn("No appuser exist with ID: " + id);
             throw new AppUserNotFoundException(id);
