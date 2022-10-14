@@ -25,7 +25,7 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public Collection<Package> findAll() {
-        return null;
+        return packageRepository.findAll();
     }
 
     @Override

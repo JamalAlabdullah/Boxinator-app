@@ -25,9 +25,11 @@ public class AppUserServiceImpl implements AppUserService{
         this.appUserRepository = appUserRepository;
     }
 
-    public boolean checkIfUserExists(String email){
+    /*public boolean checkIfUserExists(String email){
         return appUserRepository.existsByEmail(email);
     }
+
+     */
 
    // public boolean assignRolesToUser(AppUser user, List<RoleType> roles){
        // return false;
@@ -54,9 +56,9 @@ public class AppUserServiceImpl implements AppUserService{
      */
 
 
+
     @Override
-    public AppUser findById(Integer id) {
-        log.info("Hallo findById fungerer=");
+    public AppUser findById(String id) {
         return appUserRepository.findById(id).get();
     }
 
@@ -76,15 +78,16 @@ public class AppUserServiceImpl implements AppUserService{
     }
 
     @Override
-    public void deleteById(Integer integer) {
-        if (appUserRepository.existsById(integer)) {
-            AppUser appUser = appUserRepository.findById(integer).get();
+    public void deleteById(String id) {
+        if (appUserRepository.existsById(id)) {
+            AppUser appUser = appUserRepository.findById(id).get();
             appUser.getPackages().forEach(p -> p.setAppUser(null));
             appUserRepository.delete(appUser);
         } else {
-            log.warn("No appuser exist with ID: " + integer);
+            log.warn("No appuser exist with ID: " + id);
 
         }
+
     }
 
     @Override

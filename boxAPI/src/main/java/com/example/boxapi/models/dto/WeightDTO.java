@@ -10,8 +10,8 @@ import java.util.Set;
 @Setter
 public class WeightDTO {
 
-    private int id;
-    private WeightType weightType;
+    private String id;
+    //private WeightType weightType;
     private int value;
     private Set<Integer> packages;
 }

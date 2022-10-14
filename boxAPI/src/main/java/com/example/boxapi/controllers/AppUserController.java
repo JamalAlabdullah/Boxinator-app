@@ -135,11 +135,11 @@ public class AppUserController {
     })
     @PutMapping ("{id}") // GET: localhost:8080/api/v1/settings/countries:1
     //RolesAllowed("user")
-    public ResponseEntity update(@RequestBody AppUserDTO appUserDTO, @PathVariable int id) {
+    public ResponseEntity update(@RequestBody AppUserDTO appUserDTO, @PathVariable String id) {
         if (appUserDTO.getId() != id) {
             ResponseEntity.badRequest().build();
         }
-        AppUser updatedUser = appUserService.update(
+        appUserService.update(
                 appUserMapper.appUserDTOtoAppUser(appUserDTO)
         );
 
@@ -161,7 +161,7 @@ public class AppUserController {
     })
     @Operation(summary = "Delete user by ID")
     @DeleteMapping(":{id}")
-    public ResponseEntity delete(@PathVariable int id) {
+    public ResponseEntity delete(@PathVariable String id) {
         appUserService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

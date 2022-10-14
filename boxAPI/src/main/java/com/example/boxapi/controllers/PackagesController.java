@@ -143,7 +143,7 @@ public class PackagesController {
     })
 
     @GetMapping("customer/{id}")
-    public ResponseEntity getPackagesFromCustomer(@PathVariable int id) {
+    public ResponseEntity getPackagesFromCustomer(@PathVariable String id) {
         AppUser appUser = appUserService.findById(id);
         Collection<PackageDTO> packages = appUser.getPackages().stream().map(
                 packageMapper::packageToPackageDTO
