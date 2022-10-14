@@ -3,8 +3,10 @@ package com.example.boxapi.services.appuser;
 import com.example.boxapi.models.AppUser;
 import com.example.boxapi.models.enums.RoleType;
 import com.example.boxapi.repositories.AppUserRepository;
+import com.example.boxapi.services.appuser.appuserExceptions.AppUserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 //import org.springframework.security.oauth2.jwt.Jwt;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,7 @@ import java.util.List;
 //RequiredArgsConstructor
 @Transactional
 @Slf4j //logging
-public class AppUserServiceImpl implements AppUserService{
+public class AppUserServiceImpl implements AppUserService {
 
     @Autowired
     private final AppUserRepository appUserRepository;
@@ -58,8 +60,11 @@ public class AppUserServiceImpl implements AppUserService{
 
 
     @Override
-    public AppUser findById(String id) {
-        return appUserRepository.findById(id).get();
+    public AppUser findById(String id) throws AppUserNotFoundException {
+        //log.info(String.valueOf(new AppUserNotFoundException(id)));
+        return appUserRepository
+                .findById(id)
+                .orElseThrow(() -> new AppUserNotFoundException(id));
     }
 
     @Override
@@ -77,15 +82,16 @@ public class AppUserServiceImpl implements AppUserService{
         return null;
     }
 
+
     @Override
-    public void deleteById(String id) {
+    public void deleteById(String id) throws AppUserNotFoundException {
         if (appUserRepository.existsById(id)) {
             AppUser appUser = appUserRepository.findById(id).get();
             appUser.getPackages().forEach(p -> p.setAppUser(null));
             appUserRepository.delete(appUser);
         } else {
             log.warn("No appuser exist with ID: " + id);
-
+            throw new AppUserNotFoundException(id);
         }
 
     }
