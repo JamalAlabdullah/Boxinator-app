@@ -6,6 +6,7 @@ import com.example.boxapi.models.AppUser;
 import com.example.boxapi.models.dto.AppUserDTO;
 import com.example.boxapi.models.dto.CountryDTO;
 import com.example.boxapi.services.appuser.AppUserServiceImpl;
+import com.example.boxapi.util.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -47,21 +48,25 @@ public class AppUserController {
                             schema = @Schema(implementation = AppUserDTO.class))}),
             @ApiResponse(responseCode = "404",
                     description = "User not found with supplied ID",
-                    content = @Content)
+                    content =
+                            {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiErrorResponse.class))})
     })
-
+/*
     // This lets us see the entire principal object that spring security keeps of our user
     @GetMapping("/principal")
-    public Principal getUser(Principal user){
+    public Principal getUser(Principal user) {
         return user;
     }
 
-    //@GetMapping("{id}") // GET: localhost:8080/api/v1/account/1
+ */
+
+    @GetMapping("{id}") // GET: localhost:8080/api/v1/account/1
     //RolesAllowed("user") //case sensitive!
-    //public ResponseEntity getById(@PathVariable int id) {
-    //    AppUserDTO appUserDTO = appUserMapper.appUserToAppUserDTO(appUserService.findById(id));
-    //    return ResponseEntity.ok(appUserDTO);
-    //}
+    public ResponseEntity getById(@PathVariable int id) {
+        AppUserDTO appUserDTO = appUserMapper.appUserToAppUserDTO(appUserService.findById(id));
+        return ResponseEntity.ok(appUserDTO);
+    }
 
     /*
     @GetMapping("current")
@@ -133,7 +138,7 @@ public class AppUserController {
                     description = "User not found with supplied ID",
                     content = @Content)
     })
-    @PutMapping ("{id}") // GET: localhost:8080/api/v1/settings/countries:1
+    @PutMapping("{id}") // GET: localhost:8080/api/v1/settings/countries:1
     //RolesAllowed("user")
     public ResponseEntity update(@RequestBody AppUserDTO appUserDTO, @PathVariable String id) {
         if (appUserDTO.getId() != id) {
@@ -165,8 +170,6 @@ public class AppUserController {
         appUserService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
-
 
 
     // This endpoint just shows the information from the token
