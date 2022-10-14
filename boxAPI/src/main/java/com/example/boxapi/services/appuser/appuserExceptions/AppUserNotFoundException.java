@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class AppUserNotFoundException extends RuntimeException{
 
-    public AppUserNotFoundException(int id) {super("No appuser with id " + id + " exists");}
+    public AppUserNotFoundException(String id) {super("No appuser with id " + id + " exists");}
 }

@@ -57,7 +57,7 @@ public class AppUserServiceImpl implements AppUserService {
 
 
     @Override
-    public AppUser findById(Integer id) throws AppUserNotFoundException {
+    public AppUser findById(String id) throws AppUserNotFoundException {
         //log.info(String.valueOf(new AppUserNotFoundException(id)));
         return appUserRepository
                 .findById(id)
@@ -79,16 +79,17 @@ public class AppUserServiceImpl implements AppUserService {
         return null;
     }
 
+
     @Override
-    public void deleteById(Integer integer) throws AppUserNotFoundException {
-        if (appUserRepository.existsById(integer)) {
-            AppUser appUser = appUserRepository.findById(integer).get();
+    public void deleteById(String id) throws AppUserNotFoundException {
+        if (appUserRepository.existsById(id)) {
+            AppUser appUser = appUserRepository.findById(id).get();
             appUser.getPackages().forEach(p -> p.setAppUser(null));
             appUserRepository.delete(appUser);
             log.info("IS THIS HAPPENING AS WELL:MSD");
         } else {
-            log.warn("No appuser exist with ID: " + integer);
-            throw new AppUserNotFoundException(integer);
+            log.warn("No appuser exist with ID: " + id);
+            throw new AppUserNotFoundException(id);
         }
     }
 
