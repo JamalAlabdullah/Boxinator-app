@@ -1,10 +1,10 @@
 import {Modal } from 'react-bootstrap'
 import './packagemodal.css';
-import Cart from '../Form/TotalAmount';
+import TotalAmount from '../Form/TotalAmount';
 
 import PackageForm from '../Form/PackageForm';
 
-const PackageModal = ({setIsOpen, countries}) => {
+const PackageModal = ({setIsOpen}) => {
 const handleClose = () => setIsOpen(false);
 
 
@@ -24,7 +24,7 @@ return (
 
     </Modal.Body>
     <Modal.Footer>
-       <Cart/>
+       <TotalAmount/>
     </Modal.Footer>
 
   </Modal>

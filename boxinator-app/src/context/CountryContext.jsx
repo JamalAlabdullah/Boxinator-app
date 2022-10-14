@@ -8,7 +8,7 @@ import { createContext } from "react";
 const CountryContext = createContext()
 
 export const useCountry = () => {
-    return useContext(CountryContext) // {countries, setCountry}
+    return useContext(CountryContext) // {countries, setCountries}
 }
 
 
@@ -16,11 +16,12 @@ export const useCountry = () => {
 
 const CountryProvider = ({children}) => {
 
-    const [countries, setCountry] = useState(null)
+    const [countries, setCountries] = useState([])
 
     const state = {
         countries,
-        setCountry
+        setCountries
+
     }
 
     return (
