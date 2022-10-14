@@ -1,12 +1,12 @@
-import CountryProvider from "./CountryContext"
+import UserProvider from "./UserContext"
 
 // responsible for merging all the context 
 const AppContext = ({children}) => {
     
     return (
-        <CountryProvider>
+        <UserProvider>
         {children}
-        </CountryProvider>
+        </UserProvider>
     )
    
 
