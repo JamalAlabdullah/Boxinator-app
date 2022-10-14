@@ -26,7 +26,7 @@ public class Package {
     @Enumerated(EnumType.STRING)
     private Status status;
     @Column(length = 100)
-    private String mail;
+    private int totalSum;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

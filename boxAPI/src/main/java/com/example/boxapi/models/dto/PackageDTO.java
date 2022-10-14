@@ -22,5 +22,6 @@ public class PackageDTO {
     //private String mail;
     private String appUser;
     private String country;
+    private int totalSum;
 
 }
