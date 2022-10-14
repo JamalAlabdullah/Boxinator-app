@@ -7,8 +7,8 @@ import { createContext } from "react";
 
 const UserContext = createContext()
 
-export const useCountry = () => {
-    return useContext(UserContext) // {countries, setCountry}
+export const useUser = () => {
+    return useContext(UserContext) // {user, setUser}
 }
 
 

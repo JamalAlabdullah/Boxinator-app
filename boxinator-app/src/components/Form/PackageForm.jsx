@@ -1,6 +1,7 @@
 import { Form, Button } from 'react-bootstrap';
 import {useForm} from 'react-hook-form';
 import {useEffect, useState} from 'react'
+import { useCountry } from '../../context/CountryContext';
 import '../Modal/packagemodal.css';
 import axios from 'axios';
 
@@ -15,7 +16,9 @@ const PackageForm = () => {
   //HOOKS
   const {register, handleSubmit, reset} = useForm()
 
-  const [countries, setCountries] = useState([])
+  //const {user, setUser} = useUser()
+
+  const {countries, setCountries} = useCountry()
   const [resStatus, setResStatus] = useState("");
 
     useEffect(() => {
@@ -100,9 +103,9 @@ const PackageForm = () => {
           <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Destination</Form.Label>
           <Form.Select name="country"  { ... register("country", packageConfig)}>
-            <option></option>
+          <option></option> 
            {countries.map((country)  => ( 
-            <option key={country.id}>{country.country_name}</option>
+            <option key={country.id}>{country.id}</option>
            ))}
           </Form.Select > 
         </Form.Group>
