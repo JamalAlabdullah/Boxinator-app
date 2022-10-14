@@ -38,7 +38,7 @@ const PackageForm = () => {
       weight: data.weight,
       color: data.color, 
       appUser: "1",
-      country: "1"
+      country: data.country
     })
     .then(function (response) {
       console.log(response.status);
@@ -102,7 +102,7 @@ const PackageForm = () => {
           <Form.Select name="country"  { ... register("country", packageConfig)}>
             <option></option>
            {countries.map((country)  => ( 
-            <option key={country.id}>{country.country_name}</option>
+            <option key={country.id}>{country.id}</option>
            ))}
           </Form.Select > 
         </Form.Group>

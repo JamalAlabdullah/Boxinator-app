@@ -2,6 +2,8 @@ import { useState } from "react"
 import HomePackages from "../pages/HomePage/HomePackages";
 import PackageModal from "../components/Modal/PackageModal";
 
+import AdminForm from "../components/Admin/AdminForm";
+
 const HomePage = () => {
 
 const [isOpen, setIsOpen] = useState(false)
@@ -15,6 +17,10 @@ const [isOpen, setIsOpen] = useState(false)
             {isOpen && <PackageModal setIsOpen={setIsOpen} />}
 
             <HomePackages />
+
+            <h2>Admin Test: Remove Later</h2>
+
+            <AdminForm />
         
         </div>
     )

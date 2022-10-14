@@ -27,10 +27,14 @@ html {
 
 #packLi {
     background-color: #EEEEEE;
+    width: 100%;
     margin: 10px;
     padding: 10px;
     border-left: 8px solid #FCF7DD;
     border-right: 8px solid #FCF7DD;
+    border-top: none;
+    border-bottom: none;
+    text-align: center;
 }
 
 #homeH1 {
@@ -82,7 +86,10 @@ html {
     padding: 10px;
     border-left: 8px solid #FCF7DD;
     border-right: 8px solid #FCF7DD;
+    border-top: none;
+    border-bottom: none;
     width: 60%;
+    text-align: center;
 }
 
 #country::placeholder, #postCode::placeholder, #conNumb::placeholder {
