@@ -22,7 +22,7 @@ public class AppUser {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "user_id")
-    private String id; //email?
+    private String id;
     @Column(length = 50)
     private LocalDate birthday;
     @Column(length = 50)
