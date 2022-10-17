@@ -5,6 +5,7 @@ import com.example.boxapi.mappers.AppUserMapper;
 import com.example.boxapi.models.AppUser;
 import com.example.boxapi.models.dto.AppUserDTO;
 import com.example.boxapi.models.dto.CountryDTO;
+import com.example.boxapi.models.dto.ResponseMessage;
 import com.example.boxapi.services.appuser.AppUserServiceImpl;
 import com.example.boxapi.util.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -63,8 +64,14 @@ public class AppUserController {
 
     @GetMapping("{id}") // GET: localhost:8080/api/v1/account/1
     //RolesAllowed("user") //case sensitive!
-    public ResponseEntity getById(@PathVariable String id) {
+    public ResponseEntity getById(@PathVariable String id, @AuthenticationPrincipal Jwt jwt) {
         AppUserDTO appUserDTO = appUserMapper.appUserToAppUserDTO(appUserService.findById(id));
+        if(id != jwt.getClaimAsString("sub"))
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("User ID does not match!");
+        ResponseMessage message = new ResponseMessage();
+        message.setMessage("Resources for user:" + id);
         return ResponseEntity.ok(appUserDTO);
     }
 
@@ -111,10 +118,12 @@ public class AppUserController {
                     content = @Content)
     })
     @PostMapping()
-    public ResponseEntity add(@RequestBody AppUserDTO appUserDTO) {
+    public ResponseEntity add(@AuthenticationPrincipal Jwt jwt) {//@RequestBody AppUserDTO appUserDTO) {
         AppUser newAppuser = appUserService.add(
-                appUserMapper.appUserDTOtoAppUser(appUserDTO)
-        );
+                jwt.getClaimAsString("sub"));
+        //AppUser newAppuser = appUserService.add(
+        //        appUserMapper.appUserDTOtoAppUser(appUserDTO)
+        //);
         URI uri = URI.create("account/" + newAppuser.getId());
         return ResponseEntity.created(uri).build();
     }

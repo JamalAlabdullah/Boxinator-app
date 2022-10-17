@@ -30,10 +30,16 @@ public class AppUser {
     private int phone_number;
     @Enumerated(EnumType.STRING)
     private RoleType role;
-
+    @Column(length = 150)
     private String username;
+    @Column(length = 150)
     private String name;
+    @Column(length = 150)
     private String password;
+    @Column(length = 150)
+    private String email;
+    @Column(length = 10)
+    private Boolean complete;
 
     //Navigation/relationships
     @OneToMany(mappedBy = "appUser")

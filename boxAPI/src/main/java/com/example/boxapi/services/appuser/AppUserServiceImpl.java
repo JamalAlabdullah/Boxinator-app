@@ -33,8 +33,8 @@ public class AppUserServiceImpl implements AppUserService {
 
      */
 
-   // public boolean assignRolesToUser(AppUser user, List<RoleType> roles){
-       // return false;
+    // public boolean assignRolesToUser(AppUser user, List<RoleType> roles){
+    // return false;
     //}
 
     /*
@@ -58,7 +58,6 @@ public class AppUserServiceImpl implements AppUserService {
      */
 
 
-
     @Override
     public AppUser findById(String id) throws AppUserNotFoundException {
         //log.info(String.valueOf(new AppUserNotFoundException(id)));
@@ -74,7 +73,21 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public AppUser add(AppUser entity) {
+        if (appUserRepository.existsById(entity.getId()))
+            // TODO make new exception
+            throw new AppUserNotFoundException(entity.getId());
         return appUserRepository.save(entity);
+    }
+
+    @Override
+    public AppUser add(String uid) {
+        if (appUserRepository.existsById(uid))
+            // TODO make new exception
+            throw new AppUserNotFoundException(uid);
+        AppUser newAppuser = new AppUser();
+        newAppuser.setId(uid);
+        newAppuser.setComplete(false);
+        return appUserRepository.save(newAppuser);
     }
 
     @Override
@@ -100,6 +113,7 @@ public class AppUserServiceImpl implements AppUserService {
     public void delete(AppUser entity) {
 
     }
+
 
     @Override
     public AppUser saveUser(AppUser user) {

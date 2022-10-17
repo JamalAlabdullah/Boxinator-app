@@ -18,5 +18,7 @@ public class AppUserDTO {
     private int phone_number;
     private Set<Integer> packages;
     private RoleType role;
+    private String email;
+    private Boolean complete;
 }
 

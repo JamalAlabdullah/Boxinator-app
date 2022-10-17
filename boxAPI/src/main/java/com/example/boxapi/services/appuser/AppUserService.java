@@ -15,5 +15,7 @@ public interface AppUserService extends CrudService<AppUser, String> {
      */
     AppUser getUser(String username);
 
+    AppUser add(String uid);
+
     Collection<AppUser> getUsers(); //should return a page with a limit of users? video: 21:00
 }

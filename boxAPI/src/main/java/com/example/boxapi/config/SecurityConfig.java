@@ -29,17 +29,17 @@ public class SecurityConfig {
                 .csrf().disable()
                 // Enable security for http requests
                 .authorizeHttpRequests(authorize -> authorize
-                        // Specify paths where public access is allowed
-                        //.mvcMatchers("/api/v1/account/").permitAll()
-                        //.mvcMatchers("/api/v1/account/{id}").permitAll()
-                        // Specify paths to be protected with scope
-                        //.mvcMatchers("/api/v1/account/{id}").hasAuthority("SCOPE_profile")
-                        // Specify paths to be protected with role
-                        //.mvcMatchers("/api/v1/account/").hasRole("ADMIN")
-                        // All remaining paths require authentication
-                        //.anyRequest().authenticated()
-                        .antMatchers().permitAll()
-                        .anyRequest().permitAll()
+                                // Specify paths where public access is allowed
+                                //.mvcMatchers("/api/v1/account/").permitAll()
+                                //.mvcMatchers("/api/v1/settings/countries").permitAll()
+                                // Specify paths to be protected with scope
+                                //.mvcMatchers("/api/v1/account/{id}").hasAuthority("SCOPE_profile")
+                                // Specify paths to be protected with role
+                                .mvcMatchers("/api/v1/settings/countries").hasRole("admin")
+                                // All remaining paths require authentication
+                                .anyRequest().authenticated()
+                        // .antMatchers().permitAll()
+                        // .anyRequest().permitAll()
                 )
                 .oauth2ResourceServer()
                 .jwt()
