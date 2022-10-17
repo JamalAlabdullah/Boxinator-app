@@ -29,6 +29,7 @@ import javax.annotation.security.RolesAllowed;
 import java.net.URI;
 import java.security.Principal;
 import java.util.Collection;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -66,7 +67,7 @@ public class AppUserController {
     //RolesAllowed("user") //case sensitive!
     public ResponseEntity getById(@PathVariable String id, @AuthenticationPrincipal Jwt jwt) {
         AppUserDTO appUserDTO = appUserMapper.appUserToAppUserDTO(appUserService.findById(id));
-        if(id != jwt.getClaimAsString("sub"))
+        if(!Objects.equals(id, jwt.getClaimAsString("sub")))
             return ResponseEntity
                     .status(HttpStatus.FORBIDDEN)
                     .body("User ID does not match!");
@@ -75,6 +76,14 @@ public class AppUserController {
         return ResponseEntity.ok(appUserDTO);
     }
 
+    @GetMapping("current")
+    public ResponseEntity getCurrentLogUser(@AuthenticationPrincipal Jwt jwt) {
+        return ResponseEntity.ok(
+                appUserService.findById(
+                        jwt.getClaimAsString("sub")
+                )
+        );
+    }
     /*
     @GetMapping("current")
     public ResponseEntity getCurrentlyLoggedInUser(@AuthenticationPrincipal Jwt jwt) {
