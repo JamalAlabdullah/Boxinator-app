@@ -92,10 +92,11 @@ public class AppUserServiceImpl implements AppUserService {
 
         return appUserRepository.save(newAppuser);
     }
-
+    // TODO ble dette riktig?
+    // TODO Packages ser ikke ut til å bli riktig når man endrer på bruker
     @Override
     public AppUser update(AppUser entity) {
-        return null;
+        return appUserRepository.save(entity);
     }
 
 
@@ -106,6 +107,7 @@ public class AppUserServiceImpl implements AppUserService {
             appUser.getPackages().forEach(p -> p.setAppUser(null));
             appUserRepository.delete(appUser);
         } else {
+            log.warn(String.valueOf(appUserRepository.existsById(id)) + " HVA er dette");
             log.warn("No appuser exist with ID: " + id);
             throw new AppUserNotFoundException(id);
         }

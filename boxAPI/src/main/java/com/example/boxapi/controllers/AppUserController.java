@@ -105,7 +105,7 @@ public class AppUserController {
     }
     */
 
-
+    // TODO Er kanskje ikke nødvendig?
     @GetMapping
     //RolesAllowed("admin") //case sensitive
     public ResponseEntity<Collection<AppUserDTO>> getUsers() {
@@ -159,9 +159,9 @@ public class AppUserController {
     @PutMapping("{id}") // GET: localhost:8080/api/v1/settings/countries:1
     //RolesAllowed("user")
     public ResponseEntity update(@RequestBody AppUserDTO appUserDTO, @AuthenticationPrincipal Jwt jwt) {
-        if (!appUserDTO.getId().equals(jwt.getClaimAsString("sub"))) {
-            ResponseEntity.badRequest().build();
-        }
+       // if (!appUserDTO.getId().equals(jwt.getClaimAsString("sub"))) {
+       //     ResponseEntity.badRequest().build();
+       // }
         appUserService.update(
                 appUserMapper.appUserDTOtoAppUser(appUserDTO)
         );
@@ -182,10 +182,12 @@ public class AppUserController {
                     description = "User not found with supplied ID",
                     content = @Content)
     })
+    // TODO sletter kun innlogget bruker, testet dette via postman. Usikker på
+    // TODO hvordan dette skal gjøres
     @Operation(summary = "Delete user by ID")
     @DeleteMapping(":{id}")
-    public ResponseEntity delete(@PathVariable String id) {
-        appUserService.deleteById(id);
+    public ResponseEntity delete(@AuthenticationPrincipal Jwt jwt) {
+        appUserService.deleteById(jwt.getClaimAsString("sub"));
         return ResponseEntity.noContent().build();
     }
 }
