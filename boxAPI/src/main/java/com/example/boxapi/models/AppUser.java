@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -18,6 +19,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class AppUser {
     @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "user_id")
     private String id; //email?
     @Column(length = 50)
@@ -30,10 +33,14 @@ public class AppUser {
     private int phone_number;
     @Enumerated(EnumType.STRING)
     private RoleType role;
-
+    @Column(length = 100)
     private String username;
+    @Column(length = 150)
     private String name;
+    @Column(length = 150)
     private String password;
+    @Column(length = 150)
+    private String email;
 
     //Navigation/relationships
     @OneToMany(mappedBy = "appUser")
