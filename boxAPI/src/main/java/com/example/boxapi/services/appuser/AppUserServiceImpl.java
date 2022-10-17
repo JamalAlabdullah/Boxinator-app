@@ -1,17 +1,19 @@
 package com.example.boxapi.services.appuser;
 
 import com.example.boxapi.models.AppUser;
-import com.example.boxapi.models.enums.RoleType;
 import com.example.boxapi.repositories.AppUserRepository;
 import com.example.boxapi.services.appuser.appuserExceptions.AppUserNotFoundException;
+
 import lombok.extern.slf4j.Slf4j;
 //import org.springframework.security.oauth2.jwt.Jwt;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.net.URI;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -87,6 +89,7 @@ public class AppUserServiceImpl implements AppUserService {
         AppUser newAppuser = new AppUser();
         newAppuser.setId(uid);
         newAppuser.setComplete(false);
+
         return appUserRepository.save(newAppuser);
     }
 
@@ -152,4 +155,17 @@ public class AppUserServiceImpl implements AppUserService {
 
         return appUserRepository.findAll();
     }
+
+    public AppUser createNewUserFromJWT(Jwt principal){
+        AppUser newAppUser = new AppUser();
+        newAppUser.setId(principal.getClaimAsString("sub"));
+        newAppUser.setEmail(principal.getClaimAsString("email"));
+        newAppUser.setName(principal.getClaimAsString("name"));
+        newAppUser.setUsername(principal.getClaimAsString("preferred_username"));
+        newAppUser = appUserRepository.save(newAppUser);
+
+        return newAppUser;
+    }
+
+
 }

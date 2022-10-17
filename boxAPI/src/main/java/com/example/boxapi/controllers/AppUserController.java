@@ -119,8 +119,8 @@ public class AppUserController {
     })
     @PostMapping()
     public ResponseEntity add(@AuthenticationPrincipal Jwt jwt) {//@RequestBody AppUserDTO appUserDTO) {
-        AppUser newAppuser = appUserService.add(
-                jwt.getClaimAsString("sub"));
+        AppUser newAppuser = appUserService.createNewUserFromJWT(
+                jwt);
         //AppUser newAppuser = appUserService.add(
         //        appUserMapper.appUserDTOtoAppUser(appUserDTO)
         //);
@@ -149,8 +149,8 @@ public class AppUserController {
     })
     @PutMapping("{id}") // GET: localhost:8080/api/v1/settings/countries:1
     //RolesAllowed("user")
-    public ResponseEntity update(@RequestBody AppUserDTO appUserDTO, @PathVariable String id) {
-        if (appUserDTO.getId() != id) {
+    public ResponseEntity update(@RequestBody AppUserDTO appUserDTO, @AuthenticationPrincipal Jwt jwt) {
+        if (!appUserDTO.getId().equals(jwt.getClaimAsString("sub"))) {
             ResponseEntity.badRequest().build();
         }
         appUserService.update(
@@ -179,33 +179,5 @@ public class AppUserController {
         appUserService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
-
-    // This endpoint just shows the information from the token
-    // The token is received through the @AuthenticationPrincipal via Spring Security.
-   /* @GetMapping
-    public Map<String, Object> getUserInfo(@AuthenticationPrincipal Jwt principal) {
-        Map<String, String> map = new Hashtable<String, String>();
-        map.put("user_name", principal.getClaimAsString("preferred_username"));
-        map.put("email", principal.getClaimAsString("email"));
-        map.put("first_name", principal.getClaimAsString("given_name"));
-        map.put("last_name", principal.getClaimAsString("family_name"));
-        map.put("roles", String.valueOf(principal.getClaimAsStringList("roles")));
-        return Collections.unmodifiableMap(map);
-    }
-
-    // This lets us see the entire principal object that spring security keeps of our user
-    @GetMapping("/principal")
-    public Principal getUser(Principal user){
-        return user;
-    }
-
-    @PostMapping
-    public ResponseEntity<AppUser> addNewUser(@AuthenticationPrincipal Jwt principal){
-        if(appUserService.checkIfUserExists(principal.getClaimAsString("email")))
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-
-        return ResponseEntity.ok(appUserService.createNewUserProfileFromJWT(principal));
-    }*/
 }
 

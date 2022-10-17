@@ -1,7 +1,6 @@
 package com.example.boxapi.models;
 
 
-import com.example.boxapi.models.enums.RoleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,8 +27,8 @@ public class AppUser {
     private int postal_code;
     @Column(length = 15)
     private int phone_number;
-    @Enumerated(EnumType.STRING)
-    private RoleType role;
+    @Column
+    private String role;
     @Column(length = 150)
     private String username;
     @Column(length = 150)
