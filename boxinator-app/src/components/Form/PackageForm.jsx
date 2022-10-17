@@ -3,8 +3,10 @@ import {useForm} from 'react-hook-form';
 import {useEffect, useState} from 'react'
 import '../Modal/packagemodal.css';
 import axios from 'axios';
+import { ntc } from "../../utils/ntc" // Used to convert hex and rgb to a color name
 
-const baseURL = 'http://localhost:8080/api/v1'; 
+const baseURL = 'http://localhost:8080/api/v1';
+const userId = 2; 
 
 const packageConfig = {
   required: true,
@@ -31,13 +33,18 @@ const PackageForm = () => {
 
     
   const onSubmit = (data)=> {
-    console.log("Data: " + data.country);
+    //Color - Hex to String
+    let colorConv = ntc.name(data.color)
+    //let rgb = colorConv[0];
+    let colorName = colorConv[1];
+
+    console.log("Data: " + data.weight.id);
     axios
     .post(baseURL + '/shipments', {
       receiver_name: data.receiver_name,
       weight: data.weight,
-      color: data.color, 
-      appUser: "1",
+      color: colorName, 
+      appUser: userId,
       country: data.country
     })
     .then(function (response) {
@@ -52,6 +59,7 @@ const PackageForm = () => {
       console.log(error);
     });
     reset()
+    window.location = "/home"
     console.log(resStatus);
 };
 
@@ -91,8 +99,8 @@ const PackageForm = () => {
           <option></option> 
           <option value="1">Basic 1 kg</option>
           <option value="2">Humble 2 kg</option>
-          <option value="5">Deluxe 5 kg</option>
-          <option value="8">Premium 8 kg</option>
+          <option value="3">Deluxe 5 kg</option>
+          <option value="4">Premium 8 kg</option>
           </Form.Select> 
         </Form.Group>
 

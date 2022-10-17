@@ -5,6 +5,7 @@ import axios from 'axios'; //Axios
 import React from 'react';
 
 const baseURL = "http://localhost:8080/api/v1/shipments"; // Api connection
+const userId = 2;
 
 const HomePackages = () => {
 
@@ -32,7 +33,7 @@ const HomePackages = () => {
     let temp = []; //Array used to temporarly store packages packages
 
     for (let i = 0; i < packages.length; i++) { //Pushes a spesific packages packages to temp[] array
-        if(packages[i].appUser === 2) {
+        if(packages[i].appUser === userId) {
             temp.push(packages[i]);
         }
     }

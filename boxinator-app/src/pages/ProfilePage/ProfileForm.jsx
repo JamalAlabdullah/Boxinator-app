@@ -2,6 +2,7 @@ import axios from 'axios'; //Axios
 import React, { useState } from 'react';
 
 const baseURL = "http://localhost:8080/api/v1/account"; // Api connection
+const userId = 1;
 
 const ProfileForm = () => {
 
@@ -26,7 +27,7 @@ const ProfileForm = () => {
     let temp = [];
 
     for (let i = 0; i < user.length; i++) { //Pushes a specific users packages to temp[] array
-        if(user[i].id === 2) {
+        if(user[i].id === userId) {
             temp.push(user[i]);
         }
     }
@@ -50,7 +51,7 @@ const ProfileForm = () => {
         event.preventDefault();
         
         axios.post(baseURL, { 
-            id: "2", 
+            id: userId, 
             birthday: updatedDate, 
             country: updatedCountry,
             postal_code: updatedPost,

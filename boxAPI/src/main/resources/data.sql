@@ -34,4 +34,10 @@ VALUES('Ole Syverinsen', 'orange', 'oXXXXXXXXXXXXXXX', 'CANCELLED');
 
 -- Weight
 INSERT INTO weight (weight_type, value)
-VALUES ('BASIC', 1)
+VALUES ('BASIC', 1);
+INSERT INTO weight (weight_type, value)
+VALUES ('HUMBLE', 2);
+INSERT INTO weight (weight_type, value)
+VALUES ('DELUXE', 5);
+INSERT INTO weight (weight_type, value)
+VALUES ('PREMIUM', 8);
