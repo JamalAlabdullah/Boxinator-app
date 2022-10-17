@@ -3,6 +3,7 @@ package com.example.boxapi.services.weight;
 import com.example.boxapi.models.Weight;
 import com.example.boxapi.models.enums.WeightType;
 import com.example.boxapi.repositories.WeightRepository;
+import com.example.boxapi.services.weight.weightExceptions.WeighNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,10 @@ public class WeightServiceImpl implements WeightService{
      */
 
     @Override
-    public Weight findById(WeightType weightType) {
-        return weightRepository.findById(weightType).get();
+    public Weight findById(WeightType weightType) throws WeighNotFoundException {
+        return weightRepository
+                .findById(weightType)
+                .orElseThrow(() -> new WeighNotFoundException(weightType));
     }
 
     @Override
