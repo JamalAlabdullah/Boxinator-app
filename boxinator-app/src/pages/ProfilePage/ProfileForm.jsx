@@ -3,15 +3,16 @@ import React, { useState, useEffect } from 'react';
 import { useUser } from '../../context/UserContext';
 
 const baseURL = "http://localhost:8080/api/v1/account"; // Api connection
+const userId = "pernille.ofte@no.experis.com";
 
 const ProfileForm = () => {
 
     const [ updatedDate, setDate  ] = useState('');
     const [ updatedCountry, setCountry ] = useState('');
     const [ updatedPost, setPost  ] = useState('');
-    const [ updatedNumb, setNumb  ] = useState('');
+    const [ updatedNumb, setNumb  ] = useState(''); 
 
-    // Axios ------------------------------
+    // Axios ------------------------------ 
 
     const {user, setUser} = useUser()
 
@@ -27,7 +28,7 @@ const ProfileForm = () => {
     let temp = [];
 
     for (let i = 0; i < user.length; i++) { //Pushes a specific users packages to temp[] array
-        if(user[i].id === 2) {
+        if(user[i].id === userId) {
             temp.push(user[i]);
         }
     }
@@ -51,7 +52,7 @@ const ProfileForm = () => {
         event.preventDefault();
         
         axios.post(baseURL, { 
-            id: "2", 
+            id: userId, 
             birthday: updatedDate, 
             country: updatedCountry,
             postal_code: updatedPost,
@@ -63,8 +64,7 @@ const ProfileForm = () => {
             window.location = "/profile" //This line of code will redirect you once the submission is succeed
         })
     }
-
-
+    
     return (
         <form id="profForm" onSubmit={onSubmit}>
 
@@ -93,7 +93,7 @@ const ProfileForm = () => {
                     defaultValue={temp[0].phone_number}
                     onChange={event => setNumb(event.target.value)} 
                 />
-
+                
             </fieldset>
             <button id="btnContinue" type="submit">Save Changes</button>
 

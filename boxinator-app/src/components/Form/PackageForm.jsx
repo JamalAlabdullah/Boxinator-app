@@ -5,7 +5,8 @@ import { useCountry } from '../../context/CountryContext';
 import '../Modal/packagemodal.css';
 import axios from 'axios';
 
-const baseURL = 'http://localhost:8080/api/v1'; 
+const baseURL = 'http://localhost:8080/api/v1';
+const userId = "pernille.ofte@no.experis.com";  
 
 const packageConfig = {
   required: true,
@@ -40,8 +41,8 @@ const PackageForm = () => {
       receiver_name: data.receiver_name,
       weight: data.weight,
       color: data.color, 
-      appUser: "1",
-      country: "1"
+      appUser: userId,
+      country: data.country
     })
     .then(function (response) {
       console.log(response.status);
