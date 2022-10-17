@@ -1,6 +1,7 @@
 import source from "../../stamp-svgrepo-com.svg";
 import axios from 'axios'; //Axios
 import React, { useState } from 'react';
+import { ntc } from "../../utils/ntc" // Used to convert hex and rgb to a color name
 //import { useForm } from "react-hook-form";
 
 const baseURL = "http://localhost:8080/api/v1";
@@ -16,14 +17,21 @@ const AdminForm = () => {
     */
     //const {register, handleSubmit, reset} = useForm();
     const [packages, setPackage] = React.useState(null);
-    
+    const [ countries, setCountries ] = React.useState(null);
 
     // GET all packages
     React.useEffect(() => {
         axios.get(baseURL + "/shipments").then((response) => {
             setPackage(response.data);
         });
+        axios.get(baseURL + "/settings/countries").then((response) => {
+            setCountries(response.data);
+        });
     }, []);
+
+    if (!packages) return null;
+
+    // GET all countries
 
     if (!packages) return null;
 
@@ -63,9 +71,7 @@ const AdminForm = () => {
                         <ul id="packUl" >
 
                             <li id="packLiImg">
-                                <input type="text" id="pName" name={appUser} defaultValue={receiver_name}
-                           
-                                />
+                                <input type="text" id="pName" name={appUser} defaultValue={receiver_name} />
                                 <img id="stampImg" src={source} alt="Stamp SVG" 
                                     style={{
                                         border:"6px solid " + color,
@@ -74,19 +80,18 @@ const AdminForm = () => {
                             </li>
 
                             <li>
-                                <input type="text" id="packLi" defaultValue={weight}
-                       
-                                />
+                                <input type="text" id="packLi" defaultValue={weight} />
+                            </li>
+                            <li id="packLiImg">
+                                <p id="pColor">{ntc.name(color)[1]}</p>
+                                <input type="color" id="adminColor" defaultValue={color}/>
                             </li>
                             <li>
-                                <input type="text" id="packLi" defaultValue={color} 
-                          
-                                />
-                            </li>
-                            <li>
-                                <input type="text" id="packLi" defaultValue={country} 
-                            
-                                />
+                                <select name="countriesDrop" id="countDrop" defaultValue={country}>
+                                    {countries.map((country)  => ( 
+                                        <option key={country.id}>{country.id}</option>
+                                    ))}
+                                </select>
                             </li>
 
                             <li>

@@ -25,10 +25,10 @@ html {
     margin: 0 auto;
 }
 
-#packLi {
+#packLi, #countDrop {
     background-color: #EEEEEE;
     width: 100%;
-    margin: 10px;
+    margin: 10px auto;
     padding: 10px;
     border-left: 8px solid #FCF7DD;
     border-right: 8px solid #FCF7DD;
@@ -69,6 +69,7 @@ html {
 #stampImg {
     width: 25%;
     margin: 10px;
+    margin-right: 0px;
     border-radius: 10px;
     background-color: #EEEEEE;
     padding: 5px;
@@ -78,11 +79,13 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
-#pName {
+#pName, #pColor {
     background-color: #EEEEEE;
     margin: 10px;
+    margin-left: 0px;
     padding: 10px;
     border-left: 8px solid #FCF7DD;
     border-right: 8px solid #FCF7DD;
@@ -92,6 +95,16 @@ html {
     text-align: center;
 }
 
+#pColor {
+    width: 75%;
+}
+
 #country::placeholder, #postCode::placeholder, #conNumb::placeholder {
     opacity: 1;
+}
+
+#adminColor {
+    border-radius: 5px;
+    border: none;
+    padding: 7px;
 }

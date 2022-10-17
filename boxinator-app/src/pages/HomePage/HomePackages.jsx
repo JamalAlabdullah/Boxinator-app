@@ -1,5 +1,5 @@
 import './homepage.css'
-//import { ntc } from "../../utils/ntc" // Used to convert hex and rgb to a color name
+import { ntc } from "../../utils/ntc" // Used to convert hex and rgb to a color name
 import source from "../../stamp-svgrepo-com.svg";
 import axios from 'axios'; //Axios
 import React from 'react';
@@ -55,7 +55,7 @@ const HomePackages = () => {
                         </li>
 
                         <li id="packLi">{weight}</li>
-                        <li id="packLi">{color}</li>
+                        <li id="packLi">{ntc.name(color)[1]}</li>
                         <li id="packLi">{country}</li>
                     </ul> 
                 </div>

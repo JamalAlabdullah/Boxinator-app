@@ -3,7 +3,6 @@ import {useForm} from 'react-hook-form';
 import {useEffect, useState} from 'react'
 import '../Modal/packagemodal.css';
 import axios from 'axios';
-import { ntc } from "../../utils/ntc" // Used to convert hex and rgb to a color name
 
 const baseURL = 'http://localhost:8080/api/v1';
 const userId = 2; 
@@ -33,17 +32,13 @@ const PackageForm = () => {
 
     
   const onSubmit = (data)=> {
-    //Color - Hex to String
-    let colorConv = ntc.name(data.color)
-    //let rgb = colorConv[0];
-    let colorName = colorConv[1];
 
     console.log("Data: " + data.weight.id);
     axios
     .post(baseURL + '/shipments', {
       receiver_name: data.receiver_name,
       weight: data.weight,
-      color: colorName, 
+      color: data.color, 
       appUser: userId,
       country: data.country
     })
