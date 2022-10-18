@@ -184,8 +184,6 @@ public class AppUserController {
                     description = "User not found with supplied ID",
                     content = @Content)
     })
-    // TODO sletter kun innlogget bruker, testet dette via postman. Usikker på
-    // TODO hvordan dette skal gjøres
     @Operation(summary = "Delete user by ID")
     @DeleteMapping(":{id}")
     public ResponseEntity delete(@AuthenticationPrincipal Jwt jwt, @PathVariable String id) {
@@ -196,7 +194,7 @@ public class AppUserController {
             return ResponseEntity.noContent().build();
         } else {
             System.out.println("Fungerer dette da?= DELETE skal ikke fungere uten admin");
-            return ResponseEntity.badRequest().build();
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
 
