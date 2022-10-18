@@ -42,6 +42,7 @@ public class CountryController {
     @GetMapping
     public ResponseEntity<Collection<CountryDTO>> getCountries(@AuthenticationPrincipal Jwt jwt) {
         if(jwt.getClaimAsStringList("roles").contains("user")) {
+            System.out.println(jwt.getClaimAsStringList("roles") + " JULENISSEN");
             Collection<CountryDTO> countries = countryMapper.countryToCountryDTO(
                     countryService.findAll()
             );
