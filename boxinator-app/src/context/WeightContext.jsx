@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useContext,createContext } from "react";
+import { fetchWeight } from "../api/WeightService";
 
 //Context
 const WeightContext = createContext()
@@ -9,7 +10,6 @@ export const useWeight = () => {
     return useContext(WeightContext) // {countries, setCountries}
 }
 
-const weightController = 'http://localhost:8080/api/v1/weight'
 
 //Provider -> managing state
 
@@ -19,13 +19,14 @@ const WeightProvider = ({children}) => {
 
   
 
-useEffect(() => {
-  
-    axios.get(weightController).then((res) => {
-        setWeights(res.data)
-        console.log(res.data)
-    });
-}, [setWeights])
+    useEffect(() => {
+        const init = async () => {
+            const { weights } = await fetchWeight();
+            setWeights(weights)
+      
+        };
+        init();
+    }, []);
 
 
     return (

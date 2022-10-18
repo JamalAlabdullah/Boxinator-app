@@ -6,6 +6,8 @@ import { useWeight } from '../../context/WeightContext';
 import '../Modal/packagemodal.css';
 import axios from 'axios';
 
+
+
 const baseURL = 'http://localhost:8080/api/v1'; 
 //const baseURLWeight = '';
 const userId = "pernille.ofte@no.experis.com";

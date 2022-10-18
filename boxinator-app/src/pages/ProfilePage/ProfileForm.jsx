@@ -1,5 +1,6 @@
 import axios from 'axios'; //Axios
 import React, { useState, useEffect } from 'react';
+import { fetchUser } from '../../api/UserService';
 import { useUser } from '../../context/UserContext';
 
 const baseURL = "http://localhost:8080/api/v1/account"; // Api connection
@@ -17,10 +18,13 @@ const ProfileForm = () => {
     const {user, setUser} = useUser()
 
     useEffect(() => {
-        axios.get(baseURL).then((response) => {
-            setUser(response.data);
-        });
-    }, [setUser]);
+        const init = async () => {
+            const { user } = await fetchUser();
+            setUser(user)
+      
+        };
+        init();
+    }, []);
 
     if (!user) return null;
     
