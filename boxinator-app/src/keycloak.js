@@ -19,7 +19,9 @@ export const initialize = () => {
   
 };
 
-
+// get current token 
+export const getToken= () => keycloak.token;
+console.log(keycloak.token   );
 
 
 
