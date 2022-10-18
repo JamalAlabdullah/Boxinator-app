@@ -188,9 +188,9 @@ public class AppUserController {
     @DeleteMapping(":{id}")
     public ResponseEntity delete(@AuthenticationPrincipal Jwt jwt, @PathVariable String id) {
         if (jwt.getClaimAsStringList("roles").contains("admin")) {
-            String test = appUserService.findById(id).getId();
+            String deleteUser = appUserService.findById(id).getId();
             //appUserService.deleteById(jwt.getClaimAsString("sub"));
-            appUserService.deleteById(test);
+            appUserService.deleteById(deleteUser);
             return ResponseEntity.noContent().build();
         } else {
             System.out.println("Fungerer dette da?= DELETE skal ikke fungere uten admin");
