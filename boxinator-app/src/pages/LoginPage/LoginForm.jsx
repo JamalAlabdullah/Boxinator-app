@@ -14,9 +14,6 @@ import PackageModalGuest from "../../components/Modal/PackageModalGuest";
 
 
 
-
-
-
 const LoginForm = () => {
 
 const [isOpen, setIsOpen] = useState(false)
