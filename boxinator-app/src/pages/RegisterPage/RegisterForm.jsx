@@ -39,13 +39,13 @@ const onSubmit = event => {
   event.preventDefault();
   
   axios.post(baseURL, { 
-     id: keycloak.tokenParsed.sub, 
+      id: keycloak.tokenParsed.sub, 
       birthday: dateOfBirth, 
-     country: country,
-      name:keycloak.tokenParsed.given_name,
+      country: country,
+      name:keycloak.tokenParsed.name,
       postal_code: postalCode,
       phone_number: phoneNr,
-      username:keycloak.tokenParsed.family_name,
+      username:keycloak.tokenParsed.email,
       
   })
   .then(res=>{

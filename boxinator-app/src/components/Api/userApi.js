@@ -3,7 +3,7 @@ import axios from ".";
 /**
  Create a new user on the database
  
- */
+
 
 
 export const createProfile = async (user) => {
@@ -22,3 +22,6 @@ export const createProfile = async (user) => {
     });
   }
 };
+
+
+ */
