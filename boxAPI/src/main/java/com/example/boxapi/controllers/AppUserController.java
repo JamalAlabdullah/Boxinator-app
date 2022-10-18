@@ -52,7 +52,7 @@ public class AppUserController {
                     description = "User not found with supplied ID",
                     content =
                             {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ApiErrorResponse.class))})
+                                    schema = @Schema(implementation = ApiErrorResponse.class))})
     })
 /*
     // This lets us see the entire principal object that spring security keeps of our user
@@ -67,7 +67,7 @@ public class AppUserController {
     //RolesAllowed("user") //case sensitive!
     public ResponseEntity getById(@PathVariable String id, @AuthenticationPrincipal Jwt jwt) {
         AppUserDTO appUserDTO = appUserMapper.appUserToAppUserDTO(appUserService.findById(id));
-        if(!Objects.equals(id, jwt.getClaimAsString("sub")))
+        if (!Objects.equals(id, jwt.getClaimAsString("sub")))
             return ResponseEntity
                     .status(HttpStatus.FORBIDDEN)
                     .body("User ID does not match!");
@@ -158,10 +158,12 @@ public class AppUserController {
     })
     @PutMapping("{id}") // GET: localhost:8080/api/v1/settings/countries:1
     //RolesAllowed("user")
+    //TODO
     public ResponseEntity update(@RequestBody AppUserDTO appUserDTO, @AuthenticationPrincipal Jwt jwt) {
-       // if (!appUserDTO.getId().equals(jwt.getClaimAsString("sub"))) {
-       //     ResponseEntity.badRequest().build();
-       // }
+        // if (!appUserDTO.getId().equals(jwt.getClaimAsString("sub"))) {
+        //     ResponseEntity.badRequest().build();
+        // }
+
         appUserService.update(
                 appUserMapper.appUserDTOtoAppUser(appUserDTO)
         );
@@ -186,9 +188,30 @@ public class AppUserController {
     // TODO hvordan dette skal gjøres
     @Operation(summary = "Delete user by ID")
     @DeleteMapping(":{id}")
-    public ResponseEntity delete(@AuthenticationPrincipal Jwt jwt) {
-        appUserService.deleteById(jwt.getClaimAsString("sub"));
+    public ResponseEntity delete(@AuthenticationPrincipal Jwt jwt, @PathVariable String id) {
+        if (jwt.getClaimAsStringList("roles").contains("admin")) {
+            String test = appUserService.findById(id).getId();
+            //appUserService.deleteById(jwt.getClaimAsString("sub"));
+            appUserService.deleteById(test);
+            return ResponseEntity.noContent().build();
+        } else {
+            System.out.println("Fungerer dette da?= DELETE skal ikke fungere uten admin");
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
+/*
+        if (appUserService.findById(id).getId().equals(jwt.getClaimAsString("sub"))) {
+            String test = appUserService.findById(id).getId();
+            //appUserService.deleteById(jwt.getClaimAsString("sub"));
+            appUserService.deleteById(test);
+            return ResponseEntity.noContent().build();
+        }
+
         return ResponseEntity.noContent().build();
     }
+
+ */
 }
 
