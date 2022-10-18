@@ -56,6 +56,7 @@ const PackageForm = () => {
       console.log(error);
     });
     reset()
+    window.location = "/home"
     console.log(resStatus);
 
 };
