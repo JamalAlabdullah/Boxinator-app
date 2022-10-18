@@ -164,6 +164,7 @@ public class AppUserServiceImpl implements AppUserService {
         newAppUser.setEmail(principal.getClaimAsString("email"));
         newAppUser.setName(principal.getClaimAsString("name"));
         newAppUser.setUsername(principal.getClaimAsString("preferred_username"));
+        newAppUser.setRole(principal.getClaimAsString("roles"));
         newAppUser = appUserRepository.save(newAppUser);
 
         return newAppUser;

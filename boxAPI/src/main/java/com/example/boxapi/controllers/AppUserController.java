@@ -159,16 +159,16 @@ public class AppUserController {
     @PutMapping("{id}") // GET: localhost:8080/api/v1/settings/countries:1
     //RolesAllowed("user")
     //TODO
-    public ResponseEntity update(@RequestBody AppUserDTO appUserDTO, @AuthenticationPrincipal Jwt jwt) {
-        // if (!appUserDTO.getId().equals(jwt.getClaimAsString("sub"))) {
-        //     ResponseEntity.badRequest().build();
-        // }
-
-        appUserService.update(
-                appUserMapper.appUserDTOtoAppUser(appUserDTO)
-        );
-
-        return ResponseEntity.noContent().build();
+    public ResponseEntity update(@RequestBody AppUserDTO appUserDTO, @AuthenticationPrincipal Jwt jwt, @PathVariable String id) {
+        if (jwt.getClaimAsStringList("roles").contains("admin") || jwt.getClaimAsStringList("roles").contains("user")) {
+            //appUserService.deleteById(jwt.getClaimAsString("sub"));
+            appUserService.update(
+                    appUserMapper.appUserDTOtoAppUser(appUserDTO)
+            );
+            return ResponseEntity.noContent().build();
+        } else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
     }
 
 
@@ -193,7 +193,6 @@ public class AppUserController {
             appUserService.deleteById(deleteUser);
             return ResponseEntity.noContent().build();
         } else {
-            System.out.println("Fungerer dette da?= DELETE skal ikke fungere uten admin");
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
