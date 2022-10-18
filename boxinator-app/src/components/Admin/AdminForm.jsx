@@ -1,21 +1,13 @@
 import source from "../../stamp-svgrepo-com.svg";
 import axios from 'axios'; //Axios
-import React, { useState } from 'react';
+import React from 'react';
 import { ntc } from "../../utils/ntc" // Used to convert hex and rgb to a color name
-//import { useForm } from "react-hook-form";
 
 const baseURL = "http://localhost:8080/api/v1";
 
 const AdminForm = () => {
 
     // HOOKS
-    /*
-    const [ updatedRecName, setRecName ] = useState('');
-    const [ updatedWeight, setWeight ] = useState('');
-    const [ updatedColor, setColor ] = useState('');
-    const [ updatedCountry, setCountry ] = useState('');
-    */
-    //const {register, handleSubmit, reset} = useForm();
     const [packages, setPackage] = React.useState(null);
     const [ countries, setCountries ] = React.useState(null);
 
@@ -28,10 +20,6 @@ const AdminForm = () => {
             setCountries(response.data);
         });
     }, []);
-
-    if (!packages) return null;
-
-    // GET all countries
 
     if (!packages) return null;
 
