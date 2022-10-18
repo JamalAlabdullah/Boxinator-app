@@ -35,7 +35,7 @@ public class WeightServiceImpl implements WeightService{
 
     @Override
     public Collection<Weight> findAll() {
-        return null;
+        return weightRepository.findAll();
     }
 
     @Override
