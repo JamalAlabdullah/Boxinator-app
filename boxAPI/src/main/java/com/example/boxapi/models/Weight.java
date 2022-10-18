@@ -12,11 +12,10 @@ import java.util.Set;
 @Setter
 public class Weight {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "weight_id")
-    private int id;
     @Enumerated(EnumType.STRING)
-    private WeightType weightType;
+    private WeightType id;
     @Column(length = 2)
     private int value;
 

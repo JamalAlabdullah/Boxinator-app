@@ -41,9 +41,7 @@ public class CountryController {
         Collection<CountryDTO> countries = countryMapper.countryToCountryDTO(
                 countryService.findAll()
         );
-
         return ResponseEntity.ok(countries);
-
     }
     @Operation(summary = "Add a new country")
     @ApiResponses(value = {

@@ -24,7 +24,7 @@ public abstract class WeightMapper {
 
     @Mapping(target = "packages", source = "packages", qualifiedByName = "mapWeightToId")
     public abstract WeightDTO weightToWeightDTO(Weight weight);
-    //public abstract Collection<WeightDTO> weightToWeightDTO(Collection<Weight> weightDTOs);
+    public abstract Collection<WeightDTO> weightToWeightDTO(Collection<Weight> weightDTOs);
 
     //Mapping(target = "packages", source = "packages", qualifiedByName = "mapIdToWeight")
     //public abstract Weight weightDTOtoWeight(WeightDTO weightDTO);

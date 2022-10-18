@@ -25,8 +25,8 @@ public class Package {
     private LocalDate date;
     @Enumerated(EnumType.STRING)
     private Status status;
-    @Column(length = 100)
-    private String mail;
+    @Column(length = 6)
+    private Integer totalSum;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

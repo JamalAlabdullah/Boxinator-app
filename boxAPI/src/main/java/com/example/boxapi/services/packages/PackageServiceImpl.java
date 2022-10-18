@@ -3,6 +3,7 @@ package com.example.boxapi.services.packages;
 import com.example.boxapi.models.Package;
 import com.example.boxapi.models.enums.Status;
 import com.example.boxapi.repositories.PackageRepository;
+import com.example.boxapi.services.packages.packageExceptions.PackageNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,13 +20,15 @@ public class PackageServiceImpl implements PackageService {
     private final PackageRepository packageRepository;
 
     @Override
-    public Package findById(Integer id) {
-        return packageRepository.findById(id).get();
+    public Package findById(Integer id) throws PackageNotFoundException {
+        return packageRepository
+                .findById(id)
+                .orElseThrow(() -> new PackageNotFoundException(id));
     }
 
     @Override
     public Collection<Package> findAll() {
-        return null;
+        return packageRepository.findAll();
     }
 
     @Override

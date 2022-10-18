@@ -5,7 +5,7 @@ import axios from 'axios'; //Axios
 import React from 'react';
 
 const baseURL = "http://localhost:8080/api/v1/shipments"; // Api connection
-const userId = 2;
+const userId = "pernille.ofte@no.experis.com";
 
 const HomePackages = () => {
 

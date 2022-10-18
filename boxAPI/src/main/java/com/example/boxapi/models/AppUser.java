@@ -1,7 +1,6 @@
 package com.example.boxapi.models;
 
 
-import com.example.boxapi.models.enums.RoleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,9 +17,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class AppUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private int id;
+    private String id; //email?
     @Column(length = 50)
     private LocalDate birthday;
     @Column(length = 50)
@@ -29,13 +27,18 @@ public class AppUser {
     private int postal_code;
     @Column(length = 15)
     private int phone_number;
-    @Enumerated(EnumType.STRING)
-    private RoleType role;
-
+    @Column
+    private String role;
+    @Column(length = 150)
     private String username;
+    @Column(length = 150)
     private String name;
-    private String email;
+    @Column(length = 150)
     private String password;
+    @Column(length = 150)
+    private String email;
+    @Column(length = 10)
+    private Boolean complete;
 
     //Navigation/relationships
     @OneToMany(mappedBy = "appUser")
