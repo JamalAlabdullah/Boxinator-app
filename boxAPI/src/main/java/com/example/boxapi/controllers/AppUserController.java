@@ -5,6 +5,7 @@ import com.example.boxapi.mappers.AppUserMapper;
 import com.example.boxapi.models.AppUser;
 import com.example.boxapi.models.dto.AppUserDTO;
 import com.example.boxapi.models.dto.CountryDTO;
+import com.example.boxapi.models.dto.ResponseMessage;
 import com.example.boxapi.services.appuser.AppUserServiceImpl;
 import com.example.boxapi.util.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,6 +29,7 @@ import javax.annotation.security.RolesAllowed;
 import java.net.URI;
 import java.security.Principal;
 import java.util.Collection;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -50,7 +52,7 @@ public class AppUserController {
                     description = "User not found with supplied ID",
                     content =
                             {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ApiErrorResponse.class))})
+                                    schema = @Schema(implementation = ApiErrorResponse.class))})
     })
 /*
     // This lets us see the entire principal object that spring security keeps of our user
@@ -63,11 +65,25 @@ public class AppUserController {
 
     @GetMapping("{id}") // GET: localhost:8080/api/v1/account/1
     //RolesAllowed("user") //case sensitive!
-    public ResponseEntity getById(@PathVariable String id) {
+    public ResponseEntity getById(@PathVariable String id, @AuthenticationPrincipal Jwt jwt) {
         AppUserDTO appUserDTO = appUserMapper.appUserToAppUserDTO(appUserService.findById(id));
+        if (!Objects.equals(id, jwt.getClaimAsString("sub")))
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("User ID does not match!");
+        ResponseMessage message = new ResponseMessage();
+        message.setMessage("Resources for user:" + id);
         return ResponseEntity.ok(appUserDTO);
     }
 
+    @GetMapping("current")
+    public ResponseEntity getCurrentLogUser(@AuthenticationPrincipal Jwt jwt) {
+        return ResponseEntity.ok(
+                appUserService.findById(
+                        jwt.getClaimAsString("sub")
+                )
+        );
+    }
     /*
     @GetMapping("current")
     public ResponseEntity getCurrentlyLoggedInUser(@AuthenticationPrincipal Jwt jwt) {
@@ -89,7 +105,7 @@ public class AppUserController {
     }
     */
 
-
+    // TODO Er kanskje ikke nødvendig?
     @GetMapping
     //RolesAllowed("admin") //case sensitive
     public ResponseEntity<Collection<AppUserDTO>> getUsers() {
@@ -111,10 +127,12 @@ public class AppUserController {
                     content = @Content)
     })
     @PostMapping()
-    public ResponseEntity add(@RequestBody AppUserDTO appUserDTO) {
-        AppUser newAppuser = appUserService.add(
-                appUserMapper.appUserDTOtoAppUser(appUserDTO)
-        );
+    public ResponseEntity add(@AuthenticationPrincipal Jwt jwt) {//@RequestBody AppUserDTO appUserDTO) {
+        AppUser newAppuser = appUserService.createNewUserFromJWT(
+                jwt);
+        //AppUser newAppuser = appUserService.add(
+        //        appUserMapper.appUserDTOtoAppUser(appUserDTO)
+        //);
         URI uri = URI.create("account/" + newAppuser.getId());
         return ResponseEntity.created(uri).build();
     }
@@ -140,10 +158,12 @@ public class AppUserController {
     })
     @PutMapping("{id}") // GET: localhost:8080/api/v1/settings/countries:1
     //RolesAllowed("user")
-    public ResponseEntity update(@RequestBody AppUserDTO appUserDTO, @PathVariable String id) {
-        if (appUserDTO.getId() != id) {
-            ResponseEntity.badRequest().build();
-        }
+    //TODO
+    public ResponseEntity update(@RequestBody AppUserDTO appUserDTO, @AuthenticationPrincipal Jwt jwt) {
+        // if (!appUserDTO.getId().equals(jwt.getClaimAsString("sub"))) {
+        //     ResponseEntity.badRequest().build();
+        // }
+
         appUserService.update(
                 appUserMapper.appUserDTOtoAppUser(appUserDTO)
         );
@@ -166,37 +186,30 @@ public class AppUserController {
     })
     @Operation(summary = "Delete user by ID")
     @DeleteMapping(":{id}")
-    public ResponseEntity delete(@PathVariable String id) {
-        appUserService.deleteById(id);
+    public ResponseEntity delete(@AuthenticationPrincipal Jwt jwt, @PathVariable String id) {
+        if (jwt.getClaimAsStringList("roles").contains("admin")) {
+            String deleteUser = appUserService.findById(id).getId();
+            //appUserService.deleteById(jwt.getClaimAsString("sub"));
+            appUserService.deleteById(deleteUser);
+            return ResponseEntity.noContent().build();
+        } else {
+            System.out.println("Fungerer dette da?= DELETE skal ikke fungere uten admin");
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
+
+/*
+        if (appUserService.findById(id).getId().equals(jwt.getClaimAsString("sub"))) {
+            String test = appUserService.findById(id).getId();
+            //appUserService.deleteById(jwt.getClaimAsString("sub"));
+            appUserService.deleteById(test);
+            return ResponseEntity.noContent().build();
+        }
+
         return ResponseEntity.noContent().build();
     }
 
-
-    // This endpoint just shows the information from the token
-    // The token is received through the @AuthenticationPrincipal via Spring Security.
-   /* @GetMapping
-    public Map<String, Object> getUserInfo(@AuthenticationPrincipal Jwt principal) {
-        Map<String, String> map = new Hashtable<String, String>();
-        map.put("user_name", principal.getClaimAsString("preferred_username"));
-        map.put("email", principal.getClaimAsString("email"));
-        map.put("first_name", principal.getClaimAsString("given_name"));
-        map.put("last_name", principal.getClaimAsString("family_name"));
-        map.put("roles", String.valueOf(principal.getClaimAsStringList("roles")));
-        return Collections.unmodifiableMap(map);
-    }
-
-    // This lets us see the entire principal object that spring security keeps of our user
-    @GetMapping("/principal")
-    public Principal getUser(Principal user){
-        return user;
-    }
-
-    @PostMapping
-    public ResponseEntity<AppUser> addNewUser(@AuthenticationPrincipal Jwt principal){
-        if(appUserService.checkIfUserExists(principal.getClaimAsString("email")))
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-
-        return ResponseEntity.ok(appUserService.createNewUserProfileFromJWT(principal));
-    }*/
+ */
 }
 

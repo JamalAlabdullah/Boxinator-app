@@ -1,17 +1,19 @@
 package com.example.boxapi.services.appuser;
 
 import com.example.boxapi.models.AppUser;
-import com.example.boxapi.models.enums.RoleType;
 import com.example.boxapi.repositories.AppUserRepository;
 import com.example.boxapi.services.appuser.appuserExceptions.AppUserNotFoundException;
+
 import lombok.extern.slf4j.Slf4j;
 //import org.springframework.security.oauth2.jwt.Jwt;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.net.URI;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -33,8 +35,8 @@ public class AppUserServiceImpl implements AppUserService {
 
      */
 
-   // public boolean assignRolesToUser(AppUser user, List<RoleType> roles){
-       // return false;
+    // public boolean assignRolesToUser(AppUser user, List<RoleType> roles){
+    // return false;
     //}
 
     /*
@@ -58,7 +60,6 @@ public class AppUserServiceImpl implements AppUserService {
      */
 
 
-
     @Override
     public AppUser findById(String id) throws AppUserNotFoundException {
         //log.info(String.valueOf(new AppUserNotFoundException(id)));
@@ -74,12 +75,28 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public AppUser add(AppUser entity) {
+        if (appUserRepository.existsById(entity.getId()))
+            // TODO make new exception
+            throw new AppUserNotFoundException(entity.getId());
         return appUserRepository.save(entity);
     }
 
     @Override
+    public AppUser add(String uid) {
+        if (appUserRepository.existsById(uid))
+            // TODO make new exception
+            throw new AppUserNotFoundException(uid);
+        AppUser newAppuser = new AppUser();
+        newAppuser.setId(uid);
+        newAppuser.setComplete(false);
+
+        return appUserRepository.save(newAppuser);
+    }
+    // TODO ble dette riktig?
+    // TODO Packages ser ikke ut til å bli riktig når man endrer på bruker
+    @Override
     public AppUser update(AppUser entity) {
-        return null;
+        return appUserRepository.save(entity);
     }
 
 
@@ -90,6 +107,7 @@ public class AppUserServiceImpl implements AppUserService {
             appUser.getPackages().forEach(p -> p.setAppUser(null));
             appUserRepository.delete(appUser);
         } else {
+            log.warn(String.valueOf(appUserRepository.existsById(id)) + " HVA er dette");
             log.warn("No appuser exist with ID: " + id);
             throw new AppUserNotFoundException(id);
         }
@@ -100,6 +118,7 @@ public class AppUserServiceImpl implements AppUserService {
     public void delete(AppUser entity) {
 
     }
+
 
     @Override
     public AppUser saveUser(AppUser user) {
@@ -138,4 +157,17 @@ public class AppUserServiceImpl implements AppUserService {
 
         return appUserRepository.findAll();
     }
+
+    public AppUser createNewUserFromJWT(Jwt principal){
+        AppUser newAppUser = new AppUser();
+        newAppUser.setId(principal.getClaimAsString("sub"));
+        newAppUser.setEmail(principal.getClaimAsString("email"));
+        newAppUser.setName(principal.getClaimAsString("name"));
+        newAppUser.setUsername(principal.getClaimAsString("preferred_username"));
+        newAppUser = appUserRepository.save(newAppUser);
+
+        return newAppUser;
+    }
+
+
 }
