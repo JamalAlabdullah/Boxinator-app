@@ -1,4 +1,5 @@
 import axios from ".";
+import keycloak from "../keycloak";
 
 /**
  * SAMPLE FUNCTION: Fetch products from a REST API
@@ -29,13 +30,13 @@ export const fetchPackage = async () => {
  * @returns {Promise<{shipment: { id, receiver_name", weight, color, date, status, appUser, country } | null, error: null}>}
  */
 export const fetchPackageById = async (id) => {
-  const shipmentURL = "http://localhost:8080/api/v1/shipments";
+  const shipmentURL = "http://localhost:8080/api/v1/shipments/customer";
 
   try {
     const { data, status } = await axios.get(shipmentURL + "/" + id);
     console.log(status)
     return Promise.resolve({
-        shipments: data,
+      shipments: data,
       error: null,
     });
   }

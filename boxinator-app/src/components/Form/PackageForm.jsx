@@ -7,17 +7,16 @@ import '../Modal/packagemodal.css';
 import axios from 'axios';
 import keycloak from '../../keycloak';
 
-
-
 const baseURL = 'http://localhost:8080/api/v1';
-//const baseURLWeight = '';
-const userId = "cd1bcfe9-099d-4ac2-9dfb-8d5e31e02fe9";
+let userId = "";
 
 const packageConfig = {
   required: true,
 }
 
 const PackageForm = () => {
+
+  userId = keycloak.subject;
 
   //HOOKS
   const { register, handleSubmit, reset } = useForm()

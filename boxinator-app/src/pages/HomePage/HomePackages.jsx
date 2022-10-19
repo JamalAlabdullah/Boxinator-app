@@ -3,12 +3,14 @@ import { ntc } from "../../utils/ntc" // Used to convert hex and rgb to a color 
 import source from "../../stamp-svgrepo-com.svg";
 import React, { useEffect } from 'react';
 import { usePackage } from '../../context/PackageContext';
-import { fetchPackage } from '../../api/PackageService';
+import { fetchPackageById } from '../../api/PackageService';
+import keycloak from '../../keycloak';
 
-//const baseURL = "http://localhost:8080/api/v1/"; // Api connection
-const userId = "cd1bcfe9-099d-4ac2-9dfb-8d5e31e02fe9";
+let userId = "";
 
 const HomePackages = () => {
+
+    userId = keycloak.subject;
 
     // Axios ------------------------------
     const { packages, setPackage } = usePackage();
@@ -16,7 +18,7 @@ const HomePackages = () => {
     useEffect(() => {
         if (!packages) {
             const init = async () => {
-                const packages = await fetchPackage();
+                const packages = await fetchPackageById(userId);
                 setPackage(packages);
             };
 
@@ -26,18 +28,18 @@ const HomePackages = () => {
 
     if (!packages) return null;
 
-    let temp = []; //Array used to temporarly store packages packages
+    /*let temp = []; //Array used to temporarly store packages packages
 
     for (let i = 0; i < packages.shipments.length; i++) { //Pushes a spesific packages packages to temp[] array
         if(packages.shipments[i].appUser === userId) {
             temp.push(packages.shipments[i]);
         }
-    }
+    }*/
 
     return (
         <div id="packGrid">
 
-            {temp && temp.map(({id, receiver_name, color, weight, country}) => (
+            {packages.shipments && packages.shipments.map(({id, receiver_name, color, weight, country}) => (
                 <div key={id}>
                     <ul id="packUl">
 

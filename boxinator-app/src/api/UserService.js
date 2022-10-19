@@ -1,4 +1,5 @@
 import axios from ".";
+import keycloak from "../keycloak";
 
     /**
      * SAMPLE FUNCTION: Fetch products from a REST API
@@ -11,6 +12,7 @@ import axios from ".";
       try {
         const { data } = await axios.get(accountURL);
         return Promise.resolve({
+          headers: { Authorization: `Bearer ${keycloak.token}` },
           account: data,
           error: null,
         });

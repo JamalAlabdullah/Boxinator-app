@@ -5,12 +5,11 @@ import { useUser } from '../../context/UserContext';
 import keycloak from '../../keycloak';
 
 const baseURL = "http://localhost:8080/api/v1/account/"; // Api connection
-const userId = "cd1bcfe9-099d-4ac2-9dfb-8d5e31e02fe9";
+let userId = "";
 
 const ProfileForm = () => {
 
-    //Try to get user id from keycloak
-    //console.log("KeyCloak ID: " + keycloak.idTokenParsed.nonce);
+    userId = keycloak.subject;
 
     const {user, setUser} = useUser()
 
