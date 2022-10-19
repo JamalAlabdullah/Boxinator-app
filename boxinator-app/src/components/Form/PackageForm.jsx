@@ -6,16 +6,11 @@ import { useWeight } from '../../context/WeightContext';
 import '../Modal/packagemodal.css';
 import axios from 'axios';
 
-<<<<<<< HEAD
 
 
 const baseURL = 'http://localhost:8080/api/v1'; 
 //const baseURLWeight = '';
 const userId = "pernille.ofte@no.experis.com";
-=======
-const baseURL = 'http://localhost:8080/api/v1';
-const userId = "pernille.ofte@no.experis.com";  
->>>>>>> a4d40ee (FEAT: fetch data register data from keycloac , combine them with other input and save i database)
 
 const packageConfig = {
   required: true,
@@ -47,13 +42,9 @@ const PackageForm = () => {
       weight: data.weight,
       color: data.color, 
       appUser: userId,
-<<<<<<< HEAD
       country: data.country,
       totalSum: shipment
       
-=======
-      country: data.country
->>>>>>> a4d40ee (FEAT: fetch data register data from keycloac , combine them with other input and save i database)
     })
     .then(function (response) {
       console.log(response.status);

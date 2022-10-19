@@ -7,13 +7,10 @@ import { useUser } from '../../context/UserContext';
 import "./register.css";
 
 
-
 const baseURL = "http://localhost:8080/api/v1/account"; 
 const userId = "jamalalabdullah3@gmail.com";
 
 const RegisterForm = () => {
-
-
 
 
 const [dateOfBirth, setDateOfBirth] = useState('')

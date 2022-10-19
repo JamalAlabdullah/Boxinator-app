@@ -6,7 +6,6 @@ import {useParams} from "react-router-dom";
 
 const baseURL = "http://localhost:8080/api/v1/account"; // Api connection
 
-
 const userId = "pernille.ofte@no.experis.com";
 
 
