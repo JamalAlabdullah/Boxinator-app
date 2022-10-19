@@ -5,7 +5,7 @@ import '../Modal/packagemodal.css';
 import axios from 'axios';
 
 
-const baseURL = 'http://localhost:8080/api/v1/settings/countries'; 
+const baseURL = 'http://localhost:8080/api/v1/settings/countries';
 
 const packageConfig = {
   required: true,

@@ -5,16 +5,19 @@ import { useUser } from '../../context/UserContext';
 import {useParams} from "react-router-dom";
 
 const baseURL = "http://localhost:8080/api/v1/account"; // Api connection
-const userId = 1;
+
+
+const userId = "pernille.ofte@no.experis.com";
+
 
 const ProfileForm = () => {
 
     const [ updatedDate, setDate  ] = useState('');
     const [ updatedCountry, setCountry ] = useState('');
     const [ updatedPost, setPost  ] = useState('');
-    const [ updatedNumb, setNumb  ] = useState('');
+    const [ updatedNumb, setNumb  ] = useState(''); 
 
-    // Axios ------------------------------
+    // Axios ------------------------------ 
 
     const {id} = useParams()
     const {user, setUser} = useUser()
@@ -70,8 +73,7 @@ const ProfileForm = () => {
             window.location = "/profile" //This line of code will redirect you once the submission is succeed
         })
     }
-
-
+    
     return (
         <form id="profForm" onSubmit={onSubmit}>
 
@@ -100,7 +102,7 @@ const ProfileForm = () => {
                     defaultValue={temp[0].phone_number}
                     onChange={event => setNumb(event.target.value)} 
                 />
-
+                
             </fieldset>
             <button id="btnContinue" type="submit">Save Changes</button>
 
