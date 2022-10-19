@@ -20,13 +20,18 @@ const AdminForm = () => {
 
     // GET all packages
     React.useEffect(() => {
-        axios.get(baseURL + "/shipments").then((response) => {
-            setPackage(response.data);
-        });
-        axios.get(baseURL + "/settings/countries").then((response) => {
-            setCountries(response.data);
-        });
-    }, []);
+        if(!packages || !weights || !countries) {
+            axios.get(baseURL + "/shipments").then((response) => {
+                setPackage(response.data);
+            });
+            axios.get(baseURL + "/settings/countries").then((response) => {
+                setCountries(response.data);
+            });
+            axios.get(baseURL + "/weight").then((response) => {
+                setWeights(response.data);
+            });
+        }
+    }, [setCountries, setPackage, setWeights, countries, weights, packages]);
 
     if (!packages) return null;
 
