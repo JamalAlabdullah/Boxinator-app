@@ -24,7 +24,6 @@ const UserProvider = ({children}) => {
     const state = {
         user,
         setUser
-
     }
 
     
