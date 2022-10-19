@@ -158,7 +158,7 @@ public class AppUserController {
     //RolesAllowed("user")
     //TODO
     public ResponseEntity update(@RequestBody AppUserDTOUpdate appUserDTOUpdate, @AuthenticationPrincipal Jwt jwt, @PathVariable String id) {
-        if (jwt.getClaimAsStringList("roles").contains("admin") || jwt.getClaimAsStringList("roles").contains("user")) {
+        if ((jwt.getClaimAsStringList("roles").contains("admin") || jwt.getClaimAsStringList("roles").contains("user")) && id.equals(jwt.getClaimAsString("sub"))) {
             //appUserService.deleteById(jwt.getClaimAsString("sub"));
             appUserService.updateUser(
                     appUserMapper.appUserDTOtoAppUserUpdate(appUserDTOUpdate),
