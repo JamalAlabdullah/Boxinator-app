@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { createContext } from "react";
 import axios from "axios"
+import {fetchUser} from "../api/UserService"
 
 //Context
 
@@ -26,35 +27,20 @@ const UserProvider = ({children}) => {
 
     }
 
-    const getUsers = () => {
-        axios.get(accountController)
-    .then((res) => 
-    {
-        setUser(res.data)
-        console.log(res.data)
-    })
-    .catch((err) => {
-    console.log(err)
-    })
-    
-    
-    }
-    
-    const getUserById = (id) => {
-        return user.find((user) => user.id === id)
-    
-    }
-    
     
     
     useEffect(() => {
-        getUsers();
-      }, []);
-
+        const init = async () => {
+            const { user } = await fetchUser();
+            setUser(user)
+      
+        };
+        init();
+    }, []);
   
 
     return (
-        <UserContext.Provider value={{state, getUserById, getUsers}}>
+        <UserContext.Provider value={{user, setUser}}>
             { children}
 
         </UserContext.Provider>

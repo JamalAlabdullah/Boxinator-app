@@ -1,26 +1,33 @@
 import axios from 'axios'; //Axios
 import React, { useState, useEffect } from 'react';
+import { fetchUser } from '../../api/UserService';
 import { useUser } from '../../context/UserContext';
 
 const baseURL = "http://localhost:8080/api/v1/account"; // Api connection
-const userId = 1;
+
+
+const userId = "pernille.ofte@no.experis.com";
+
 
 const ProfileForm = () => {
 
     const [ updatedDate, setDate  ] = useState('');
     const [ updatedCountry, setCountry ] = useState('');
     const [ updatedPost, setPost  ] = useState('');
-    const [ updatedNumb, setNumb  ] = useState('');
+    const [ updatedNumb, setNumb  ] = useState(''); 
 
-    // Axios ------------------------------
+    // Axios ------------------------------ 
 
     const {user, setUser} = useUser()
 
     useEffect(() => {
-        axios.get(baseURL).then((response) => {
-            setUser(response.data);
-        });
-    }, [setUser]);
+        const init = async () => {
+            const { user } = await fetchUser();
+            setUser(user)
+      
+        };
+        init();
+    }, []);
 
     if (!user) return null;
     
@@ -64,8 +71,7 @@ const ProfileForm = () => {
             window.location = "/profile" //This line of code will redirect you once the submission is succeed
         })
     }
-
-
+    
     return (
         <form id="profForm" onSubmit={onSubmit}>
 
@@ -94,7 +100,7 @@ const ProfileForm = () => {
                     defaultValue={temp[0].phone_number}
                     onChange={event => setNumb(event.target.value)} 
                 />
-
+                
             </fieldset>
             <button id="btnContinue" type="submit">Save Changes</button>
 

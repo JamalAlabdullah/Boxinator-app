@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { useContext,createContext } from "react";
+import { fetchCountry } from "../api/CountryService";
 
 
 //Context
@@ -10,11 +10,10 @@ export const useCountry = () => {
     return useContext(CountryContext) // {countries, setCountries}
 }
 
-const conuntryController = 'http://localhost:8080/api/v1/settings/countries'
-
 //Provider -> managing state
 
 const CountryProvider = ({children}) => {
+
 
     const [countries, setCountries] = useState(null)
 
@@ -25,12 +24,13 @@ const CountryProvider = ({children}) => {
     }
 
 useEffect(() => {
-    axios.get(conuntryController).then((res) => {
-        setCountries(res.data)
-        console.log(res.data)
-    });
-}, [setCountries])
-
+    const init = async () => {
+        const { countries } = await fetchCountry();
+        setCountries(countries)
+  
+    };
+    init();
+}, []);
 
 
     return (

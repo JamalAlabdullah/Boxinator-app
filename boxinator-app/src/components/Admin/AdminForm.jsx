@@ -2,14 +2,21 @@ import source from "../../stamp-svgrepo-com.svg";
 import axios from 'axios'; //Axios
 import React from 'react';
 import { ntc } from "../../utils/ntc" // Used to convert hex and rgb to a color name
+import { usePackage } from "../../context/PackageContext";
+import { useWeight } from "../../context/WeightContext";
+import {useCountry} from "../../context/CountryContext";
 
 const baseURL = "http://localhost:8080/api/v1";
 
 const AdminForm = () => {
 
+    const {packages, setPackage} = usePackage()
+    const {weights, setWeights} = useWeight()
+    const {countries, setCountries} = useCountry()
+  
+
     // HOOKS
-    const [packages, setPackage] = React.useState(null);
-    const [ countries, setCountries ] = React.useState(null);
+  
 
     // GET all packages
     React.useEffect(() => {
