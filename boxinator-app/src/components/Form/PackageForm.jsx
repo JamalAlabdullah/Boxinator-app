@@ -1,6 +1,6 @@
 import { Form, Button } from 'react-bootstrap';
-import {useForm} from 'react-hook-form';
-import {useState} from 'react'
+import { useForm } from 'react-hook-form';
+import { useState } from 'react'
 import { useCountry } from '../../context/CountryContext';
 import { useWeight } from '../../context/WeightContext';
 import '../Modal/packagemodal.css';
@@ -9,7 +9,7 @@ import keycloak from '../../keycloak';
 
 
 
-const baseURL = 'http://localhost:8080/api/v1'; 
+const baseURL = 'http://localhost:8080/api/v1';
 //const baseURLWeight = '';
 const userId = "cd1bcfe9-099d-4ac2-9dfb-8d5e31e02fe9";
 
@@ -20,7 +20,7 @@ const packageConfig = {
 const PackageForm = () => {
 
   //HOOKS
-  const {register, handleSubmit, reset} = useForm()
+  const { register, handleSubmit, reset } = useForm()
 
   const { countries } = useCountry();
   const { weights } = useWeight();
@@ -57,46 +57,46 @@ const PackageForm = () => {
     window.location = "/home"
     console.log(resStatus);
 
-};
+  };
 
 
 
 
- return <div>
-     <Form onSubmit={handleSubmit(onSubmit)} id="form-container" >
-     {/* RECEIVER FIRST NAME*/}
-        <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Receivers First name</Form.Label>
-          <Form.Control
+  return <div>
+    <Form onSubmit={handleSubmit(onSubmit)} id="form-container" >
+      {/* RECEIVER FIRST NAME*/}
+      <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>Receivers First name</Form.Label>
+        <Form.Control
           type="text"
           name="receiver_name"
           placeholder="first name..."
-          { ... register("receiver_name", packageConfig)}
-          />
-        </Form.Group>
+          {...register("receiver_name", packageConfig)}
+        />
+      </Form.Group>
 
-         {/* BOX COLOR*/}
-        <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Box color</Form.Label>
-          <Form.Control
+      {/* BOX COLOR*/}
+      <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>Box color</Form.Label>
+        <Form.Control
           //id="button-color-box"
-          
+
           type="color"
           name="color"
-          { ... register("color", packageConfig)}
-          />
-        </Form.Group>
+          {...register("color", packageConfig)}
+        />
+      </Form.Group>
 
-      
-        {/* WEIGHT OPTIONS SELECT*/}
-         <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Weight</Form.Label>
-          <Form.Select 
-          name="weight" 
-          
-            
-          { ... register("weight", packageConfig)} >
-          <option></option> 
+
+      {/* WEIGHT OPTIONS SELECT*/}
+      <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>Weight</Form.Label>
+        <Form.Select
+          name="weight"
+
+
+          {...register("weight", packageConfig)} >
+          <option></option>
           {weights && weights.map((weight) => (
             <option key={weight.id} value={weight.id}>{weight.id}</option>
           ))}
@@ -122,8 +122,7 @@ const PackageForm = () => {
 
 
 
-    
- </div>
+  </div>
 }
 
 export default PackageForm

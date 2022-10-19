@@ -35,7 +35,7 @@ public class SecurityConfig {
                                 // Specify paths to be protected with scope
                                 //.mvcMatchers("/api/v1/account/{id}").hasAuthority("SCOPE_profile")
                                 // Specify paths to be protected with role
-                                .mvcMatchers("/api/v1/settings/countries").hasRole("admin")
+                                //.mvcMatchers("/api/v1/settings/countries").hasRole("admin")
                                 // All remaining paths require authentication
                                 .anyRequest().authenticated()
                         // .antMatchers().permitAll()
