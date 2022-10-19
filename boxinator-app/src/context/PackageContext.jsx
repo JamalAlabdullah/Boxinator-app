@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { useContext,createContext } from "react";
 import { fetchPackage } from "../api/PackageService";
@@ -17,21 +16,20 @@ const PackageProvider = ({children}) => {
 
     const [packages, setPackage] = useState(null)
 
-  
-
     useEffect(() => {
-        const init = async () => {
-            const { packages } = await fetchPackage();
-            setPackage(packages)
-      
-        };
+        if(!packages) {
+            const init = async () => {
+                const packages = await fetchPackage();
+                setPackage(packages)
+            };
         init();
-    }, []);
+        }
+    }, [packages]);
 
 
     return (
         <PackageContext.Provider value={{packages, setPackage}}>
-            { children}
+            { children }
 
         </PackageContext.Provider>
     )

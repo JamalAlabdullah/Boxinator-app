@@ -5,12 +5,13 @@ import { useCountry } from '../../context/CountryContext';
 import { useWeight } from '../../context/WeightContext';
 import '../Modal/packagemodal.css';
 import axios from 'axios';
+import keycloak from '../../keycloak';
 
 
 
 const baseURL = 'http://localhost:8080/api/v1'; 
 //const baseURLWeight = '';
-const userId = "pernille.ofte@no.experis.com";
+const userId = "cd1bcfe9-099d-4ac2-9dfb-8d5e31e02fe9";
 
 const packageConfig = {
   required: true,
@@ -21,28 +22,23 @@ const PackageForm = () => {
   //HOOKS
   const {register, handleSubmit, reset} = useForm()
 
-
-  const {countries, setCountries} = useCountry()
-  const {weights, setWeights} = useWeight()
-  const [resStatus, setResStatus] = useState("");
-
-  
- 
+  const { countries } = useCountry();
+  const { weights } = useWeight();
+  const [ resStatus, setResStatus ] = useState("");
 
   let shipment = 200
-
-  
-  
     
   const onSubmit = (data)=> {
-    console.log("Data: " + data.weight.value);
+
     axios
     .post(baseURL + '/shipments', {
+      headers: { Authorization: `Bearer ${keycloak.token}` },
       receiver_name: data.receiver_name,
       weight: data.weight,
       color: data.color, 
       appUser: userId,
       country: data.country,
+      status: "CREATED",  
       totalSum: shipment
       
     })
@@ -102,7 +98,7 @@ const PackageForm = () => {
           { ... register("weight", packageConfig)} >
           <option></option> 
           {weights && weights.map((weight) => (
-            <option key={weight.id} value={weight.value}>{weight.id}</option>
+            <option key={weight.id} value={weight.id}>{weight.id}</option>
           ))}
           </Form.Select> 
         </Form.Group>
@@ -115,7 +111,7 @@ const PackageForm = () => {
          { ... register("country", packageConfig)}>
           <option></option> 
            {countries && countries.map((country)  => ( 
-            <option key={country.id} value={country.multiplier} >{country.id}</option>
+            <option key={country.id} value={country.id} >{country.id}</option>
             
            ))}
           </Form.Select > 

@@ -11,7 +11,7 @@ export const fetchPackage = async () => {
   try {
     const { data } = await axios.get(shipmentURL);
     return Promise.resolve({
-        shipments: data,
+      shipments: data,
       error: null,
     });
   } 

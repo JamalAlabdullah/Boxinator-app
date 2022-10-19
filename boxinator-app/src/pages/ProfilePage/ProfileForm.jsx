@@ -1,6 +1,6 @@
 import axios from 'axios'; //Axios
-import React, { useState, useEffect } from 'react';
-import { fetchUser, fetchUserById } from '../../api/UserService';
+import React, { useEffect } from 'react';
+import { fetchUserById } from '../../api/UserService';
 import { useUser } from '../../context/UserContext';
 import keycloak from '../../keycloak';
 
@@ -9,13 +9,8 @@ const userId = "cd1bcfe9-099d-4ac2-9dfb-8d5e31e02fe9";
 
 const ProfileForm = () => {
 
-    /*
-    const [ updatedDate, setDate  ] = useState('');
-    const [ updatedCountry, setCountry ] = useState('');
-    const [ updatedPost, setPost  ] = useState('');
-    const [ updatedNumb, setNumb  ] = useState('');
-    */
-    // Axios ------------------------------
+    //Try to get user id from keycloak
+    //console.log("KeyCloak ID: " + keycloak.idTokenParsed.nonce);
 
     const {user, setUser} = useUser()
 
