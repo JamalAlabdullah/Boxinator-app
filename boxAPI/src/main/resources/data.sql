@@ -1,6 +1,6 @@
 -- Users
---INSERT INTO app_user (user_id, country, postal_code, phone_number)
---VALUES('pernille.ofte@no.experis.com', 'Sweden', '2712', 23494234);
+INSERT INTO app_user (user_id, country, postal_code, phone_number, birthday)
+VALUES('cd1bcfe9-099d-4ac2-9dfb-8d5e31e02fe9', 'Sweden', '2712', 23494234, '01-02-2008');
 
 --INSERT INTO app_user (user_id, country, postal_code, phone_number)
 --VALUES('ole.syverinsen@no.experis.com', 'Norway', '0002', 47892713);
