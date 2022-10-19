@@ -1,8 +1,8 @@
-    import axios from ".";
+import axios from ".";
 
     /**
      * SAMPLE FUNCTION: Fetch products from a REST API
-     * @returns { Promise<{ user: [], error: null | string }>} response
+     * @returns { Promise<{ account: [], error: null | string }>} response
      */
     export const fetchUser = async () => {
     
@@ -11,13 +11,13 @@
       try {
         const { data } = await axios.get(accountURL);
         return Promise.resolve({
-          user: data,
+          account: data,
           error: null,
         });
       } 
       catch (e) {
         return {
-            user: [],
+            account: [],
           error: e.message,
         };
       }
@@ -25,27 +25,28 @@
     
     /**
      * Fetch a product by its id.
-     * @param {string} userID
-     * @returns {Promise<{user: { id } | null, error: null}>}
+     * @param {string} accountId
+     * @returns {Promise<{account: [] | null, error: null}>}
      */
-    export const fetchUserById = async (userID) => {
+    export const fetchUserById = async (accountId) => {
       const accountURL = "http://localhost:8080/api/v1/account";
     
       try {
-        const { data, status } = await axios.get(accountURL + "/" + userID);
-        console.log(status)
+        const { data } = await axios.get(accountURL + "/" + accountId);
+        //console.log(status)
         return Promise.resolve({
-          user: data,
+          account: data,
           error: null,
         });
       }
       catch (e) {
         return {
-          user: null,
+          account: null,
           error: e.message,
         };
       }
     }
     
+
 
 
