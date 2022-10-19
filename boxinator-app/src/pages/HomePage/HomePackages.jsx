@@ -1,40 +1,36 @@
 import './homepage.css'
 import { ntc } from "../../utils/ntc" // Used to convert hex and rgb to a color name
 import source from "../../stamp-svgrepo-com.svg";
-import axios from 'axios'; //Axios
-import React from 'react';
+import React, { useEffect } from 'react';
+import { usePackage } from '../../context/PackageContext';
+import { fetchPackage } from '../../api/PackageService';
 
-const baseURL = "http://localhost:8080/api/v1/shipments"; // Api connection
-const userId = "pernille.ofte@no.experis.com";
+//const baseURL = "http://localhost:8080/api/v1/"; // Api connection
+const userId = "cd1bcfe9-099d-4ac2-9dfb-8d5e31e02fe9";
 
 const HomePackages = () => {
 
-    // Experiment start -------------------------------- 
-    //let color = ntc.name("#FF0000")
-    //let rgb = color[0];
-    //let colorName = color[1];
-    //console.log(colorName);
-    //console.log(rgb);
-    //console.log(color);
-    // Experiment end ----------------------------------
-
     // Axios ------------------------------
-    const [packages, setPackage] = React.useState(null);
+    const { packages, setPackage } = usePackage();
 
-    React.useEffect(() => {
-        axios.get(baseURL).then((response) => {
-            setPackage(response.data);
-        });
-    }, []);
+    useEffect(() => {
+        if (!packages) {
+            const init = async () => {
+                const packages = await fetchPackage();
+                setPackage(packages);
+            };
+
+            init();
+        }
+    }, [setPackage, packages]);
 
     if (!packages) return null;
 
-
     let temp = []; //Array used to temporarly store packages packages
 
-    for (let i = 0; i < packages.length; i++) { //Pushes a spesific packages packages to temp[] array
-        if(packages[i].appUser === userId) {
-            temp.push(packages[i]);
+    for (let i = 0; i < packages.shipments.length; i++) { //Pushes a spesific packages packages to temp[] array
+        if(packages.shipments[i].appUser === userId) {
+            temp.push(packages.shipments[i]);
         }
     }
 
