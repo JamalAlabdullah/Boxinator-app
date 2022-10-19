@@ -4,8 +4,16 @@ import source from "../../stamp-svgrepo-com.svg";
 import axios from 'axios'; //Axios
 import React from 'react';
 
+
+
 const baseURL = "http://localhost:8080/api/v1/shipments"; // Api connection
 const userId = "pernille.ofte@no.experis.com";
+
+
+
+
+
+
 
 const HomePackages = () => {
 
@@ -66,4 +74,4 @@ const HomePackages = () => {
 
 }
 
-export default HomePackages
+export default  HomePackages   

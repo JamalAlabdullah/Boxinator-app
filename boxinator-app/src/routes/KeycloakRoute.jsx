@@ -1,3 +1,4 @@
+/*
 import keycloak from "../keycloak";
 import { Navigate } from "react-router-dom";
 
@@ -19,4 +20,29 @@ function KeycloakRoute({ children, role, redirectTo = "/" }) {
   export default KeycloakRoute;
 
 
+*/
 
+/*
+import { Navigate } from "react-router-dom";
+import keycloak from "../keycloak"
+
+
+
+const KeycloakRoute = Component => props => {
+  console.log("logenin");
+
+    const isLoggedIn = keycloak.isLoggedIn;
+
+    if (isLoggedIn) {
+      console.log("logenin");
+
+      window.location = "/home"
+    } else {
+     
+    }
+
+}
+
+export default KeycloakRoute;
+
+*/

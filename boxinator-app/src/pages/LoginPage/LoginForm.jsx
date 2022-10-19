@@ -18,11 +18,7 @@ const LoginForm = () => {
 
 const [isOpen, setIsOpen] = useState(false)
   
-  const handelregisterbtn = () => {
-    window.location.assign("/register");
-  };
-
-
+ 
 
 
   return (
@@ -42,9 +38,58 @@ const [isOpen, setIsOpen] = useState(false)
                 Login
               </Button>
             )}
+            {keycloak.authenticated? window.location.assign("/home"):null}
         
           </Card.Footer>
         </Card>
+        {/**------------------------------------------------------------- */}
+
+        <Card id="allCard">
+          <Card.Body>
+            <Card.Text>
+            Here you can register your new account.
+            </Card.Text>
+          </Card.Body>
+          <Card.Footer>
+            {!keycloak.authenticated && (
+              <Button
+              className="Btn"
+                onClick={() => keycloak.register()}>
+                Register
+              </Button>
+            )}
+            {keycloak.authenticated? window.location.assign("/home"):null}
+        
+          </Card.Footer>
+        </Card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <Card id="allCard">
           <Card.Body>
             <Card.Text>

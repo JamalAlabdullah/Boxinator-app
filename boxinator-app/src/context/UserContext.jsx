@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { createContext } from "react";
-import axios from "axios"
+import axios from "axios";
 import {fetchUser} from "../api/UserService"
 
 //Context
