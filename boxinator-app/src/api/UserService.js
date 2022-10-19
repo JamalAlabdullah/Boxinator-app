@@ -2,7 +2,7 @@
 
     /**
      * SAMPLE FUNCTION: Fetch products from a REST API
-     * @returns { Promise<{ account: [], error: null | string }>} response
+     * @returns { Promise<{ user: [], error: null | string }>} response
      */
     export const fetchUser = async () => {
     
@@ -11,13 +11,13 @@
       try {
         const { data } = await axios.get(accountURL);
         return Promise.resolve({
-          account: data,
+          user: data,
           error: null,
         });
       } 
       catch (e) {
         return {
-            account: [],
+            user: [],
           error: e.message,
         };
       }
@@ -25,23 +25,23 @@
     
     /**
      * Fetch a product by its id.
-     * @param {string} accountId
-     * @returns {Promise<{account: [] | null, error: null}>}
+     * @param {string} userID
+     * @returns {Promise<{user: { id } | null, error: null}>}
      */
-    export const fetchUserById = async (accountId) => {
+    export const fetchUserById = async (userID) => {
       const accountURL = "http://localhost:8080/api/v1/account";
     
       try {
-        const { data } = await axios.get(accountURL + "/" + accountId);
-        //console.log(status)
+        const { data, status } = await axios.get(accountURL + "/" + userID);
+        console.log(status)
         return Promise.resolve({
-          account: data,
+          user: data,
           error: null,
         });
       }
       catch (e) {
         return {
-          account: null,
+          user: null,
           error: e.message,
         };
       }

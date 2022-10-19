@@ -1,11 +1,13 @@
 import axios from 'axios'; //Axios
 import React, { useState, useEffect } from 'react';
-import { fetchUser, fetchUserById } from '../../api/UserService';
+import { fetchUserById } from '../../api/UserService';
 import { useUser } from '../../context/UserContext';
-import keycloak from '../../keycloak';
+import {useParams} from "react-router-dom";
 
-const baseURL = "http://localhost:8080/api/v1/account/"; // Api connection
-const userId = "cd1bcfe9-099d-4ac2-9dfb-8d5e31e02fe9";
+const baseURL = "http://localhost:8080/api/v1/account"; // Api connection
+
+const userId = "pernille.ofte@no.experis.com";
+
 
 const ProfileForm = () => {
 
@@ -13,13 +15,21 @@ const ProfileForm = () => {
     const [ updatedDate, setDate  ] = useState('');
     const [ updatedCountry, setCountry ] = useState('');
     const [ updatedPost, setPost  ] = useState('');
-    const [ updatedNumb, setNumb  ] = useState('');
-    */
-    // Axios ------------------------------
+    const [ updatedNumb, setNumb  ] = useState(''); 
 
+    // Axios ------------------------------ 
+
+    const {id} = useParams()
     const {user, setUser} = useUser()
 
     useEffect(() => {
+        if(id)
+        {
+            const user = fetchUserById(id);
+            setUser(user)
+      
+        };
+    }, []);
 
         if (!user) {
             const init = async () => {
@@ -50,8 +60,7 @@ const ProfileForm = () => {
             window.location = "/profile" //This line of code will redirect you once the submission is succeed
         })
     }
-
-
+    
     return (
         <form id="profForm" onSubmit={onSubmit}>
 
@@ -76,7 +85,7 @@ const ProfileForm = () => {
                 <input id="conNumb" type="number" 
                     defaultValue={user.account.phone_number}
                 />
-
+                
             </fieldset>
             <button id="btnContinue" type="submit">Save Changes</button>
 
