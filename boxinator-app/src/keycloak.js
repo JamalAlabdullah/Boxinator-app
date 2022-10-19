@@ -19,9 +19,12 @@ export const initialize = () => {
   
 };
 
+// get current token 
+export const getToken= () => keycloak.token;
 
 
-
+// is loget in
+export const isLoggedIn = () => !!keycloak.token;
 
 
 

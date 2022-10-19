@@ -8,10 +8,12 @@ import Register from "./views/Register";
 import HomePage from "./views/HomePage";
 import Login from "./views/Login";
 import Profile from "./views/Profile";
+import DebugPage from "./components/Admin/Debug/DebugPage";
 
 //import keycloak from './keycloak';
 
 import './App.css';
+
 
 
 /*
@@ -38,6 +40,7 @@ function App() {
           <Route path="/home" element={ <HomePage /> } />
 
           <Route path="/profile" element={<Profile /> } />
+          <Route path="/debug" element={<DebugPage />} />
        
           
         </Routes>
