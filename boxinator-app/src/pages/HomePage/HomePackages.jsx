@@ -18,7 +18,6 @@ const HomePackages = () => {
             const init = async () => {
                 const packages = await fetchPackage();
                 setPackage(packages);
-                //console.log(packages.shipments[0].appUser);
             };
 
             init();
@@ -27,8 +26,6 @@ const HomePackages = () => {
 
     if (!packages) return null;
 
-    console.log("Test: " + packages.shipments.length);
-
     let temp = []; //Array used to temporarly store packages packages
 
     for (let i = 0; i < packages.shipments.length; i++) { //Pushes a spesific packages packages to temp[] array
@@ -36,8 +33,6 @@ const HomePackages = () => {
             temp.push(packages.shipments[i]);
         }
     }
-
-    console.log("Temp: " + temp[0].appUser);
 
     return (
         <div id="packGrid">

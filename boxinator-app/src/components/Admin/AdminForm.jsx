@@ -22,7 +22,6 @@ const AdminForm = () => {
             const init = async () => {
                 const packages = await fetchPackage();
                 setPackage(packages);
-                //console.log(packages.shipments[0].appUser);
             };
 
             init();
