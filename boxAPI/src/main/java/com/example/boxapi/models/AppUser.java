@@ -24,9 +24,9 @@ public class AppUser {
     @Column(length = 50)
     private String country;
     @Column(length = 10)
-    private int postal_code;
+    private Integer postal_code;
     @Column(length = 15)
-    private int phone_number;
+    private Integer phone_number;
     @Column
     private String role;
     @Column(length = 150)
@@ -37,8 +37,6 @@ public class AppUser {
     private String password;
     @Column(length = 150)
     private String email;
-    @Column(length = 10)
-    private Boolean complete;
 
     //Navigation/relationships
     @OneToMany(mappedBy = "appUser")

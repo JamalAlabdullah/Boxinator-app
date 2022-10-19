@@ -1,6 +1,7 @@
 package com.example.boxapi.services.appuser;
 
 import com.example.boxapi.models.AppUser;
+import com.example.boxapi.models.dto.AppUserDTORegistration;
 import com.example.boxapi.repositories.AppUserRepository;
 import com.example.boxapi.services.appuser.appuserExceptions.AppUserNotFoundException;
 
@@ -11,10 +12,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.net.URI;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
 
 @Service
 //RequiredArgsConstructor
@@ -82,20 +80,30 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
+    public AppUser update(AppUser entity) {
+        return null;
+    }
+
+    @Override
     public AppUser add(String uid) {
         if (appUserRepository.existsById(uid))
             // TODO make new exception
             throw new AppUserNotFoundException(uid);
         AppUser newAppuser = new AppUser();
         newAppuser.setId(uid);
-        newAppuser.setComplete(false);
+
 
         return appUserRepository.save(newAppuser);
     }
     // TODO ble dette riktig?
     // TODO Packages ser ikke ut til å bli riktig når man endrer på bruker
     @Override
-    public AppUser update(AppUser entity) {
+    public AppUser updateUser(AppUser entity, Jwt jwt) {
+        entity.setId(jwt.getClaimAsString("sub"));
+        entity.setEmail(jwt.getClaimAsString("email"));
+        entity.setName(jwt.getClaimAsString("name"));
+        entity.setRole(jwt.getClaimAsString("roles"));
+        entity.setUsername(jwt.getClaimAsString("preferred_username"));
         return appUserRepository.save(entity);
     }
 
@@ -158,13 +166,17 @@ public class AppUserServiceImpl implements AppUserService {
         return appUserRepository.findAll();
     }
 
-    public AppUser createNewUserFromJWT(Jwt principal){
+    public AppUser createNewUserFromJWT(Jwt principal, AppUserDTORegistration appUserDTO){
         AppUser newAppUser = new AppUser();
         newAppUser.setId(principal.getClaimAsString("sub"));
         newAppUser.setEmail(principal.getClaimAsString("email"));
         newAppUser.setName(principal.getClaimAsString("name"));
-        newAppUser.setUsername(principal.getClaimAsString("preferred_username"));
         newAppUser.setRole(principal.getClaimAsString("roles"));
+        newAppUser.setUsername(principal.getClaimAsString("preferred_username"));
+        newAppUser.setBirthday(appUserDTO.getBirthday());
+        newAppUser.setCountry(appUserDTO.getCountry());
+        newAppUser.setPostal_code(appUserDTO.getPostal_code());
+        newAppUser.setPhone_number(appUserDTO.getPhone_number());
         newAppUser = appUserRepository.save(newAppUser);
 
         return newAppUser;

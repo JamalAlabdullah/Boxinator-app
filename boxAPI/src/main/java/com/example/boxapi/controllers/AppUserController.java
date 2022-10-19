@@ -3,9 +3,7 @@ package com.example.boxapi.controllers;
 
 import com.example.boxapi.mappers.AppUserMapper;
 import com.example.boxapi.models.AppUser;
-import com.example.boxapi.models.dto.AppUserDTO;
-import com.example.boxapi.models.dto.CountryDTO;
-import com.example.boxapi.models.dto.ResponseMessage;
+import com.example.boxapi.models.dto.*;
 import com.example.boxapi.services.appuser.AppUserServiceImpl;
 import com.example.boxapi.util.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -127,9 +125,9 @@ public class AppUserController {
                     content = @Content)
     })
     @PostMapping()
-    public ResponseEntity add(@AuthenticationPrincipal Jwt jwt) {//@RequestBody AppUserDTO appUserDTO) {
+    public ResponseEntity add(@AuthenticationPrincipal Jwt jwt, @RequestBody AppUserDTORegistration appUserDTORegistration) {
         AppUser newAppuser = appUserService.createNewUserFromJWT(
-                jwt);
+                jwt, appUserDTORegistration);
         //AppUser newAppuser = appUserService.add(
         //        appUserMapper.appUserDTOtoAppUser(appUserDTO)
         //);
@@ -151,7 +149,7 @@ public class AppUserController {
             @ApiResponse(responseCode = "200",
                     description = "Success",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CountryDTO.class))}),
+                            schema = @Schema(implementation = AppUserDTO.class))}),
             @ApiResponse(responseCode = "404",
                     description = "User not found with supplied ID",
                     content = @Content)
@@ -159,11 +157,12 @@ public class AppUserController {
     @PutMapping("{id}") // GET: localhost:8080/api/v1/settings/countries:1
     //RolesAllowed("user")
     //TODO
-    public ResponseEntity update(@RequestBody AppUserDTO appUserDTO, @AuthenticationPrincipal Jwt jwt, @PathVariable String id) {
+    public ResponseEntity update(@RequestBody AppUserDTOUpdate appUserDTOUpdate, @AuthenticationPrincipal Jwt jwt, @PathVariable String id) {
         if (jwt.getClaimAsStringList("roles").contains("admin") || jwt.getClaimAsStringList("roles").contains("user")) {
             //appUserService.deleteById(jwt.getClaimAsString("sub"));
-            appUserService.update(
-                    appUserMapper.appUserDTOtoAppUser(appUserDTO)
+            appUserService.updateUser(
+                    appUserMapper.appUserDTOtoAppUserUpdate(appUserDTOUpdate),
+                    jwt
             );
             return ResponseEntity.noContent().build();
         } else {
