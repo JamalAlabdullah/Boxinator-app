@@ -49,7 +49,7 @@ const Footer = () => {
           className="text-center p-4"
           style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
         >
-          © 2022 Copyright: <bre/>
+          © 2022 Copyright: 
           <a className="text-reset fw-bold" href="https://mdbootstrap.com/">
             BoxinatorGroup-Noroff
           </a>

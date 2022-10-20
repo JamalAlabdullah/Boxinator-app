@@ -27,7 +27,7 @@ const [isOpen, setIsOpen] = useState(false)
         <Card id="allCard">
           <Card.Body>
             <Card.Text>
-              Have you already registered? Go ahead and login.
+              Here you can register for the first time or login.
             </Card.Text>
           </Card.Body>
           <Card.Footer>
@@ -43,52 +43,6 @@ const [isOpen, setIsOpen] = useState(false)
           </Card.Footer>
         </Card>
         {/**------------------------------------------------------------- */}
-
-        <Card id="allCard">
-          <Card.Body>
-            <Card.Text>
-            Here you can register your new account.
-            </Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            {!keycloak.authenticated && (
-              <Button
-              className="Btn"
-                onClick={() => keycloak.register()}>
-                Register
-              </Button>
-            )}
-            {keycloak.authenticated? window.location.assign("/home"):null}
-        
-          </Card.Footer>
-        </Card>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         <Card id="allCard">
           <Card.Body>
