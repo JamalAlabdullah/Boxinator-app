@@ -16,21 +16,7 @@ const DebugForm = () => {
     //PUT
     const onSubmit = event => {
         event.preventDefault();
-        axios.put(shipmentURL + "/" + shipmentId, {
-          id: shipmentId, 
-          receiver_name: event.target[1].value, 
-          color: event.target[2].value,
-          date: event.target[3].value,
-          status: event.target[4].value 
-      })
-      .then(res=>{
-          console.log(res);
-          console.log(res.data);
-          window.location = "/profile" //This line of code will redirect you once the submission is succeed
-      })
-  
-        
-    };
+    }
 
     return (
         <div id="packGrid">

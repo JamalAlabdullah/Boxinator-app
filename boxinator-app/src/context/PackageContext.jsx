@@ -24,8 +24,8 @@ const PackageProvider = ({children}) => {
       
         };
         init();
-        }
-    }, [packages]);
+        
+    }, []);
 
     
     return (
@@ -34,6 +34,7 @@ const PackageProvider = ({children}) => {
 
         </PackageContext.Provider>
     )
-}
+    }
+
 
 export default PackageProvider
