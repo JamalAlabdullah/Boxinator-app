@@ -1,6 +1,6 @@
 import axios from 'axios'; //Axios
 import React, { useEffect } from 'react';
-import { fetchUserById } from '../../api/UserService';
+import {fetchUserById } from '../../api/UserService';
 import { useUser } from '../../context/UserContext';
 import keycloak from '../../keycloak';
 

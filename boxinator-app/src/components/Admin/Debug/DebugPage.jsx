@@ -1,11 +1,12 @@
 import DebugForm from "../Debug/DebugForm"
 
+
 const DebugPage = () => {
     return (
         <div>
             DebugPage
 
-<DebugForm />
+<DebugForm/>
 
         </div>
     )
