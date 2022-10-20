@@ -53,8 +53,6 @@ const onSubmit = event => {
             <label htmlFor="email">E-mail: </label>
 
             <p>{keycloak.tokenParsed.email}</p>
-
-            {/*   <p>token is:{keycloak.token}</p>   */}
             
           </>
 

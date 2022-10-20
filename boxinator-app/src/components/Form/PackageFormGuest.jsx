@@ -3,6 +3,7 @@ import {useForm} from 'react-hook-form';
 import {useEffect, useState} from 'react'
 import '../Modal/packagemodal.css';
 import axios from 'axios';
+import { useWeight } from '../../context/WeightContext';
 
 
 const baseURL = 'http://localhost:8080/api/v1/settings/countries';
@@ -17,6 +18,8 @@ const PackageFormGuest = () => {
   const {register, handleSubmit, reset} = useForm()
 
   const [countries, setCountries] = useState([])
+
+  const { weights } = useWeight();
 
     useEffect(() => {
       axios.get(baseURL)
@@ -94,10 +97,9 @@ const PackageFormGuest = () => {
           
           { ... register("weight", packageConfig)} >
           <option></option> 
-          <option value="1">Basic 1 kg</option>
-          <option value="2">Humble 2 kg</option>
-          <option value="5">Deluxe 5 kg</option>
-          <option value="8">Premium 8 kg</option>
+          {weights && weights.map((weight) => (
+            <option key={weight.id} value={weight.id}>{weight.id}</option>
+          ))}
           </Form.Select> 
         </Form.Group>
 

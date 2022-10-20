@@ -9,8 +9,6 @@ const Navbar = () => {
         <nav id="navBar">
             <h1 id="navH1">Boxinator</h1>
             <ul id="navUl">
-               
-               
 
                 {keycloak.authenticated && (
                     <>
