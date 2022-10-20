@@ -4,10 +4,12 @@ import TotalAmount from '../Form/TotalAmount';
 
 import PackageForm from '../Form/PackageForm';
 
+
+
+
+
 const PackageModal = ({setIsOpen}) => {
 const handleClose = () => setIsOpen(false);
-
-
 
 return (
 

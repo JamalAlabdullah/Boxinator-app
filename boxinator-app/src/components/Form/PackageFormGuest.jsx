@@ -1,21 +1,32 @@
 import { Form, Button } from 'react-bootstrap';
 import {useForm} from 'react-hook-form';
-import {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react';
+import { useCountry } from '../../context/CountryContext';
+import { useWeight } from '../../context/WeightContext';
 import '../Modal/packagemodal.css';
 import axios from 'axios';
+import keycloak from '../../keycloak';
 
 import { useRef } from "react";
 
 import emailjs from '@emailjs/browser';
 
+const baseURL = 'http://localhost:8080/api/v1';
+let userId = "";
 
-const baseURL = 'http://localhost:8080/api/v1/settings/countries';
+
+
+
+
+//const baseURL = 'http://localhost:8080/api/v1/settings/countries';
 
 const packageConfig = {
   required: true,
 }
 
 const PackageFormGuest = () => {
+
+  userId = keycloak.subject;
 
   const form = useRef();
 
@@ -42,37 +53,55 @@ const PackageFormGuest = () => {
     e.target.reset();
   };
 
-
+// ------------
 
   //HOOKS
   const {register, handleSubmit, reset} = useForm()
+  const { countries } = useCountry();
+  const { weights } = useWeight();
+  const [ resStatus, setResStatus ] = useState("");
 
-  const [countries, setCountries] = useState([])
-
-    useEffect(() => {
-      axios.get(baseURL)
-      .then(res => {
-        console.log(res.data)
-        setCountries(res.data)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    }, [setCountries])
-
+  //const [countries, setCountries] = useState([])
+  let shipment = 200
     
   const onSubmit = (data)=> {
-    console.log(data) 
-    alert('success' + JSON.stringify(data, null,4))
+
+    axios
+    .post(baseURL + '/shipments', {
+      headers: { Authorization: `Bearer ${keycloak.token}` },
+      receiver_name: data.receiver_name,
+      weight: data.weight,
+      color: data.color, 
+      appUser: userId,
+      country: data.country,
+      status: "CREATED",  
+      totalSum: shipment
+      
+    })
+    .then(function (response) {
+      console.log(response.status);
+      if (response.status === 200) {
+        setResStatus("Successful Registration!");
+      } else {
+        setResStatus("error");
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
     reset()
-};
+    window.location = "/home"
+    console.log(resStatus);
+
+  };
 
 
- return <div>
-  
-     <Form onSubmit={handleSubmit(onSubmit)} id="form-container">
+ return (
+ 
+ <div>
 
-     <form ref={form} onSubmit={sendEmail}>
+       {/* Sender's email*/}
+       <form ref={form} onSubmit={sendEmail}>
           <Form.Group
             id="form-group"
             className="mb-3"
@@ -89,18 +118,10 @@ const PackageFormGuest = () => {
           </Form.Group>
         </form>
 
-     
-     {/* Sender's email*/}
-        <Form.Group id="form-group" className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Sender's email</Form.Label>
-          <Form.Control
-          type="email"
-          name="sender_email"
-          placeholder="Enter email"
-          { ... register("sender_email", packageConfig)}
-          />
-        </Form.Group>
-
+  
+     <Form onSubmit={handleSubmit(onSubmit)} id="form-container">
+   
+       {/* RECEIVER FIRST NAME*/}
         <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Receivers First name</Form.Label>
           <Form.Control
@@ -137,32 +158,30 @@ const PackageFormGuest = () => {
 
       
         {/* WEIGHT OPTIONS SELECT*/}
-         <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Weight</Form.Label>
-          <Form.Select 
-          name="weight" 
-          
-          { ... register("weight", packageConfig)} >
-          <option></option> 
-          <option value="1">Basic 1 kg</option>
-          <option value="2">Humble 2 kg</option>
-          <option value="5">Deluxe 5 kg</option>
-          <option value="8">Premium 8 kg</option>
+        <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>Weight</Form.Label>
+        <Form.Select
+          name="weight"
+          {...register("weight", packageConfig)} >
+         
+          {weights && weights.map((weight) => (
+            <option key={weight.id} value={weight.id}>{weight.id}</option>
+          ))}
           </Form.Select> 
         </Form.Group>
 
           {/* DESTINATION SELECT*/}
-          <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Destination</Form.Label>
-          <Form.Select name="destination"  { ... register("destination", packageConfig)}>
-            <option></option>
-           {countries.map((country)  => ( 
-            <option key={country.country_id}>{country.country_name}</option>
+          <Form.Select name="country" 
+         
+         { ... register("country", packageConfig)}>
+          <option></option> 
+           {countries && countries.map((country)  => ( 
+            <option key={country.id} value={country.id} >{country.id}</option>
+            
            ))}
-  
-
           </Form.Select > 
-          
         </Form.Group>
           <Button type="submit" onClick={sendEmail}>Send package</Button>
         
@@ -171,6 +190,7 @@ const PackageFormGuest = () => {
 
      
  </div>
+ )
 }
 
 export default PackageFormGuest;

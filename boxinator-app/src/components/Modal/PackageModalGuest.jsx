@@ -1,13 +1,14 @@
 import {Modal } from 'react-bootstrap'
 import './packagemodal.css';
-import Cart from '../Form/TotalAmount';
 
+import TotalAmount from '../Form/TotalAmount';
 import PackageFormGuest from '../Form/PackageFormGuest';
 
-const PackageModalGuest = ({setIsOpen, countries}) => {
+
+
+
+const PackageModalGuest = ({setIsOpen}) => {
 const handleClose = () => setIsOpen(false);
-
-
 
 return (
 
@@ -19,12 +20,10 @@ return (
     </Modal.Header>
     <Modal.Body id="modal-body">
      <PackageFormGuest/>
-
- 
-
     </Modal.Body>
     <Modal.Footer>
-       <Cart/>
+     
+       <TotalAmount/>
     </Modal.Footer>
 
   </Modal>
