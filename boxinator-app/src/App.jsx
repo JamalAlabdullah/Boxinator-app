@@ -9,7 +9,7 @@ import HomePage from "./views/HomePage";
 import Login from "./views/Login";
 import Profile from "./views/Profile";
 import Footer from "./components/Footer/Footer";
-
+import DebugPage from "./components/Admin/Debug/DebugPage"
 
 //import keycloak from './keycloak';
 
