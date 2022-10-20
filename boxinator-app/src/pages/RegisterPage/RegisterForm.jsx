@@ -38,10 +38,10 @@ const onSubmit = event => {
       id: keycloak.tokenParsed.sub, 
       birthday: dateOfBirth, 
       country: country,
-      name:keycloak.tokenParsed.name,
+      //name:keycloak.tokenParsed.given_name,
       postal_code: postalCode,
       phone_number: phoneNr,
-      username:keycloak.tokenParsed.email,
+    // username:keycloak.tokenParsed.family_name,
       
   })
   .then(res=>{

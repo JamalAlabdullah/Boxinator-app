@@ -8,7 +8,8 @@ import Register from "./views/Register";
 import HomePage from "./views/HomePage";
 import Login from "./views/Login";
 import Profile from "./views/Profile";
-import DebugPage from "./components/Admin/Debug/DebugPage";
+import Footer from "./components/Footer/Footer";
+
 
 //import keycloak from './keycloak';
 
@@ -30,13 +31,15 @@ import './App.css';
 
 function App() {
   return (
-  
+  <>
+ 
     <BrowserRouter>
       <Navbar/>
       <main className="container">
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={ <Register/> } />
+          
           <Route path="/home" element={ <HomePage /> } />
 
           <Route path="/profile" element={<Profile /> } />
@@ -48,6 +51,9 @@ function App() {
       </main>
       
     </BrowserRouter>
+<Footer/>
+
+    </>
   
   
      
