@@ -18,12 +18,16 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.parameters.P;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,13 +52,16 @@ public class PackagesController {
                     description = "No shipments",
                     content = @Content)
     })
-    @GetMapping
-    public ResponseEntity<Collection<PackageDTO>> getPackages() {
-        Collection<PackageDTO> packages = packageMapper.packagesToPackageDTOs(
-                packageService.getPackages()
-        );
+    @GetMapping()
+    public ResponseEntity<Collection<PackageDTO>> getPackages(@AuthenticationPrincipal Jwt jwt) {
+        if (jwt.getClaimAsStringList("roles").contains("admin")) {
+            Collection<PackageDTO> packages = packageMapper.packagesToPackageDTOs(
+                    packageService.getPackages());
+            return ResponseEntity.ok(packages);
+        } else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
 
-        return ResponseEntity.ok(packages);
     }
 
     @Operation(summary = "Gets completed shipments")
@@ -68,11 +75,15 @@ public class PackagesController {
                     content = @Content)
     })
     @GetMapping("/complete")
-    public ResponseEntity getCompletedShipments() {
-        Collection<PackageDTO> packages = packageMapper.packagesToPackageDTOs(
-                packageService.findByStatus(Status.COMPLETED)
-        );
-        return ResponseEntity.ok(packages);
+    public ResponseEntity getCompletedShipments(@AuthenticationPrincipal Jwt jwt) {
+        if (jwt.getClaimAsStringList("roles").contains("admin")) {
+            Collection<PackageDTO> packages = packageMapper.packagesToPackageDTOs(
+                    packageService.findByStatus(Status.COMPLETED));
+            return ResponseEntity.ok(packages);
+        } else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
     }
 
 
@@ -87,11 +98,15 @@ public class PackagesController {
                     content = @Content)
     })
     @GetMapping("/cancelled")
-    public ResponseEntity getCancelledShipments() {
-        Collection<PackageDTO> packages = packageMapper.packagesToPackageDTOs(
-                packageService.findByStatus(Status.CANCELLED)
-        );
-        return ResponseEntity.ok(packages);
+    public ResponseEntity getCancelledShipments(@AuthenticationPrincipal Jwt jwt) {
+        if (jwt.getClaimAsStringList("roles").contains("admin")) {
+            Collection<PackageDTO> packages = packageMapper.packagesToPackageDTOs(
+                    packageService.findByStatus(Status.CANCELLED));
+            return ResponseEntity.ok(packages);
+        } else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
     }
 
 
@@ -143,13 +158,20 @@ public class PackagesController {
     })
 
     @GetMapping("customer/{id}")
-    public ResponseEntity getPackagesFromCustomer(@PathVariable String id) {
+    public ResponseEntity getPackagesFromCustomer(@PathVariable String id, @AuthenticationPrincipal Jwt jwt) {
+        if (!Objects.equals(id, jwt.getClaimAsString("sub"))) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("User ID does not match!");
+        }
+
         AppUser appUser = appUserService.findById(id);
         Collection<PackageDTO> packages = appUser.getPackages().stream().map(
                 packageMapper::packageToPackageDTO
         ).collect(Collectors.toSet());
         return ResponseEntity.ok(packages);
     }
+
     /*
     @GetMapping("customer/{id}")
     public ResponseEntity<Set<Package>> get(@PathVariable int id){
@@ -170,15 +192,18 @@ public class PackagesController {
                     description = "Package not found with supplied id",
                     content = @Content)
     })
-    @PutMapping(":{id}")
-    public ResponseEntity update(@RequestBody PackageDTO packageDTO, @PathVariable int id) {
-        if (packageDTO.getId() != id)
-            ResponseEntity.badRequest().build();
-        packageService.update(
-                packageMapper.packageDTOtoPackage(packageDTO)
-        );
-        return ResponseEntity.noContent().build();
+    @PutMapping("{id}")
+    //TODO hvis det kan ordnes i frontend blir vi glade, ellers må vi fikse rollene her
+    public ResponseEntity update(@RequestBody PackageDTO packageDTO, @PathVariable int id, @AuthenticationPrincipal Jwt jwt) {
+        if ((jwt.getClaimAsStringList("roles").contains("admin") || jwt.getClaimAsStringList("roles").contains("user")) && id == packageDTO.getId() ) {
+            packageService.update(
+                    packageMapper.packageDTOtoPackage(packageDTO)
+            );
+            return ResponseEntity.noContent().build();
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
+
 
     // TODO Need to make this so only ADMIN can delete:
     // TODO Also fix pointers?
@@ -192,13 +217,19 @@ public class PackagesController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorAttributeOptions.class))}),
             @ApiResponse(responseCode = "404",
-            description = "Shipment not found with supplied ID",
-            content = @Content)
+                    description = "Shipment not found with supplied ID",
+                    content = @Content)
     })
     @Operation(summary = "Delete shipment by ID")
     @DeleteMapping(":{id}")
-    public ResponseEntity delete(@PathVariable int id) {
-        packageService.deleteById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity delete(@PathVariable int id, @AuthenticationPrincipal Jwt jwt) {
+        if (jwt.getClaimAsStringList("roles").contains("admin")) {
+            int deletePackage = packageService.findById(id).getId();
+            packageService.deleteById(deletePackage);
+            return ResponseEntity.noContent().build();
+        } else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
     }
 }

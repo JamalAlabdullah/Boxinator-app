@@ -15,6 +15,15 @@ VALUES('Netherlands', 5);
 INSERT INTO country (country_id, multiplier)
 VALUES('Belgium', 5);
 
+-- Weight
+INSERT INTO weight (weight_id, value)
+VALUES ('BASIC', 1);
+INSERT INTO weight (weight_id, value)
+VALUES ('HUMBLE', 2);
+INSERT INTO weight (weight_id, value)
+VALUES ('DELUXE', 5);
+INSERT INTO weight (weight_id, value)
+VALUES ('PREMIUM', 8);
 
 -- Packages
 --INSERT INTO package (receiver_name, color,user_id, country_id, total_sum)
@@ -26,18 +35,8 @@ VALUES('Belgium', 5);
 --INSERT INTO package (receiver_name, color, status, user_id)
 --VALUES('Ole Syverinsen', 'blue', 'COMPLETED', 'pernille.ofte@no.experis.com');
 
-INSERT INTO package (receiver_name, color, status, total_sum)
-VALUES('Ole Syverinsen', 'black',  'CREATED', 293);
+--INSERT INTO package (receiver_name, weight_id, color, country_id, status, total_sum, user_id)
+--VALUES('Ole Syverinsen', 'DELUXE', '#FFFFFF', 'Germany', 'CREATED', 293, 'cd1bcfe9-099d-4ac2-9dfb-8d5e31e02fe9');
 
-INSERT INTO package (receiver_name, color, status, total_sum)
-VALUES('Ole Syverinsen', 'orange', 'CANCELLED', 241);
-
--- Weight
-INSERT INTO weight (weight_id, value)
-VALUES ('BASIC', 1);
-INSERT INTO weight (weight_id, value)
-VALUES ('HUMBLE', 2);
-INSERT INTO weight (weight_id, value)
-VALUES ('DELUXE', 5);
-INSERT INTO weight (weight_id, value)
-VALUES ('PREMIUM', 8);
+--INSERT INTO package (receiver_name, weight_id, color, country_id, status, total_sum, user_id)
+--VALUES('Ole Syverinsen', 'BASIC', '#424242', 'Belgium', 'COMPLETED', 310, 'cd1bcfe9-099d-4ac2-9dfb-8d5e31e02fe9');

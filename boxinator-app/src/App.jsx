@@ -43,6 +43,7 @@ function App() {
           <Route path="/home" element={ <HomePage /> } />
 
           <Route path="/profile" element={<Profile /> } />
+          <Route path="/debug" element={<DebugPage />} />
        
           
         </Routes>

@@ -20,11 +20,11 @@ root.render(<Loading message="Connecting to Keycloak..." />)
 
 // Initialize Keycloak with catch error if it does not work. 
 initialize()
-  .then(() => { 
+  .then(() => {
     root.render(
       <React.StrictMode>
         <AppContext>
-        <App />
+          <App />
         </AppContext>
       </React.StrictMode>
     );

@@ -1,4 +1,5 @@
-    import axios from ".";
+import axios from ".";
+import keycloak from "../keycloak";
 
     /**
      * SAMPLE FUNCTION: Fetch products from a REST API
@@ -11,6 +12,7 @@
       try {
         const { data } = await axios.get(accountURL);
         return Promise.resolve({
+          headers: { Authorization: `Bearer ${keycloak.token}` },
           account: data,
           error: null,
         });
@@ -25,27 +27,28 @@
     
     /**
      * Fetch a product by its id.
-     * @param {number} accuntId
-     * @returns {Promise<{product: { id, birthday, country, description, quantity } | null, error: null}>}
+     * @param {string} accountId
+     * @returns {Promise<{account: [] | null, error: null}>}
      */
-    export const fetchProductById = async (accuntId) => {
+    export const fetchUserById = async (accountId) => {
       const accountURL = "http://localhost:8080/api/v1/account";
     
       try {
-        const { data, status } = await axios.get(accountURL + "/" + accuntId);
-        console.log(status)
+        const { data } = await axios.get(accountURL + "/" + accountId);
+        //console.log(status)
         return Promise.resolve({
-          product: data,
+          account: data,
           error: null,
         });
       }
       catch (e) {
         return {
-          product: null,
+          account: null,
           error: e.message,
         };
       }
     }
     
+
 
 

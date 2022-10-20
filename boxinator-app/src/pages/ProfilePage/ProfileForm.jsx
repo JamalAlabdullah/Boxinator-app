@@ -1,69 +1,42 @@
 import axios from 'axios'; //Axios
-import React, { useState, useEffect } from 'react';
-import { fetchUser } from '../../api/UserService';
+import React, { useEffect } from 'react';
+import {fetchUserById } from '../../api/UserService';
 import { useUser } from '../../context/UserContext';
+import keycloak from '../../keycloak';
 
-const baseURL = "http://localhost:8080/api/v1/account"; // Api connection
-
-
-const userId = "pernille.ofte@no.experis.com";
-
+const baseURL = "http://localhost:8080/api/v1/account/"; // Api connection
+let userId = "";
 
 const ProfileForm = () => {
 
-    const [ updatedDate, setDate  ] = useState('');
-    const [ updatedCountry, setCountry ] = useState('');
-    const [ updatedPost, setPost  ] = useState('');
-    const [ updatedNumb, setNumb  ] = useState(''); 
-
-    // Axios ------------------------------ 
+    userId = keycloak.subject;
 
     const {user, setUser} = useUser()
 
     useEffect(() => {
-        const init = async () => {
-            const { user } = await fetchUser();
-            setUser(user)
-      
-        };
-        init();
-    }, []);
+
+        if (!user) {
+            const init = async () => {
+                const user = await fetchUserById(userId);
+                setUser(user);
+            };
+
+            init();
+        }
+
+    }, [setUser, user]);
 
     if (!user) return null;
-    
-    //Array used to temporarly store users packages
-    let temp = [];
-
-    for (let i = 0; i < user.length; i++) { //Pushes a specific users packages to temp[] array
-        if(user[i].id === userId) {
-            temp.push(user[i]);
-        }
-    }
-    //console.log(user[0].birthday);
-
-    // Makes sure values isn't lost if not changed 
-    if(updatedDate === "") {
-        setDate(temp[0].birthday);
-    }
-    if(updatedCountry === "") {
-        setCountry(temp[0].country);
-    }
-    if(updatedPost === "") {
-        setPost(temp[0].postal_code);
-    }
-    if(updatedNumb === "") {
-        setNumb(temp[0].phone_number);
-    }
 
     const onSubmit = event => {
         event.preventDefault();
-        
-        axios.post(baseURL, { 
+        axios.put(baseURL + userId, {
+            headers: { Authorization: `Bearer ${keycloak.token}` },
             id: userId, 
-            birthday: updatedDate, 
-            country: updatedCountry,
-            postal_code: updatedPost,
-            phone_number: updatedNumb 
+            birthday: event.target[1].value, 
+            country: event.target[2].value,
+            postal_code: event.target[3].value,
+            phone_number: event.target[4].value 
         })
         .then(res=>{
             console.log(res);
@@ -71,7 +44,8 @@ const ProfileForm = () => {
             window.location = "/profile" //This line of code will redirect you once the submission is succeed
         })
     }
-    
+
+
     return (
         <form id="profForm" onSubmit={onSubmit}>
 
@@ -79,28 +53,24 @@ const ProfileForm = () => {
 
                 <label htmlFor="dateBirth">Date of birth: </label>
                 <input id="dateBirth" type="date" 
-                    defaultValue={temp[0].birthday}
-                    onChange={event => setDate(event.target.value)}
+                    defaultValue={user.account.birthday}
                 />
 
                 <label htmlFor="country">Country: </label>
                 <input id="country" type="text" name="country"
-                    defaultValue={temp[0].country} 
-                    onChange={event => setCountry(event.target.value)}
+                    defaultValue={user.account.country} 
                 />
 
                 <label htmlFor="postCode">Postal code: </label>
                 <input id="postCode" type="number" 
-                    defaultValue={temp[0].postal_code}
-                    onChange={event => setPost(event.target.value)} 
+                    defaultValue={user.account.postal_code} 
                 />
 
                 <label htmlFor="conNumb">Contact number: </label>
                 <input id="conNumb" type="number" 
-                    defaultValue={temp[0].phone_number}
-                    onChange={event => setNumb(event.target.value)} 
+                    defaultValue={user.account.phone_number}
                 />
-                
+
             </fieldset>
             <button id="btnContinue" type="submit">Save Changes</button>
 
