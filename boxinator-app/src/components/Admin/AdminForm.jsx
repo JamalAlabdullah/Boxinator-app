@@ -18,15 +18,15 @@ const AdminForm = () => {
 
     // GET all packages
     useEffect(() => {
-        if (!packages || !weights || !countries) {
-            const init = async () => {
-                const packages = await fetchPackage();
-                setPackage(packages);
-            };
 
-            init();
-        }
-    }, [setPackage, packages, weights, countries]);
+        const init = async () => {
+            const packages = await fetchPackage();
+            setPackage(packages);
+        };
+
+        init();
+        
+    }, []);
 
     if (!packages || !weights || !countries) return null;
 

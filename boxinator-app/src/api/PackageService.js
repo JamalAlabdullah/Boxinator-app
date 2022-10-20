@@ -7,10 +7,11 @@ import keycloak from "../keycloak";
  */
 export const fetchPackage = async () => {
 
-  const shipmentURL = "http://localhost:8080/api/v1/shipments";
+  const shipmentURL = "http://localhost:8080/api/v1/shipments/";
 
   try {
     const { data } = await axios.get(shipmentURL);
+    console.log(data);
     return Promise.resolve({
       shipments: data,
       error: null,

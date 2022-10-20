@@ -16,25 +16,17 @@ const HomePackages = () => {
     const { packages, setPackage } = usePackage();
 
     useEffect(() => {
-        if (!packages) {
-            const init = async () => {
-                const packages = await fetchPackageById(userId);
-                setPackage(packages);
-            };
+      
+        const init = async () => {
+            const box = await fetchPackageById(userId);
+            setPackage(box);
+        };
 
-            init();
-        }
-    }, [setPackage, packages]);
+        init();
+        
+    }, []);
 
     if (!packages) return null;
-
-    /*let temp = []; //Array used to temporarly store packages packages
-
-    for (let i = 0; i < packages.shipments.length; i++) { //Pushes a spesific packages packages to temp[] array
-        if(packages.shipments[i].appUser === userId) {
-            temp.push(packages.shipments[i]);
-        }
-    }*/
 
     return (
         <div id="packGrid">

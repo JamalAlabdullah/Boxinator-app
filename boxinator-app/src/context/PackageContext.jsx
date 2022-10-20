@@ -17,14 +17,14 @@ const PackageProvider = ({children}) => {
     const [packages, setPackage] = useState(null)
 
     useEffect(() => {
-        if(!packages) {
-            const init = async () => {
-                const packages = await fetchPackage();
-                setPackage(packages)
-            };
+        
+        const init = async () => {
+            const packages = await fetchPackage();
+            setPackage(packages)
+        };
         init();
-        }
-    }, [packages]);
+      
+    }, []);
 
 
     return (

@@ -52,7 +52,7 @@ public class PackagesController {
                     description = "No shipments",
                     content = @Content)
     })
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<Collection<PackageDTO>> getPackages(@AuthenticationPrincipal Jwt jwt) {
         if (jwt.getClaimAsStringList("roles").contains("admin")) {
             Collection<PackageDTO> packages = packageMapper.packagesToPackageDTOs(
