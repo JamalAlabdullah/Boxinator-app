@@ -17,11 +17,6 @@ const CountryProvider = ({children}) => {
 
     const [countries, setCountries] = useState(null)
 
-    const state = {
-        countries,
-        setCountries
-
-    }
 
 useEffect(() => {
     const init = async () => {
