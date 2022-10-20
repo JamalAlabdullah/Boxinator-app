@@ -17,15 +17,14 @@ const PackageProvider = ({children}) => {
 
   
     useEffect(() => {
+        
         const init = async () => {
-            const {packages}  = await fetchPackage();
-            console.log("hva er dette", packages)
+            const packages = await fetchPackage();
             setPackage(packages)
-      
         };
         init();
-        }
-    }, [packages]);
+      
+    }, []);
 
     
     return (

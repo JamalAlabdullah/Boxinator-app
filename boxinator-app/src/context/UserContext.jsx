@@ -4,7 +4,6 @@ import { createContext } from "react";
 import {fetchUser} from "../api/UserService"
 
 //Context
-
 const UserContext = createContext()
 
 export const useUser = () => {
@@ -13,7 +12,6 @@ export const useUser = () => {
 
 
 //Provider -> managing state
-
 const UserProvider = ({children}) => {
 
     const [user, setUser] = useState(null)
@@ -23,7 +21,6 @@ const UserProvider = ({children}) => {
         const init = async () => {
             const { user } = await fetchUser();
             setUser(user)
-      
         };
         init();
     }, []);
