@@ -11,7 +11,6 @@ import java.util.Set;
 public class WeightDTO {
 
     private String id;
-    //private WeightType weightType;
     private int value;
     private Set<Integer> packages;
 }

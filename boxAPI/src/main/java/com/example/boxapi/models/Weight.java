@@ -12,7 +12,6 @@ import java.util.Set;
 @Setter
 public class Weight {
     @Id
-    //GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "weight_id")
     @Enumerated(EnumType.STRING)
     private WeightType id;

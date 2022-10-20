@@ -118,7 +118,6 @@ public class AppUserServiceImpl implements AppUserService {
             appUser.getPackages().forEach(p -> p.setAppUser(null));
             appUserRepository.delete(appUser);
         } else {
-            log.warn(String.valueOf(appUserRepository.existsById(id)) + " HVA er dette");
             log.warn("No appuser exist with ID: " + id);
             throw new AppUserNotFoundException(id);
         }
@@ -136,24 +135,6 @@ public class AppUserServiceImpl implements AppUserService {
         log.info("Saving new user {} to the database", user.getName());
         return appUserRepository.save(user);
     }
-
-    /*Override
-    public Role saveRole(Role role) {
-        log.info("Saving new role {} to the database", role.getName());
-        return roleRepository.save(role);
-    }
-
-     */
-    /*Override
-    public void addRoleToUser(String username, String roleName) {
-        log.info("Adding role {} to user {}", roleName, username);
-        AppUser user = appUserRepository.findAppUserByUsername(username);
-        Role role = roleRepository.getRoleByName(roleName);
-        user.getRoles().add(role);
-
-    }
-
-     */
 
     @Override
     public AppUser getUser(String username) {

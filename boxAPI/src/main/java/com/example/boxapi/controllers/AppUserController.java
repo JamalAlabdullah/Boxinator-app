@@ -52,14 +52,7 @@ public class AppUserController {
                             {@Content(mediaType = "application/json",
                                     schema = @Schema(implementation = ApiErrorResponse.class))})
     })
-/*
-    // This lets us see the entire principal object that spring security keeps of our user
-    @GetMapping("/principal")
-    public Principal getUser(Principal user) {
-        return user;
-    }
 
- */
 
     @GetMapping("{id}") // GET: localhost:8080/api/v1/account/1
     //RolesAllowed("user") //case sensitive!
@@ -82,26 +75,6 @@ public class AppUserController {
                 )
         );
     }
-    /*
-    @GetMapping("current")
-    public ResponseEntity getCurrentlyLoggedInUser(@AuthenticationPrincipal Jwt jwt) {
-        return ResponseEntity.ok(
-                appUserService.findById(
-                        jwt.getClaimAsString("sub")
-                )
-        );
-    }
-    */
-
-
-    /*
-    @PostMapping("register")
-    public ResponseEntity addNewUserFromJwt(@AuthenticationPrincipal Jwt jwt) {
-        AppUser user = appUserService.add(jwt.getClaimAsString("sub"));
-        URI uri = URI.create("api/v1/account/" + user.getUser_id());
-        return ResponseEntity.created(uri).build();
-    }
-    */
 
     // TODO Er kanskje ikke nødvendig?
     @GetMapping
@@ -135,14 +108,6 @@ public class AppUserController {
         return ResponseEntity.created(uri).build();
     }
 
-    /*@PostMapping
-    public ResponseEntity<AppUser> addNewUser(@AuthenticationPrincipal Jwt principal){
-        if(appUserService.checkIfUserExists(principal.getClaimAsString("email")))
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-
-        return ResponseEntity.ok(appUserService.createNewUserProfileFromJWT(principal));
-    }*/
-
 
     @Operation(summary = "Update existing user")
     @ApiResponses(value = {
@@ -155,11 +120,8 @@ public class AppUserController {
                     content = @Content)
     })
     @PutMapping("{id}") // GET: localhost:8080/api/v1/settings/countries:1
-    //RolesAllowed("user")
-    //TODO
     public ResponseEntity update(@RequestBody AppUserDTOUpdate appUserDTOUpdate, @AuthenticationPrincipal Jwt jwt, @PathVariable String id) {
         if ((jwt.getClaimAsStringList("roles").contains("admin") || jwt.getClaimAsStringList("roles").contains("user")) && id.equals(jwt.getClaimAsString("sub"))) {
-            //appUserService.deleteById(jwt.getClaimAsString("sub"));
             appUserService.updateUser(
                     appUserMapper.appUserDTOtoAppUserUpdate(appUserDTOUpdate),
                     jwt
@@ -196,18 +158,5 @@ public class AppUserController {
         }
     }
 
-
-/*
-        if (appUserService.findById(id).getId().equals(jwt.getClaimAsString("sub"))) {
-            String test = appUserService.findById(id).getId();
-            //appUserService.deleteById(jwt.getClaimAsString("sub"));
-            appUserService.deleteById(test);
-            return ResponseEntity.noContent().build();
-        }
-
-        return ResponseEntity.noContent().build();
-    }
-
- */
 }
 

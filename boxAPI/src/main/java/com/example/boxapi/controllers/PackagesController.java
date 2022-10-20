@@ -5,10 +5,9 @@ import com.example.boxapi.mappers.AppUserMapper;
 import com.example.boxapi.mappers.PackageMapper;
 import com.example.boxapi.models.AppUser;
 import com.example.boxapi.models.Package;
-import com.example.boxapi.models.dto.AppUserDTO;
 import com.example.boxapi.models.dto.PackageDTO;
+import com.example.boxapi.models.dto.PackageDTOGuest;
 import com.example.boxapi.models.enums.Status;
-import com.example.boxapi.models.enums.WeightType;
 import com.example.boxapi.services.appuser.AppUserService;
 import com.example.boxapi.services.packages.PackageServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,14 +20,12 @@ import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.Collection;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -129,6 +126,15 @@ public class PackagesController {
         return ResponseEntity.created(uri).build();
     }
 
+    @PostMapping("guest")
+    public ResponseEntity guestAddPackage(@RequestBody PackageDTOGuest packageDTOGuest) {
+        Package newPackage = packageService.add(
+                packageMapper.packageDTOtoPackage(packageDTOGuest)
+        );
+        URI uri = URI.create("shipment/" + newPackage.getId());
+        return ResponseEntity.created(uri).build();
+    }
+
     @Operation(summary = "Gets package by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -172,15 +178,6 @@ public class PackagesController {
         return ResponseEntity.ok(packages);
     }
 
-    /*
-    @GetMapping("customer/{id}")
-    public ResponseEntity<Set<Package>> get(@PathVariable int id){
-        AppUserDTO appUserDTO = appUserMapper.appUserToAppUserDTO(appUserService.findById(id));
-        Set<Package> packages = appUserDTO.getPackages();
-        return ResponseEntity.ok(packages);
-    }
-
-     */
     // TODO Need to fix admin/user rights
     @Operation(summary = "Update existing shipment")
     @ApiResponses(value = {

@@ -6,6 +6,7 @@ import com.example.boxapi.repositories.PackageRepository;
 import com.example.boxapi.services.packages.packageExceptions.PackageNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -39,6 +40,13 @@ public class PackageServiceImpl implements PackageService {
     @Override
     public Package update(Package entity) {
         return packageRepository.save(entity);
+    }
+
+    public Package updatePackage(Package entity, Jwt jwt){
+
+        return packageRepository.save(entity);
+
+
     }
 
     @Override
