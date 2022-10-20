@@ -6,7 +6,7 @@ import axios from "axios";
 
 import { useRef } from "react";
 
-import emailjs from "@emailjs/browser";
+import emailjs from '@emailjs/browser';
 
 const baseURL = "http://localhost:8080/api/v1/settings/countries";
 
