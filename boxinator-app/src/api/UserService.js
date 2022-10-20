@@ -11,6 +11,7 @@ import keycloak from "../keycloak";
     
       try {
         const { data } = await axios.get(accountURL);
+        console.log(data)
         return Promise.resolve({
           headers: { Authorization: `Bearer ${keycloak.token}` },
           account: data,
@@ -25,16 +26,18 @@ import keycloak from "../keycloak";
       }
     };
     
+  
+
     /**
      * Fetch a product by its id.
-     * @param {string} accountId
+     * @param {string} userId
      * @returns {Promise<{account: [] | null, error: null}>}
      */
-    export const fetchUserById = async (accountId) => {
+    export const fetchUserById = async (userId) => {
       const accountURL = "http://localhost:8080/api/v1/account";
     
       try {
-        const { data } = await axios.get(accountURL + "/" + accountId);
+        const { data } = await axios.get(accountURL + "/" + userId);
         //console.log(status)
         return Promise.resolve({
           account: data,

@@ -41,6 +41,7 @@ const ProfileForm = () => {
         .then(res=>{
             console.log(res);
             console.log(res.data);
+            console.log(user)
             window.location = "/profile" //This line of code will redirect you once the submission is succeed
         })
     }

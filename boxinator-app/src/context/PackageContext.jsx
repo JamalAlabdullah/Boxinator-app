@@ -19,7 +19,7 @@ const PackageProvider = ({children}) => {
     useEffect(() => {
         
         const init = async () => {
-            const packages = await fetchPackage();
+            const {packages} = await fetchPackage();
             setPackage(packages)
         };
         init();

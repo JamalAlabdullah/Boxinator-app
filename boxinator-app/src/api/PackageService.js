@@ -3,7 +3,7 @@ import keycloak from "../keycloak";
 
 /**
  * SAMPLE FUNCTION: Fetch products from a REST API
- * @returns { Promise<{ packages: [], error: null | string }>} response
+ * @returns { Promise<{ shipments: [], error: null | string }>} response
  */
 export const fetchPackage = async () => {
 
@@ -19,7 +19,7 @@ export const fetchPackage = async () => {
   } 
   catch (e) {
     return {
-      packages: [],
+      shipments: [],
       error: e.message,
     };
   }
@@ -27,14 +27,14 @@ export const fetchPackage = async () => {
 
 /**
  * Fetch a product by its id.
- * @param {number} packageId
- * @returns {Promise<{package: { id, receiver_name, weight, color, date, status, appUser, country, totalSum } | null, error: null}>}
+ * @param {number} id
+ * @returns {Promise<{shipments: { id, receiver_name, weight, color, date, status, appUser, country, totalSum } | null, error: null}>}
  */
 export const fetchPackageById = async (id) => {
   const shipmentURL = "http://localhost:8080/api/v1/shipments/customer";
 
   try {
-    const { data, status } = await axios.get(shipmentURL + "/" + packageId);
+    const { data, status } = await axios.get(shipmentURL + "/" + id );
     console.log(status)
     return Promise.resolve({
       shipments: data,
@@ -43,7 +43,7 @@ export const fetchPackageById = async (id) => {
   }
   catch (e) {
     return {
-      package: null,
+      shipments: null,
       error: e.message,
     };
   }
