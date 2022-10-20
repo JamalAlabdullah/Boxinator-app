@@ -1,58 +1,35 @@
-import axios from 'axios'; //Axios
 import React from 'react';
 import source from "./../../../stamp-svgrepo-com.svg";
 import { ntc } from "./../../../utils/ntc" // Used to convert hex and rgb to a color name
 import { usePackage } from "./../../../context/PackageContext"
-import {useCountry} from "./../../../context/CountryContext";
+import axios from 'axios';
 
-const baseURL = "http://localhost:8080/api/v1";
+
+const shipmentURL = "http://localhost:8080/api/v1/shipments"
+const shipmentId = 1;
 
 const DebugForm = () => {
 
-    const {packages, setPackage} = usePackage()
-    const {countries, setCountries} = useCountry()
+    const {packages} = usePackage()
+
   
-
-    // HOOKS
-  
-
-    // GET all packages
-    React.useEffect(() => {
-        axios.get(baseURL + "/shipments").then((response) => {
-            setPackage(response.data);
-        });
-        axios.get(baseURL + "/settings/countries").then((response) => {
-            setCountries(response.data);
-        });
-    }, []);
-
-    if (!packages) return null;
-
-    //POST changes made by admin
+    //PUT
     const onSubmit = event => {
         event.preventDefault();
-        console.log(event.target[1].name);
-        console.log("Name: " + event.target[1].value);
-        console.log("Weight: " + event.target[2].value);
-        console.log("Color: " + event.target[3].value);
-        console.log("Country: " + event.target[4].value);
-        console.log("Status: " + event.target[5].value);
-
+        axios.put(shipmentURL + "/" + shipmentId, {
+          id: shipmentId, 
+          receiver_name: event.target[1].value, 
+          color: event.target[2].value,
+          date: event.target[3].value,
+          status: event.target[4].value 
+      })
+      .then(res=>{
+          console.log(res);
+          console.log(res.data);
+          window.location = "/profile" //This line of code will redirect you once the submission is succeed
+      })
+  
         
-        axios.post(baseURL + "/shipments", { 
-            id: event.target[0].id, 
-            receiver_name: event.target[1].value, 
-            weight: event.target[2].value,
-            color: event.target[3].value,
-            country: event.target[4].value,
-            appUser: event.target[1].name,
-            status: event.target[0].status
-        })
-        .then(res=>{
-            console.log(res);
-            console.log(res.data);
-            window.location = "/home" //This line of code will redirect you once the submission is succeed
-        })
     };
 
     return (
@@ -93,7 +70,7 @@ const DebugForm = () => {
 
             <li>
 
-        <button id="btnContinue" type="submit">Save Changes</button>
+        <button id="btnContinue" type="submit">Update status</button>
           </li>
           </ul>          
           </fieldset>
