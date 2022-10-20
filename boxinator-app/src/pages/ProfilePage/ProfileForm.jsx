@@ -11,11 +11,12 @@ const ProfileForm = () => {
 
     userId = keycloak.subject;
 
-    const {user, setUser} = useUser()
+    const {user, setUser} = useUser();
 
+    
     useEffect(() => {
 
-        if (!user) {
+        if(!user) {
             const init = async () => {
                 const user = await fetchUserById(userId);
                 setUser(user);

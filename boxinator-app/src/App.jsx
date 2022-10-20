@@ -41,7 +41,6 @@ function App() {
 
           <Route path="/profile" element={<Profile /> } />
           <Route path="/debug" element={<DebugPage />} />
-       
           
         </Routes>
       

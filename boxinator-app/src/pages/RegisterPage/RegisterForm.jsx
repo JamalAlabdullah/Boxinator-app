@@ -1,41 +1,26 @@
 import keycloak from "../../keycloak";
 import axios from 'axios';
-import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
-import { useUser } from '../../context/UserContext';
-
+import { useState } from "react";
 import "./register.css";
 
 
-const baseURL = "http://localhost:8080/api/v1/account"; 
+const baseURL = "http://localhost:8080/api/v1/account";
+let userId = ""; 
 
 const RegisterForm = () => {
 
+userId = keycloak.subject;
 
 const [dateOfBirth, setDateOfBirth] = useState('')
 const [country, setCountry] = useState([]);
 const [ postalCode, setPostCode  ] = useState('');
 const [ phoneNr, setPhoneNr  ] = useState('');
 
-
-const {user, setUser} = useUser();
-
-useEffect(() => {
-  axios.get(baseURL).then((response) => {
-      setUser(response.data);
-  });
-}, [setUser]);
-
-if (!user) return null;
-
-
-
-
 const onSubmit = event => {
   event.preventDefault();
   
   axios.post(baseURL, { 
-      id: keycloak.tokenParsed.sub, 
+      id: userId, 
       birthday: dateOfBirth, 
       country: country,
       name:keycloak.tokenParsed.name,
@@ -50,8 +35,6 @@ const onSubmit = event => {
       window.location = "/home"
   })
 }
-
-
 
 
   return (
