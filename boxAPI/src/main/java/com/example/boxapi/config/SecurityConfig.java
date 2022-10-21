@@ -32,6 +32,8 @@ public class SecurityConfig {
                                 // Specify paths where public access is allowed
                                 //.mvcMatchers("/api/v1/account").permitAll()
                                 .antMatchers("/api/v1/shipments/guest").permitAll()
+                                .antMatchers("/api/v1/settings/country/get").permitAll()
+                                .antMatchers("/api/v1/settings/weight").permitAll()
                                 // Specify paths to be protected with scope
                                 //.mvcMatchers("/api/v1/account/{id}").hasAuthority("SCOPE_profile")
                                 // Specify paths to be protected with role
