@@ -1,32 +1,19 @@
 import { Form, Button } from 'react-bootstrap';
 import {useForm} from 'react-hook-form';
-import {useEffect, useState} from 'react';
+import {useRef, useState} from 'react';
 import { useCountry } from '../../context/CountryContext';
 import { useWeight } from '../../context/WeightContext';
 import '../Modal/packagemodal.css';
 import axios from 'axios';
-import keycloak from '../../keycloak';
-
-import { useRef } from "react";
-
 import emailjs from '@emailjs/browser';
 
 const baseURL = 'http://localhost:8080/api/v1';
-let userId = "";
-
-
-
-
-
-//const baseURL = 'http://localhost:8080/api/v1/settings/countries';
 
 const packageConfig = {
   required: true,
 }
 
 const PackageFormGuest = () => {
-
-
 
   //HOOKS
   const { register, handleSubmit, reset } = useForm()
@@ -36,6 +23,32 @@ const PackageFormGuest = () => {
   const [resStatus, setResStatus] = useState("");
 
   let shipment = 200
+
+  const form = useRef();
+
+  // send email to the receiver
+  const sendEmail = (e) => {
+    console.log("send email");
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_oolixlm",
+        "template_czutbho",
+        form.current,
+        "uY8gbbBKUbE0teqEy"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+    e.target.reset();
+  };
+
 
   const onSubmit = (data) => {
 
@@ -145,10 +158,8 @@ const PackageFormGuest = () => {
         </Form.Group>
           <Button type="submit" onClick={sendEmail}>Send package</Button>
         
-         
       </Form>
-
-     
+ 
  </div>
  )
 }
