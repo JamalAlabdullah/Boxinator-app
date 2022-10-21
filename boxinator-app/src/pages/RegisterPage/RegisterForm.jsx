@@ -8,15 +8,10 @@ const baseURL = "http://localhost:8080/api/v1/account";
 
 const RegisterForm = () => {
 
-userId = keycloak.subject;
-
   const [dateOfBirth, setDateOfBirth] = useState('')
   const [country, setCountry] = useState([]);
   const [postalCode, setPostCode] = useState('');
   const [phoneNr, setPhoneNr] = useState('');
-
-
-
 
   const onSubmit = event => {
     event.preventDefault();
