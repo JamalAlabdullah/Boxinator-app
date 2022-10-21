@@ -6,7 +6,7 @@ import axios from ".";
  */
 export const fetchCountry = async () => {
 
-  const countryURL = "http://localhost:8080/api/v1/settings/countries";
+  const countryURL = "http://localhost:8080/api/v1/settings/countries/get/";
 
   try {
     const { data } = await axios.get(countryURL);

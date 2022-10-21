@@ -10,6 +10,7 @@ import Login from "./views/Login";
 import Profile from "./views/Profile";
 import Footer from "./components/Footer/Footer";
 import DebugPage from "./components/Admin/Debug/DebugPage";
+import DebugCompleted from "./components/Admin/Debug/DebugCompleted"
 
 
 //import keycloak from './keycloak';
@@ -45,6 +46,7 @@ function App() {
 
             <Route path="/profile" element={<Profile />} />
             <Route path="/debug" element={<DebugPage />} />
+            <Route path="/debug/completed" element={<DebugCompleted />} />
 
 
           </Routes>

@@ -50,20 +50,52 @@ export const fetchPackageById = async (packageId) => {
 };
 
 
-export const updatePackage = async (packageId) => {
-  const shipmentURL = "http://localhost:8080/api/v1/shipments";
-  try {
-    const { data, status } = await axios.put(shipmentURL + "/" + packageId);
-    console.log(status)
-    return Promise.resolve({
-      package: data,
-      error: null
-    })
+/**
+ * SAMPLE FUNCTION: Fetch packages from a REST API
+ * @returns { Promise<{ packages: [], error: null | string }>} response
+ */
+ export const fetchCompletedPackage = async () => {
 
-  } catch (e) {
+  const shipmentURL = "http://localhost:8080/api/v1/shipments/complete";
+
+  try {
+    const { data } = await axios.get(shipmentURL);
+    console.log(data);
+    return Promise.resolve({
+      shipments: data,
+      error: null,
+    });
+  }
+  catch (e) {
     return {
-      package: null,
+      shipments: [],
       error: e.message,
-    }
+    };
   }
 };
+
+/**
+ * SAMPLE FUNCTION: Fetch packages from a REST API
+ * @returns { Promise<{ packages: [], error: null | string }>} response
+ */
+ export const fetchCancelledPackage = async () => {
+
+  const shipmentURL = "http://localhost:8080/api/v1/shipments/cancelled";
+
+  try {
+    const { data } = await axios.get(shipmentURL);
+    console.log(data);
+    return Promise.resolve({
+      shipments: data,
+      error: null,
+    });
+  }
+  catch (e) {
+    return {
+      shipments: [],
+      error: e.message,
+    };
+  }
+};
+
+

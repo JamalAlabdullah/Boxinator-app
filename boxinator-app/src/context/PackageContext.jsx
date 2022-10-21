@@ -26,9 +26,14 @@ const PackageProvider = ({children}) => {
       
     }, []);
 
+
+    const updateStatus = (id, updateStatus) => {
+        setPackage(packages.map((shipment) => shipment.id === id ? updateStatus : shipment))
+      }
+
     
     return (
-        <PackageContext.Provider value={{packages, setPackage}}>
+        <PackageContext.Provider value={{packages, setPackage, updateStatus}}>
             { children }
 
         </PackageContext.Provider>
