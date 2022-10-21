@@ -1,12 +1,14 @@
 package com.example.boxapi.services.packages;
 
 import com.example.boxapi.models.Package;
+import com.example.boxapi.models.dto.packageDTO.PackageDTO;
+import com.example.boxapi.models.dto.packageDTO.PackageDTOGuest;
+import com.example.boxapi.models.dto.packageDTO.PackageDTOStatus;
 import com.example.boxapi.models.enums.Status;
 import com.example.boxapi.repositories.PackageRepository;
 import com.example.boxapi.services.packages.packageExceptions.PackageNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -42,7 +44,18 @@ public class PackageServiceImpl implements PackageService {
         return packageRepository.save(entity);
     }
 
-    public Package updatePackage(Package entity, Jwt jwt){
+    public Package updateStatus(Package entity){
+        Package updatedPackage = findById(entity.getId());
+
+        entity.setEmail(updatedPackage.getEmail());
+        entity.setTotalSum(updatedPackage.getTotalSum());
+        entity.setAppUser(updatedPackage.getAppUser());
+        entity.setWeight(updatedPackage.getWeight());
+        entity.setCountry(updatedPackage.getCountry());
+        entity.setDate((updatedPackage.getDate()));
+        entity.setReceiver_name(updatedPackage.getReceiver_name());
+        entity.setColor(updatedPackage.getColor());
+
 
         return packageRepository.save(entity);
 

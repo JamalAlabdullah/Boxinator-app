@@ -5,8 +5,9 @@ import com.example.boxapi.mappers.AppUserMapper;
 import com.example.boxapi.mappers.PackageMapper;
 import com.example.boxapi.models.AppUser;
 import com.example.boxapi.models.Package;
-import com.example.boxapi.models.dto.PackageDTO;
-import com.example.boxapi.models.dto.PackageDTOGuest;
+import com.example.boxapi.models.dto.packageDTO.PackageDTO;
+import com.example.boxapi.models.dto.packageDTO.PackageDTOGuest;
+import com.example.boxapi.models.dto.packageDTO.PackageDTOStatus;
 import com.example.boxapi.models.enums.Status;
 import com.example.boxapi.services.appuser.AppUserService;
 import com.example.boxapi.services.packages.PackageServiceImpl;
@@ -200,6 +201,19 @@ public class PackagesController {
         }
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
+
+    @PutMapping("status/{id}")
+    //TODO hvis det kan ordnes i frontend blir vi glade, ellers må vi fikse rollene her
+    public ResponseEntity updateStatus(@RequestBody PackageDTO packageDTO, @PathVariable int id, @AuthenticationPrincipal Jwt jwt) {
+        if ((jwt.getClaimAsStringList("roles").contains("admin") || jwt.getClaimAsStringList("roles").contains("user")) && id == packageDTO.getId() ) {
+            packageService.updateStatus(packageMapper.packageDTOtoPackage(packageDTO)
+            );
+            return ResponseEntity.noContent().build();
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+    }
+
+
 
 
     // TODO Need to make this so only ADMIN can delete:
