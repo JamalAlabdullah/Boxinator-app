@@ -1,27 +1,57 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import source from "./../../../stamp-svgrepo-com.svg";
 import { ntc } from "./../../../utils/ntc" // Used to convert hex and rgb to a color name
 import { usePackage } from "./../../../context/PackageContext"
 import axios from 'axios';
+import { fetchPackage, fetchPackageById } from '../../../api/PackageService';
+import keycloak from '../../../keycloak';
 
-
-const shipmentURL = "http://localhost:8080/api/v1/shipments"
-const shipmentId = 1;
+const shipmentURL = "http://localhost:8080/api/v1/shipments/"
+const shipmentId = "";
+let userId = ""
 
 const DebugForm = () => {
 
-    const {packages} = usePackage()
+    const {packages, setPackage} = usePackage()
+    userId = keycloak.subject;
+
+    useEffect(() => {
+      
+      const init = async () => {
+          const packages = await fetchPackage();
+          setPackage(packages);
+      };
+
+      init();
+      
+  }, []);
+
+  if (!packages) return null;
+
+    const handleUpdate = async (shipments) => {
+      packages.status = shipments.status
+      await axios.put(shipmentURL + packages.id)
+      const packageClone = [...packages]
+      const index = packageClone.indexOf(shipments)
+      packageClone[index] = {...shipments}
+      setPackage(packageClone)
+    }
 
   
     //PUT
     const onSubmit = event => {
         event.preventDefault();
-        axios.put(shipmentURL + "/" + shipmentId, {
-          id: shipmentId, 
-          receiver_name: event.target[1].value, 
-          color: event.target[2].value,
-          date: event.target[3].value,
-          status: event.target[4].value 
+
+        axios.put(shipmentURL + shipmentId, {
+          headers: { Authorization: `Bearer ${keycloak.token}` },
+          id: shipmentId,
+          receiver_name: event.target[1].value,
+          weight: event.target[2].value,
+          color: event.target[3].value,
+          status: event.target[5].value,
+          country: event.target[6].value,
+          appUser: userId,
+          totalSum: 200
       })
       .then(res=>{
           console.log(res);
@@ -32,12 +62,15 @@ const DebugForm = () => {
         
     };
 
+
     return (
         <div id="packGrid">
-            {packages && packages.map(({id, receiver_name, color, weight, country, appUser, status}) => (
+          {packages.shipments && packages.shipments.map(({id, receiver_name, color, weight, country, appUser, status, date}) => (
             <form onSubmit={onSubmit} key={id}>
             <fieldset id={id}>
             <ul id="packUl" >
+
+              
 
         <li id="packLiImg">
         <input type="text" id="pName" name={appUser} defaultValue={receiver_name} />
@@ -52,15 +85,20 @@ const DebugForm = () => {
      <li>
         <input type="text" id="packLi" defaultValue={weight} />
          </li>
+
+
            <li id="packLiImg">
-         <p id="pColor">{ntc.name(color)[1]}</p>
-           <input type="color" id="adminColor" defaultValue={color}/>
+       
+           <input type="color" id="adminColor" name={color} defaultValue={color}/>
              </li>
+
+
+
               <li>
             <input type="text" name={country} id="countDrop" defaultValue={country} />
                                    
            </li>
-         <select name="statusDrop" id="stDrop" defaultValue={status}>
+         <select name="statusDrop" id="stDrop" defaultValue={status}  onClick={() => handleUpdate(shipmentId)}>
                 <option value="CREATED">CREATED</option>
                 <option value="RECEIVED">RECEIVED</option>
                 <option value="INTRANSIT">INTRANSIT</option>
@@ -70,7 +108,10 @@ const DebugForm = () => {
 
             <li>
 
-        <button id="btnContinue" type="submit">Update status</button>
+        <button
+        
+     
+        id="btnContinue" type="submit">Update status</button>
           </li>
           </ul>          
           </fieldset>

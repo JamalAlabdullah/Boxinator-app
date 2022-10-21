@@ -16,6 +16,7 @@ const packageConfig = {
 
 const PackageForm = () => {
 
+
   userId = keycloak.subject;
 
   //HOOKS
@@ -24,11 +25,12 @@ const PackageForm = () => {
   const { countries } = useCountry();
   const { weights } = useWeight();
   const [ resStatus, setResStatus ] = useState("");
+ 
 
   let shipment = 200
     
   const onSubmit = (data)=> {
-
+    console.log(data)
     axios
     .post(baseURL + '/shipments', {
       headers: { Authorization: `Bearer ${keycloak.token}` },
@@ -58,7 +60,10 @@ const PackageForm = () => {
 
   };
 
-
+  const totalAmount = () => {
+    let sum = document.getElementById("selectId").value;
+    console.log("Sum: " + sum);
+  }
 
 
   return <div>
@@ -92,14 +97,15 @@ const PackageForm = () => {
         <Form.Label>Weight</Form.Label>
         <Form.Select
           name="weight"
-
+          id="selectId"
+          
 
           {...register("weight", packageConfig)} >
-          <option></option>
+         
           {weights && weights.map((weight) => (
-            <option key={weight.id} value={weight.id}>{weight.id}</option>
+            <option id={weight.value} key={weight.id} value={weight.id}>{weight.id}</option>
           ))}
-          </Form.Select> 
+          </Form.Select > 
         </Form.Group>
 
           {/* DESTINATION SELECT */}

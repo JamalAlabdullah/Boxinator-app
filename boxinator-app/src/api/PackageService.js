@@ -31,7 +31,7 @@ export const fetchPackage = async () => {
  * @returns {Promise<{package: { id, receiver_name, weight, color, date, status, appUser, country, totalSum } | null, error: null}>}
  */
 export const fetchPackageById = async (packageId) => {
-  const shipmentURL = "http://localhost:8080/api/v1/shipments/customer";
+  const shipmentURL = "http://localhost:8080/api/v1/shipments";
 
   try {
     const { data, status } = await axios.get(shipmentURL + "/" + packageId);
