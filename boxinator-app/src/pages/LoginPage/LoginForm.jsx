@@ -27,7 +27,7 @@ const LoginForm = () => {
         <Card id="allCard">
           <Card.Body>
             <Card.Text>
-              Here you can register for the first time or login.
+              If you have registered before, go ahead and login
             </Card.Text>
           </Card.Body>
           <Card.Footer>
@@ -37,25 +37,29 @@ const LoginForm = () => {
                 onClick={() => keycloak.login()}>
                 Login
               </Button>
-
             )}
             {keycloak.authenticated ? window.location.assign("/home") : null}
-
+          </Card.Footer>
+        </Card>
+        {/* ---------------------REGISTER CARD -------------------------------------*/}
+        <Card id="allCard">
+          <Card.Body>
+            <Card.Text>
+              Here you can register for the first time.
+            </Card.Text>
+          </Card.Body>
+          <Card.Footer>
             {!keycloak.authenticated && (
               <Button
                 className="Btn"
                 onClick={() => keycloak.register()}>
                 Register
               </Button>
-
             )}
             {keycloak.authenticated ? window.location.assign("/register") : null}
-
-
           </Card.Footer>
         </Card>
-        {/**------------------------------------------------------------- */}
-
+        {/**-----------------------------GUEST CARD-------------------------------- */}
         <Card id="allCard">
           <Card.Body>
             <Card.Text>
@@ -72,14 +76,7 @@ const LoginForm = () => {
           </Card.Footer>
         </Card>
       </CardGroup>
-
       {isOpen && <PackageModalGuest setIsOpen={setIsOpen} />}
-
-
-
-
-
-
     </>
   );
 };
