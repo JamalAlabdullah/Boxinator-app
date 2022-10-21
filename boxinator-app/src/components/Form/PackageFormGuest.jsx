@@ -26,71 +26,43 @@ const packageConfig = {
 
 const PackageFormGuest = () => {
 
-  userId = keycloak.subject;
 
-  const form = useRef();
-
-  // send email to the receiver
-  const sendEmail = (e) => {
-    console.log("send email");
-    e.preventDefault();
-
-    emailjs
-      .sendForm(
-        "service_oolixlm",
-        "template_czutbho",
-        form.current,
-        "uY8gbbBKUbE0teqEy"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
-    e.target.reset();
-  };
-
-// ------------
 
   //HOOKS
-  const {register, handleSubmit, reset} = useForm()
+  const { register, handleSubmit, reset } = useForm()
+
   const { countries } = useCountry();
   const { weights } = useWeight();
-  const [ resStatus, setResStatus ] = useState("");
+  const [resStatus, setResStatus] = useState("");
 
-  //const [countries, setCountries] = useState([])
   let shipment = 200
-    
-  const onSubmit = (data)=> {
+
+  const onSubmit = (data) => {
 
     axios
-    .post(baseURL + '/shipments', {
-      headers: { Authorization: `Bearer ${keycloak.token}` },
-      receiver_name: data.receiver_name,
-      weight: data.weight,
-      color: data.color, 
-      appUser: userId,
-      country: data.country,
-      status: "CREATED",  
-      totalSum: shipment
-      
-    })
-    .then(function (response) {
-      console.log(response.status);
-      if (response.status === 200) {
-        setResStatus("Successful Registration!");
-      } else {
-        setResStatus("error");
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .post(baseURL + '/shipments/guest', {
+        email: data.email,
+        receiver_name: data.receiver_name,
+        weight: data.weight,
+        color: data.color,
+        country: data.country,
+        status: "CREATED",
+        totalSum: shipment
+
+      })
+      .then(function (response) {
+        console.log(response.status);
+        if (response.status === 200) {
+          setResStatus("Successful Registration!");
+        } else {
+          setResStatus("error");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     reset()
-    window.location = "/home"
+    window.location = "/"
     console.log(resStatus);
 
   };
@@ -126,30 +98,18 @@ const PackageFormGuest = () => {
           <Form.Label>Receivers First name</Form.Label>
           <Form.Control
           type="text"
-          name="first_name"
+          name="receiver_name"
           placeholder="first name..."
-          { ... register("first_name", packageConfig)}
-          />
-        </Form.Group>
+          {...register("receiver_name", packageConfig)}
+        />
+      </Form.Group>
 
-          {/* RECEIVER LAST NAME*/}
-        <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Receivers Last name</Form.Label>
-          <Form.Control
-         
-          type="text"
-          name="last_name"
-          placeholder="last name..."
-          { ... register("last_name", packageConfig)}
-          />
-        </Form.Group>
-
-         {/* BOX COLOR*/}
-        <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Box color</Form.Label>
-          <Form.Control
+      {/* BOX COLOR*/}
+      <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>Box color</Form.Label>
+        <Form.Control
           //id="button-color-box"
-          
+
           type="color"
           name="color"
           { ... register("color", packageConfig)}
@@ -193,4 +153,4 @@ const PackageFormGuest = () => {
  )
 }
 
-export default PackageFormGuest;
+export default PackageFormGuest
