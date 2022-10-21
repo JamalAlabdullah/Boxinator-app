@@ -31,26 +31,26 @@ const PackageForm = () => {
   const { weights } = useWeight();
   const [resStatus, setResStatus] = useState("");
 
-  const [sum, setSum ] = useState(200);
+  const [sum, setSum] = useState(200);
 
   const handleWeightChange = (e) => { // Updates weight value based on selected option in dropdown
 
-      for(let i=0; i < weights.length; i++) {
-        if(e.target.value === weights[i].id) {
-          weightMultiply = weights[i].value;
-        }
+    for (let i = 0; i < weights.length; i++) {
+      if (e.target.value === weights[i].id) {
+        weightMultiply = weights[i].value;
       }
-  
-      //console.log(weightMultiply);
-      totalSum = shipment + (weightMultiply * countryMultiply);
-      console.log(totalSum);
-      setSum(totalSum);
+    }
+
+    //console.log(weightMultiply);
+    totalSum = shipment + (weightMultiply * countryMultiply);
+    console.log(totalSum);
+    setSum(totalSum);
   }
 
   const handleCountryChange = (e) => { // Updates country multiplier based on selected option in dropdown
 
-    for(let i=0; i < countries.length; i++) {
-      if(e.target.value === countries[i].id) {
+    for (let i = 0; i < countries.length; i++) {
+      if (e.target.value === countries[i].id) {
         countryMultiply = countries[i].multiplier;
       }
     }
@@ -59,34 +59,34 @@ const PackageForm = () => {
     totalSum = shipment + (weightMultiply * countryMultiply);
     console.log(totalSum);
     setSum(totalSum);
-}
+  }
 
-    
-  const onSubmit = (data)=> { //Creates a package
+
+  const onSubmit = (data) => { //Creates a package
 
     axios
-    .post(baseURL + '/shipments', {
-      headers: { Authorization: `Bearer ${keycloak.token}` },
-      receiver_name: data.receiver_name,
-      weight: data.weight,
-      color: data.color, 
-      appUser: userId,
-      country: data.country,
-      status: "CREATED",  
-      totalSum: sum
-      
-    })
-    .then(function (response) {
-      console.log(response.status);
-      if (response.status === 200) {
-        setResStatus("Successful Registration!");
-      } else {
-        setResStatus("error");
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .post(baseURL + '/shipments', {
+        headers: { Authorization: `Bearer ${keycloak.token}` },
+        receiver_name: data.receiver_name,
+        weight: data.weight,
+        color: data.color,
+        appUser: userId,
+        country: data.country,
+        status: "CREATED",
+        totalSum: sum
+
+      })
+      .then(function (response) {
+        console.log(response.status);
+        if (response.status === 200) {
+          setResStatus("Successful Registration!");
+        } else {
+          setResStatus("error");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     reset()
     window.location = "/home"
     console.log(resStatus);
@@ -123,35 +123,35 @@ const PackageForm = () => {
         <Form.Label>Weight</Form.Label>
         <Form.Select
           name="weight"
-          {...register("weight", packageConfig)} 
+          {...register("weight", packageConfig)}
           onChange={handleWeightChange}>
 
           <option></option>
           {weights && weights.map((weight) => (
             <option key={weight.id} value={weight.id}>{weight.id}</option>
           ))}
-          </Form.Select> 
-        </Form.Group>
+        </Form.Select>
+      </Form.Group>
 
-          {/* DESTINATION SELECT */}
-          <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Destination</Form.Label>
-          <Form.Select 
+      {/* DESTINATION SELECT */}
+      <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>Destination</Form.Label>
+        <Form.Select
           name="country"
-          { ... register("country", packageConfig)}
+          {...register("country", packageConfig)}
           onChange={handleCountryChange}>
-          <option></option> 
-           {countries && countries.map((country)  => ( 
+          <option></option>
+          {countries && countries.map((country) => (
             <option key={country.id} value={country.id} >{country.id}</option>
-            
-           ))}
-          </Form.Select > 
-        </Form.Group>
-        <FormGroup>
-          <p name="sum">kr. {sum},00 </p>
-        </FormGroup>
-          <Button type="submit" >Send package</Button>
-      </Form>
+
+          ))}
+        </Form.Select >
+      </Form.Group>
+      <FormGroup>
+        <p name="sum">kr. {sum},00 </p>
+      </FormGroup>
+      <Button type="submit"  >Send package</Button>
+    </Form>
 
   </div>
 }

@@ -1,6 +1,6 @@
 import { Form, Button } from 'react-bootstrap';
-import {useForm} from 'react-hook-form';
-import {useRef, useState} from 'react';
+import { useForm } from 'react-hook-form';
+import { useRef, useState } from 'react';
 import { useCountry } from '../../context/CountryContext';
 import { useWeight } from '../../context/WeightContext';
 import '../Modal/packagemodal.css';
@@ -46,12 +46,11 @@ const PackageFormGuest = () => {
           console.log(error.text);
         }
       );
-    e.target.reset();
+    // e.target.reset();
   };
 
 
   const onSubmit = (data) => {
-
     axios
       .post(baseURL + '/shipments/guest', {
         email: data.email,
@@ -81,87 +80,89 @@ const PackageFormGuest = () => {
   };
 
 
- return (
- 
- <div>
+  return (
 
-       {/* Sender's email*/}
-       <form ref={form} onSubmit={sendEmail}>
-          <Form.Group
-            id="form-group"
-            className="mb-3"
-            controlId="formBasicEmail"
-          >
-            <Form.Label>Sender's email</Form.Label>
-            <Form.Control
-              type="email"
-              name="user_email"
-              required
-              placeholder="Email"
-              {...register("user_email", packageConfig)}
-            />
-          </Form.Group>
-        </form>
+    <div>
 
-  
-     <Form onSubmit={handleSubmit(onSubmit)} id="form-container">
-   
-       {/* RECEIVER FIRST NAME*/}
+      {/* Sender's email*/}
+      <form ref={form} onSubmit={sendEmail}>
+        <Form.Group
+          id="form-group"
+          className="mb-3"
+          controlId="formBasicEmail"
+        >
+          <Form.Label>Sender's email</Form.Label>
+          <Form.Control
+            type="email"
+            name="user_email"
+            required
+            placeholder="Email"
+            {...register("user_email", packageConfig)}
+          />
+          <Button type="submit" onClick={sendEmail}>Send mail</Button>
+        </Form.Group>
+      </form>
+
+
+
+      <Form onSubmit={handleSubmit(onSubmit)} id="form-container">
+
+        {/* RECEIVER FIRST NAME*/}
         <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Receivers First name</Form.Label>
           <Form.Control
-          type="text"
-          name="receiver_name"
-          placeholder="first name..."
-          {...register("receiver_name", packageConfig)}
-        />
-      </Form.Group>
-
-      {/* BOX COLOR*/}
-      <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
-        <Form.Label>Box color</Form.Label>
-        <Form.Control
-          //id="button-color-box"
-
-          type="color"
-          name="color"
-          { ... register("color", packageConfig)}
+            type="text"
+            name="receiver_name"
+            placeholder="first name..."
+            {...register("receiver_name", packageConfig)}
           />
         </Form.Group>
 
-      
-        {/* WEIGHT OPTIONS SELECT*/}
+        {/* BOX COLOR*/}
         <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
-        <Form.Label>Weight</Form.Label>
-        <Form.Select
-          name="weight"
-          {...register("weight", packageConfig)} >
-         
-          {weights && weights.map((weight) => (
-            <option key={weight.id} value={weight.id}>{weight.id}</option>
-          ))}
-          </Form.Select> 
+          <Form.Label>Box color</Form.Label>
+          <Form.Control
+            //id="button-color-box"
+
+            type="color"
+            name="color"
+            {...register("color", packageConfig)}
+          />
         </Form.Group>
 
-          {/* DESTINATION SELECT*/}
+
+        {/* WEIGHT OPTIONS SELECT*/}
+        <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Label>Weight</Form.Label>
+          <Form.Select
+            name="weight"
+            {...register("weight", packageConfig)} >
+
+            {weights && weights.map((weight) => (
+              <option key={weight.id} value={weight.id}>{weight.id}</option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+
+        {/* DESTINATION SELECT*/}
         <Form.Group id="form-group" className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Destination</Form.Label>
-          <Form.Select name="country" 
-         
-         { ... register("country", packageConfig)}>
-          <option></option> 
-           {countries && countries.map((country)  => ( 
-            <option key={country.id} value={country.id} >{country.id}</option>
-            
-           ))}
-          </Form.Select > 
+          <Form.Select name="country"
+
+            {...register("country", packageConfig)}>
+            <option></option>
+            {countries && countries.map((country) => (
+              <option key={country.id} value={country.id} >{country.id}</option>
+
+            ))}
+          </Form.Select >
         </Form.Group>
-          <Button type="submit" onClick={sendEmail}>Send package</Button>
-        
+        <Button type="submit" >Send package</Button>
+
       </Form>
- 
- </div>
- )
+
+    </div>
+  )
 }
 
 export default PackageFormGuest
