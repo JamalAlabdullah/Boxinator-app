@@ -2,16 +2,10 @@ import Button from "react-bootstrap/Button";
 
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
-//import { useEffect } from "react";
-//import { useNavigate } from "react-router-dom";
-
 import "./login.css";
-
 import keycloak from "../../keycloak";
-
 import { useState } from "react";
 import PackageModalGuest from "../../components/Modal/PackageModalGuest";
-
 
 
 const LoginForm = () => {
@@ -82,13 +76,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-/*
-
-         {keycloak.token && (
-        <div>
-          <h4>Token</h4>
-          <pre>{keycloak.token}</pre>
-        </div>
-      )}
-*/

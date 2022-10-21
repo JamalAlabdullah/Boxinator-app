@@ -11,7 +11,7 @@ export const fetchPackage = async () => {
 
   try {
     const { data } = await axios.get(shipmentURL);
-    console.log(data);
+    //console.log(data);
     return Promise.resolve({
       shipments: data,
       error: null,
@@ -51,7 +51,7 @@ export const fetchPackageById = async (packageId) => {
 
 
 export const updatePackage = async (packageId) => {
-  const shipmentURL = "http://localhost:8080/api/v1/shipments";
+  const shipmentURL = "http://localhost:8080/api/v1/shipments/current";
   try {
     const { data, status } = await axios.put(shipmentURL + "/" + packageId);
     console.log(status)
