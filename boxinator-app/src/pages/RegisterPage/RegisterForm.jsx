@@ -7,49 +7,38 @@ import { useUser } from '../../context/UserContext';
 import "./register.css";
 
 
-const baseURL = "http://localhost:8080/api/v1/account"; 
+const baseURL = "http://localhost:8080/api/v1/account";
 
 const RegisterForm = () => {
 
 
-const [dateOfBirth, setDateOfBirth] = useState('')
-const [country, setCountry] = useState([]);
-const [ postalCode, setPostCode  ] = useState('');
-const [ phoneNr, setPhoneNr  ] = useState('');
-
-
-const {user, setUser} = useUser();
-
-useEffect(() => {
-  axios.get(baseURL).then((response) => {
-      setUser(response.data);
-  });
-}, [setUser]);
-
-if (!user) return null;
+  const [dateOfBirth, setDateOfBirth] = useState('')
+  const [country, setCountry] = useState([]);
+  const [postalCode, setPostCode] = useState('');
+  const [phoneNr, setPhoneNr] = useState('');
 
 
 
 
-const onSubmit = event => {
-  event.preventDefault();
-  
-  axios.post(baseURL, { 
-      id: keycloak.tokenParsed.sub, 
-      birthday: dateOfBirth, 
+  const onSubmit = event => {
+    event.preventDefault();
+
+    axios.post(baseURL, {
+      id: keycloak.tokenParsed.sub,
+      birthday: dateOfBirth,
       country: country,
       //name:keycloak.tokenParsed.given_name,
       postal_code: postalCode,
       phone_number: phoneNr,
-    // username:keycloak.tokenParsed.family_name,
-      
-  })
-  .then(res=>{
-      console.log(res);
-      console.log(res.data);
-      window.location = "/home"
-  })
-}
+      // username:keycloak.tokenParsed.family_name,
+
+    })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+        window.location = "/home"
+      })
+  }
 
 
 
@@ -72,7 +61,7 @@ const onSubmit = event => {
             <p>{keycloak.tokenParsed.email}</p>
 
             {/*   <p>token is:{keycloak.token}</p>   */}
-            
+
           </>
 
         )}
@@ -86,12 +75,12 @@ const onSubmit = event => {
           onChange={event => setCountry(event.target.value)} />
 
         <label htmlFor="postCode">Postal code: </label>
-        <input id="postCode" type="number" placeholder="postal code..." 
-            onChange={event => setPostCode(event.target.value)} />
+        <input id="postCode" type="number" placeholder="postal code..."
+          onChange={event => setPostCode(event.target.value)} />
 
         <label htmlFor="conNumb">Contact number: </label>
-        <input id="conNumb" type="number" placeholder="contact number..." 
-         onChange={event => setPhoneNr(event.target.value)} />
+        <input id="conNumb" type="number" placeholder="contact number..."
+          onChange={event => setPhoneNr(event.target.value)} />
 
 
       </fieldset>
