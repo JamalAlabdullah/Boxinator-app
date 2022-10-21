@@ -5,7 +5,6 @@ import { useCountry } from '../../context/CountryContext';
 import { useWeight } from '../../context/WeightContext';
 import '../Modal/packagemodal.css';
 import axios from 'axios';
-import keycloak from '../../keycloak';
 
 const baseURL = 'http://localhost:8080/api/v1';
 
