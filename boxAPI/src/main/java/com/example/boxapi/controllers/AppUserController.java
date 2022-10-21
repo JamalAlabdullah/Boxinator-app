@@ -4,6 +4,9 @@ package com.example.boxapi.controllers;
 import com.example.boxapi.mappers.AppUserMapper;
 import com.example.boxapi.models.AppUser;
 import com.example.boxapi.models.dto.*;
+import com.example.boxapi.models.dto.appUserDTO.AppUserDTO;
+import com.example.boxapi.models.dto.appUserDTO.AppUserDTORegistration;
+import com.example.boxapi.models.dto.appUserDTO.AppUserDTOUpdate;
 import com.example.boxapi.services.appuser.AppUserServiceImpl;
 import com.example.boxapi.util.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,7 +16,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
-import org.springframework.context.annotation.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,9 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
 import java.net.URI;
-import java.security.Principal;
 import java.util.Collection;
 import java.util.Objects;
 

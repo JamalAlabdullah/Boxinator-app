@@ -1,7 +1,7 @@
 package com.example.boxapi.controllers;
 
 import com.example.boxapi.mappers.WeightMapper;
-import com.example.boxapi.models.dto.WeightDTO;
+import com.example.boxapi.models.dto.weightDTO.WeightDTO;
 import com.example.boxapi.services.weight.WeightService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

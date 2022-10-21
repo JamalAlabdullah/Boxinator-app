@@ -1,4 +1,4 @@
-package com.example.boxapi.models.dto;
+package com.example.boxapi.models.dto.countryDTO;
 
 import com.example.boxapi.models.Package;
 import lombok.Getter;

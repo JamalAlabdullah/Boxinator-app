@@ -2,7 +2,7 @@ package com.example.boxapi.mappers;
 
 import com.example.boxapi.models.Country;
 import com.example.boxapi.models.Package;
-import com.example.boxapi.models.dto.CountryDTO;
+import com.example.boxapi.models.dto.countryDTO.CountryDTO;
 import com.example.boxapi.services.packages.PackageService;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Mapper;

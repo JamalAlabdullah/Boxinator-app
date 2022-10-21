@@ -1,4 +1,4 @@
-package com.example.boxapi.models.dto;
+package com.example.boxapi.models.dto.weightDTO;
 
 import com.example.boxapi.models.enums.WeightType;
 import lombok.Getter;

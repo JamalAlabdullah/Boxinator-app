@@ -1,13 +1,14 @@
-package com.example.boxapi.models.dto;
+package com.example.boxapi.models.dto.appUserDTO;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
+
 @Getter
 @Setter
-public class AppUserDTORegistration {
+public class AppUserDTOUpdate {
     private LocalDate birthday;
     private String country;
     private Integer postal_code;

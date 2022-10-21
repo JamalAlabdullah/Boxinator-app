@@ -1,8 +1,7 @@
 package com.example.boxapi.services.appuser;
 
 import com.example.boxapi.models.AppUser;
-import com.example.boxapi.models.Package;
-import com.example.boxapi.models.dto.AppUserDTORegistration;
+import com.example.boxapi.models.dto.appUserDTO.AppUserDTORegistration;
 import com.example.boxapi.repositories.AppUserRepository;
 import com.example.boxapi.services.appuser.appuserExceptions.AppUserNotFoundException;
 
@@ -14,8 +13,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 //RequiredArgsConstructor

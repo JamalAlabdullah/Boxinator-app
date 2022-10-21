@@ -1,4 +1,4 @@
-package com.example.boxapi.models.dto;
+package com.example.boxapi.models.dto.appUserDTO;
 
 import lombok.Getter;
 import lombok.Setter;

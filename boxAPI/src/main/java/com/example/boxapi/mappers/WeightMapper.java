@@ -1,11 +1,8 @@
 package com.example.boxapi.mappers;
 
-import com.example.boxapi.models.Country;
 import com.example.boxapi.models.Package;
 import com.example.boxapi.models.Weight;
-import com.example.boxapi.models.dto.CountryDTO;
-import com.example.boxapi.models.dto.WeightDTO;
-import com.example.boxapi.services.packages.PackageService;
+import com.example.boxapi.models.dto.weightDTO.WeightDTO;
 import com.example.boxapi.services.weight.WeightService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
