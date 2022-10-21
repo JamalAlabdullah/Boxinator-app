@@ -40,16 +40,11 @@ public class CountryController {
                     content = @Content)
     })
     @GetMapping("get")
-    public ResponseEntity<Collection<CountryDTO>> getCountries(@AuthenticationPrincipal Jwt jwt) {
-        if (jwt.getClaimAsStringList("roles").contains("user")) {
-            System.out.println(jwt.getClaimAsStringList("roles") + " JULENISSEN");
-            Collection<CountryDTO> countries = countryMapper.countryToCountryDTO(
-                    countryService.findAll()
-            );
-            return ResponseEntity.ok(countries);
-        } else {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
+    public ResponseEntity<Collection<CountryDTO>> getCountries() {
+        Collection<CountryDTO> countries = countryMapper.countryToCountryDTO(
+                countryService.findAll()
+        );
+        return ResponseEntity.ok(countries);
     }
 
     @Operation(summary = "Add a new country")
