@@ -16,7 +16,17 @@ export const initialize = () => {
       window.location.origin + "/silent-check-sso.html",
   };
   return keycloak.init(config);
+  
 };
 
-/** @type { Keycloak } keycloak */
+// get current token 
+export const getToken= () =>   keycloak.token;
+
+
+// is loget in
+export const isLoggedIn = () => !!keycloak.token;
+
+
+
+
 export default keycloak;

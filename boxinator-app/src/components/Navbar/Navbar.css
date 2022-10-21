@@ -1,41 +1,65 @@
+
+.logoImage{
+    width: 100px;
+
+}
+
+#navH1 {
+    margin: 0; 
+    color: white;
+  
+}
+
+
+
+
 #navBar {
     margin: 0;
     background-color: #a0522d;
     display: flex;
-    justify-content: space-between;
+ 
     align-items: center;
-    gap: 100px;
+ 
     border-bottom: 8px solid #FCF7DD;
 }
 
 #navUl {
     padding: 0;
+    margin: 0;
     display: flex;
-    padding-top: 25px;
-    padding-bottom: 25px;
     justify-content: center;
     align-items: center;
 }
 
-#liReg, #liProf, #liHome {
+#liReg, #liProf, #liHome, #liLogout{
     list-style-type: none;
     color: white;
 }
 
-#liReg a, #liProf a, #liHome a {
-    padding: 43px;
+#liReg a, #liProf a, #liHome a , #logoutBtn{
+    padding: 39.5px;
+    padding-left: 25px;
+    padding-right: 25px;
     color: white;
     text-decoration: none;
 }
 
-#liReg a:hover, #liProf a:hover, #liHome a:hover {
+  
+#liReg a:hover, #liProf a:hover, #liHome a:hover, #liLogout a:hover, #logoutBtn:hover{
     background-color: #FCF7DD;
     color: black;
 }
+ 
 
-#navH1 {
-    text-align: left;
-    margin: 0;
-    margin-left: 20px;
+
+
+#logoutBtn {
+    background-color: transparent;
     color: white;
+    border: none;
+    cursor: pointer;
+}
+
+:root {
+    --bs-body-line-height: auto;
 }

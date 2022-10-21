@@ -6,6 +6,7 @@ import Loading from "./components/loading/loading";
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from "./App";
+import AppContext from "./context/AppContext";
 
 
 
@@ -19,10 +20,12 @@ root.render(<Loading message="Connecting to Keycloak..." />)
 
 // Initialize Keycloak with catch error if it does not work. 
 initialize()
-  .then(() => { 
+  .then(() => {
     root.render(
       <React.StrictMode>
-        <App />
+        <AppContext>
+          <App />
+        </AppContext>
       </React.StrictMode>
     );
   })

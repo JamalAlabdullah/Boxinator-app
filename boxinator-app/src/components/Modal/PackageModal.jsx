@@ -1,11 +1,12 @@
 import {Modal } from 'react-bootstrap'
 import './packagemodal.css';
-
+import TotalAmount from '../Form/TotalAmount';
 
 import PackageForm from '../Form/PackageForm';
 
 const PackageModal = ({setIsOpen}) => {
 const handleClose = () => setIsOpen(false);
+
 
 
 return (
@@ -18,9 +19,13 @@ return (
     </Modal.Header>
     <Modal.Body id="modal-body">
      <PackageForm/>
+
  
 
     </Modal.Body>
+    <Modal.Footer>
+       <TotalAmount/>
+    </Modal.Footer>
 
   </Modal>
     

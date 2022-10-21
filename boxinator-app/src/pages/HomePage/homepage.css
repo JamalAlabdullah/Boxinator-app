@@ -25,12 +25,16 @@ html {
     margin: 0 auto;
 }
 
-#packLi {
+#packLi, #countDrop {
     background-color: #EEEEEE;
-    margin: 10px;
+    width: 100%;
+    margin: 10px auto;
     padding: 10px;
     border-left: 8px solid #FCF7DD;
     border-right: 8px solid #FCF7DD;
+    border-top: none;
+    border-bottom: none;
+    text-align: center;
 }
 
 #homeH1 {
@@ -59,13 +63,15 @@ html {
 
 #homeBody {
     margin: 0 auto;
+    width: 100%;
 }
 
 #stampImg {
-    width: 20%;
+    width: 25%;
+    margin: 10px;
+    margin-right: 0px;
     border-radius: 10px;
     background-color: #EEEEEE;
-    margin: 10px;
     padding: 5px;
 }
 
@@ -73,13 +79,32 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
-#pName {
+#pName, #pColor {
     background-color: #EEEEEE;
     margin: 10px;
+    margin-left: 0px;
     padding: 10px;
     border-left: 8px solid #FCF7DD;
     border-right: 8px solid #FCF7DD;
-    width: 100%;
+    border-top: none;
+    border-bottom: none;
+    width: 60%;
+    text-align: center;
+}
+
+#pColor {
+    width: 75%;
+}
+
+#country::placeholder, #postCode::placeholder, #conNumb::placeholder {
+    opacity: 1;
+}
+
+#adminColor {
+    border-radius: 5px;
+    border: none;
+    padding: 7px;
 }

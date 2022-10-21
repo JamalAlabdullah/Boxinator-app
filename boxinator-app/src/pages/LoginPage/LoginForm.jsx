@@ -2,15 +2,24 @@ import Button from "react-bootstrap/Button";
 
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
+//import { useEffect } from "react";
+//import { useNavigate } from "react-router-dom";
 
 import "./login.css";
 
 import keycloak from "../../keycloak";
 
+import { useState } from "react";
+import PackageModalGuest from "../../components/Modal/PackageModalGuest";
+
+
+
 const LoginForm = () => {
-  const handelregisterbtn = () => {
-    window.location.assign("/register");
-  };
+
+  const [isOpen, setIsOpen] = useState(false)
+
+
+
 
   return (
     <>
@@ -18,24 +27,39 @@ const LoginForm = () => {
         <Card id="allCard">
           <Card.Body>
             <Card.Text>
-              Have you already registered? Go ahead and login.
+              If you have registered before, go ahead and login
             </Card.Text>
           </Card.Body>
           <Card.Footer>
             {!keycloak.authenticated && (
               <Button
-              className="Btn"
-               
-                onClick={() => keycloak.login()}
-              >
+                className="Btn"
+                onClick={() => keycloak.login()}>
                 Login
               </Button>
             )}
-            {keycloak.authenticated && (
-              <button onClick={() => keycloak.logout()}>Logout</button>
-            )}
+            {keycloak.authenticated ? window.location.assign("/home") : null}
           </Card.Footer>
         </Card>
+        {/* ---------------------REGISTER CARD -------------------------------------*/}
+        <Card id="allCard">
+          <Card.Body>
+            <Card.Text>
+              Here you can register for the first time.
+            </Card.Text>
+          </Card.Body>
+          <Card.Footer>
+            {!keycloak.authenticated && (
+              <Button
+                className="Btn"
+                onClick={() => keycloak.register()}>
+                Register
+              </Button>
+            )}
+            {keycloak.authenticated ? window.location.assign("/register") : null}
+          </Card.Footer>
+        </Card>
+        {/**-----------------------------GUEST CARD-------------------------------- */}
         <Card id="allCard">
           <Card.Body>
             <Card.Text>
@@ -44,24 +68,15 @@ const LoginForm = () => {
             </Card.Text>
           </Card.Body>
           <Card.Footer>
-            <Button className="Btn">
+            <Button
+              className="Btn"
+              onClick={() => setIsOpen(true)}>
               Guest
             </Button>
           </Card.Footer>
         </Card>
-        <Card id="allCard">
-          <Card.Body>
-            <Card.Text>
-              If you have not registered before, then click on register button
-            </Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            <Button className="Btn" onClick={handelregisterbtn}>
-              Register
-            </Button>
-          </Card.Footer>
-        </Card>
       </CardGroup>
+      {isOpen && <PackageModalGuest setIsOpen={setIsOpen} />}
     </>
   );
 };
