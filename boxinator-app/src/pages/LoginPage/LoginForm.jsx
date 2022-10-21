@@ -16,9 +16,9 @@ import PackageModalGuest from "../../components/Modal/PackageModalGuest";
 
 const LoginForm = () => {
 
-const [isOpen, setIsOpen] = useState(false)
-  
- 
+  const [isOpen, setIsOpen] = useState(false)
+
+
 
 
   return (
@@ -33,13 +33,25 @@ const [isOpen, setIsOpen] = useState(false)
           <Card.Footer>
             {!keycloak.authenticated && (
               <Button
-              className="Btn"
+                className="Btn"
                 onClick={() => keycloak.login()}>
                 Login
               </Button>
+
             )}
-            {keycloak.authenticated? window.location.assign("/home"):null}
-        
+            {keycloak.authenticated ? window.location.assign("/home") : null}
+
+            {!keycloak.authenticated && (
+              <Button
+                className="Btn"
+                onClick={() => keycloak.register()}>
+                Register
+              </Button>
+
+            )}
+            {keycloak.authenticated ? window.location.assign("/register") : null}
+
+
           </Card.Footer>
         </Card>
         {/**------------------------------------------------------------- */}
@@ -52,9 +64,9 @@ const [isOpen, setIsOpen] = useState(false)
             </Card.Text>
           </Card.Body>
           <Card.Footer>
-            <Button 
-            className="Btn"
-            onClick={() => setIsOpen(true)}>
+            <Button
+              className="Btn"
+              onClick={() => setIsOpen(true)}>
               Guest
             </Button>
           </Card.Footer>
@@ -63,7 +75,7 @@ const [isOpen, setIsOpen] = useState(false)
 
       {isOpen && <PackageModalGuest setIsOpen={setIsOpen} />}
 
-    
+
 
 
 
