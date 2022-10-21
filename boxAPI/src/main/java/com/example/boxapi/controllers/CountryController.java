@@ -2,7 +2,7 @@ package com.example.boxapi.controllers;
 
 import com.example.boxapi.mappers.CountryMapper;
 import com.example.boxapi.models.Country;
-import com.example.boxapi.models.dto.CountryDTO;
+import com.example.boxapi.models.dto.countryDTO.CountryDTO;
 import com.example.boxapi.services.country.CountryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.Collection;
-import java.util.Objects;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -40,17 +39,12 @@ public class CountryController {
                     description = "Countries not found",
                     content = @Content)
     })
-    @GetMapping
-    public ResponseEntity<Collection<CountryDTO>> getCountries(@AuthenticationPrincipal Jwt jwt) {
-        if (jwt.getClaimAsStringList("roles").contains("user")) {
-            System.out.println(jwt.getClaimAsStringList("roles") + " JULENISSEN");
-            Collection<CountryDTO> countries = countryMapper.countryToCountryDTO(
-                    countryService.findAll()
-            );
-            return ResponseEntity.ok(countries);
-        } else {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
+    @GetMapping("get")
+    public ResponseEntity<Collection<CountryDTO>> getCountries() {
+        Collection<CountryDTO> countries = countryMapper.countryToCountryDTO(
+                countryService.findAll()
+        );
+        return ResponseEntity.ok(countries);
     }
 
     @Operation(summary = "Add a new country")

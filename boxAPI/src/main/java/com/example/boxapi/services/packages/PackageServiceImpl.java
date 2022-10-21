@@ -1,6 +1,9 @@
 package com.example.boxapi.services.packages;
 
 import com.example.boxapi.models.Package;
+import com.example.boxapi.models.dto.packageDTO.PackageDTO;
+import com.example.boxapi.models.dto.packageDTO.PackageDTOGuest;
+import com.example.boxapi.models.dto.packageDTO.PackageDTOStatus;
 import com.example.boxapi.models.enums.Status;
 import com.example.boxapi.repositories.PackageRepository;
 import com.example.boxapi.services.packages.packageExceptions.PackageNotFoundException;
@@ -39,6 +42,24 @@ public class PackageServiceImpl implements PackageService {
     @Override
     public Package update(Package entity) {
         return packageRepository.save(entity);
+    }
+
+    public Package updateStatus(Package entity){
+        Package updatedPackage = findById(entity.getId());
+
+        entity.setEmail(updatedPackage.getEmail());
+        entity.setTotalSum(updatedPackage.getTotalSum());
+        entity.setAppUser(updatedPackage.getAppUser());
+        entity.setWeight(updatedPackage.getWeight());
+        entity.setCountry(updatedPackage.getCountry());
+        entity.setDate((updatedPackage.getDate()));
+        entity.setReceiver_name(updatedPackage.getReceiver_name());
+        entity.setColor(updatedPackage.getColor());
+
+
+        return packageRepository.save(entity);
+
+
     }
 
     @Override

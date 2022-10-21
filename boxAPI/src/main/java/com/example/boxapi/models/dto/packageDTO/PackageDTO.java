@@ -1,4 +1,4 @@
-package com.example.boxapi.models.dto;
+package com.example.boxapi.models.dto.packageDTO;
 
 
 import com.example.boxapi.models.enums.Status;

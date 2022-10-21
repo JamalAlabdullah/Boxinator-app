@@ -11,13 +11,13 @@ export const fetchWeight = async () => {
   try {
     const { data } = await axios.get(weightURL);
     return Promise.resolve({
-        weights: data,
+      weights: data,
       error: null,
     });
-  } 
+  }
   catch (e) {
     return {
-        weights: [],
+      weights: [],
       error: e.message,
     };
   }
@@ -35,13 +35,13 @@ export const fetchWeightById = async (id) => {
     const { data, status } = await axios.get(weightURL + "/" + id);
     console.log(status)
     return Promise.resolve({
-        weights: data,
+      weights: data,
       error: null,
     });
   }
   catch (e) {
     return {
-        weights: null,
+      weights: null,
       error: e.message,
     };
   }

@@ -29,7 +29,7 @@ const PackageForm = () => {
 
   const { countries } = useCountry();
   const { weights } = useWeight();
-  const [ resStatus, setResStatus ] = useState("");
+  const [resStatus, setResStatus] = useState("");
 
   const [sum, setSum ] = useState(200);
 

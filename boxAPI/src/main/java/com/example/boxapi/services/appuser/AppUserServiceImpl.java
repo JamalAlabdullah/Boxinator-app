@@ -1,8 +1,7 @@
 package com.example.boxapi.services.appuser;
 
 import com.example.boxapi.models.AppUser;
-import com.example.boxapi.models.Package;
-import com.example.boxapi.models.dto.AppUserDTORegistration;
+import com.example.boxapi.models.dto.appUserDTO.AppUserDTORegistration;
 import com.example.boxapi.repositories.AppUserRepository;
 import com.example.boxapi.services.appuser.appuserExceptions.AppUserNotFoundException;
 
@@ -14,8 +13,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 //RequiredArgsConstructor
@@ -118,7 +115,6 @@ public class AppUserServiceImpl implements AppUserService {
             appUser.getPackages().forEach(p -> p.setAppUser(null));
             appUserRepository.delete(appUser);
         } else {
-            log.warn(String.valueOf(appUserRepository.existsById(id)) + " HVA er dette");
             log.warn("No appuser exist with ID: " + id);
             throw new AppUserNotFoundException(id);
         }
@@ -136,24 +132,6 @@ public class AppUserServiceImpl implements AppUserService {
         log.info("Saving new user {} to the database", user.getName());
         return appUserRepository.save(user);
     }
-
-    /*Override
-    public Role saveRole(Role role) {
-        log.info("Saving new role {} to the database", role.getName());
-        return roleRepository.save(role);
-    }
-
-     */
-    /*Override
-    public void addRoleToUser(String username, String roleName) {
-        log.info("Adding role {} to user {}", roleName, username);
-        AppUser user = appUserRepository.findAppUserByUsername(username);
-        Role role = roleRepository.getRoleByName(roleName);
-        user.getRoles().add(role);
-
-    }
-
-     */
 
     @Override
     public AppUser getUser(String username) {

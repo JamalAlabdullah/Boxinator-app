@@ -1,4 +1,4 @@
-package com.example.boxapi.models.dto;
+package com.example.boxapi.models.dto.weightDTO;
 
 import com.example.boxapi.models.enums.WeightType;
 import lombok.Getter;
@@ -11,7 +11,6 @@ import java.util.Set;
 public class WeightDTO {
 
     private String id;
-    //private WeightType weightType;
     private int value;
     private Set<Integer> packages;
 }

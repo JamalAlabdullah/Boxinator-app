@@ -16,7 +16,7 @@ export const fetchPackage = async () => {
       shipments: data,
       error: null,
     });
-  } 
+  }
   catch (e) {
     return {
       shipments: [],
@@ -53,10 +53,10 @@ export const fetchPackageById = async (packageId) => {
 export const updatePackage = async (packageId) => {
   const shipmentURL = "http://localhost:8080/api/v1/shipments/current";
   try {
-    const {data, status} = await axios.put(shipmentURL + "/" + packageId) ;
+    const { data, status } = await axios.put(shipmentURL + "/" + packageId);
     console.log(status)
     return Promise.resolve({
-      package:data,
+      package: data,
       error: null
     })
 

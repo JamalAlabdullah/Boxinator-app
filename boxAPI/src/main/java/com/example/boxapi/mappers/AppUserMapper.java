@@ -2,8 +2,8 @@ package com.example.boxapi.mappers;
 
 import com.example.boxapi.models.AppUser;
 import com.example.boxapi.models.Package;
-import com.example.boxapi.models.dto.AppUserDTO;
-import com.example.boxapi.models.dto.AppUserDTOUpdate;
+import com.example.boxapi.models.dto.appUserDTO.AppUserDTO;
+import com.example.boxapi.models.dto.appUserDTO.AppUserDTOUpdate;
 import com.example.boxapi.services.appuser.AppUserService;
 import com.example.boxapi.services.packages.PackageService;
 import lombok.extern.slf4j.Slf4j;
@@ -25,11 +25,9 @@ public abstract class AppUserMapper {
     @Autowired
     protected PackageService packageService;
 
-    //Mapping(target = "roles", source = "roles", qualifiedByName = "mapRoleToId")
     @Mapping(target = "packages", source = "packages", qualifiedByName = "mapPackageToId")
     public abstract AppUserDTO appUserToAppUserDTO(AppUser appUser);
 
-    //Mapping(target = "roles", source = "roles", qualifiedByName = "mapIdToRole")
     @Mapping(target = "packages", source = "packages", qualifiedByName = "mapIdToPackage")
     public abstract AppUser appUserDTOtoAppUser(AppUserDTO appUserDTO);
     public abstract AppUser appUserDTOtoAppUserUpdate(AppUserDTOUpdate appUserDTO);
@@ -54,23 +52,6 @@ public abstract class AppUserMapper {
                 .collect(Collectors.toSet());
     }
 
-/*
-    @Named("mapRoleToId")
-    Set<Integer> mapRoleToId(Set<Role> source) {
-        //if (source == null)
-        //   return null;
-        return source.stream()
-                .map(m -> m.getId()).collect(Collectors.toSet());
-    }
-
-    @Named("mapIdToRole")
-    Set<Role> mapIdToRole(Set<Integer> source) {
-        return source.stream()
-                .map(i -> roleService.findById(i))
-                .collect(Collectors.toSet());
-    }
-
- */
 
     public abstract Collection<AppUserDTO> appUsersToAppuserDTOs(Collection<AppUser> appUsersDTOs);
 

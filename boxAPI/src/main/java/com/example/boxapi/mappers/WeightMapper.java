@@ -1,11 +1,8 @@
 package com.example.boxapi.mappers;
 
-import com.example.boxapi.models.Country;
 import com.example.boxapi.models.Package;
 import com.example.boxapi.models.Weight;
-import com.example.boxapi.models.dto.CountryDTO;
-import com.example.boxapi.models.dto.WeightDTO;
-import com.example.boxapi.services.packages.PackageService;
+import com.example.boxapi.models.dto.weightDTO.WeightDTO;
 import com.example.boxapi.services.weight.WeightService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -38,17 +35,4 @@ public abstract class WeightMapper {
                 .map(Package::getId).collect(Collectors.toSet());
     }
 
-    /*
-    @Named("mapIdToWeight")
-    Set<Weight> mapIdToWeight(Set<Integer> source) {
-        if (source == null) {
-            return null;}
-        return source.stream()
-                .map(i -> weightService.findById(i))
-                .collect(Collectors.toSet());
-
-
-    }
-
-     */
 }
