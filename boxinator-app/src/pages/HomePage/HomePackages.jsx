@@ -8,12 +8,6 @@ import keycloak from '../../keycloak';
 
 let userId = "";
 
-
-
-
-
-
-
 const HomePackages = () => {
 
     userId = keycloak.subject;

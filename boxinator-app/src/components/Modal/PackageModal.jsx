@@ -23,9 +23,6 @@ return (
  
 
     </Modal.Body>
-    <Modal.Footer>
-       <TotalAmount/>
-    </Modal.Footer>
 
   </Modal>
     

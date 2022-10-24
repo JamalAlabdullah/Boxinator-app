@@ -1,9 +1,6 @@
 import keycloak from "../../keycloak";
 import axios from 'axios';
-import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
-import { useUser } from '../../context/UserContext';
-
+import { useState } from "react";
 import "./register.css";
 
 
@@ -11,14 +8,10 @@ const baseURL = "http://localhost:8080/api/v1/account";
 
 const RegisterForm = () => {
 
-
   const [dateOfBirth, setDateOfBirth] = useState('')
   const [country, setCountry] = useState([]);
   const [postalCode, setPostCode] = useState('');
   const [phoneNr, setPhoneNr] = useState('');
-
-
-
 
   const onSubmit = event => {
     event.preventDefault();
@@ -39,8 +32,6 @@ const RegisterForm = () => {
         window.location = "/home"
       })
   }
-
-
 
 
   return (

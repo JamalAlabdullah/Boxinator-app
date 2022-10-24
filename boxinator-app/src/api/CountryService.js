@@ -6,18 +6,18 @@ import axios from ".";
  */
 export const fetchCountry = async () => {
 
-  const countryURL = "http://localhost:8080/api/v1/settings/countries/get/";
+  const countryURL = "http://localhost:8080/api/v1/settings/countries/get";
 
   try {
     const { data } = await axios.get(countryURL);
     return Promise.resolve({
-        countries: data,
+      countries: data,
       error: null,
     });
-  } 
+  }
   catch (e) {
     return {
-        countries: [],
+      countries: [],
       error: e.message,
     };
   }
@@ -35,13 +35,13 @@ export const fetchCountryById = async (id) => {
     const { data, status } = await axios.get(accountURL + "/" + id);
     console.log(status)
     return Promise.resolve({
-        countries: data,
+      countries: data,
       error: null,
     });
   }
   catch (e) {
     return {
-        countries: null,
+      countries: null,
       error: e.message,
     };
   }
