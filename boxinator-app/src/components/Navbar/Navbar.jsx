@@ -23,7 +23,7 @@ const Navbar = () => {
                     <li id="liHome"><NavLink to="/home">Home</NavLink></li>
                     <li id="liHome"><NavLink to="/register">Register</NavLink></li>
                     <li id="liLogout"><NavLink>
-                    <button id="logoutBtn" onClick={() => keycloak.logout() && (window.location = "/")}>Logout</button></NavLink></li>
+                    <button id="logoutBtn" onClick={() => keycloak.logout()}>Logout</button></NavLink></li>
                    
                     </>
                 )}  

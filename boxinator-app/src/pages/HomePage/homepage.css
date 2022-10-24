@@ -25,7 +25,7 @@ html {
     margin: 0 auto;
 }
 
-#packLi, #countDrop {
+#packLi, #countDrop, #packSum {
     background-color: #EEEEEE;
     width: 100%;
     margin: 10px auto;
@@ -107,4 +107,8 @@ html {
     border-radius: 5px;
     border: none;
     padding: 7px;
+}
+
+#packSum {
+    width: 60%;
 }

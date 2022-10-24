@@ -40,7 +40,9 @@ const AdminForm = () => {
             weight: event.target[2].value,
             color: event.target[3].value,
             country: event.target[4].value,
-            appUser: event.target[1].name
+            appUser: event.target[1].name,
+            status: event.target[5].value,
+            totalSum: event.target[6].value
         })
         .then(res=>{
             console.log(res);
@@ -84,6 +86,19 @@ const AdminForm = () => {
                                         <option key={country.id}>{country.id}</option>
                                     ))}
                                 </select>
+                            </li>
+                            <li>
+                                <select name="countriesDrop" id="countDrop" defaultValue={packages.status}>
+                                        <option value="CREATED">CREATED</option>
+                                        <option value="RECIEVED">RECIEVED</option>
+                                        <option value="INTRANSIT">INTRANSIT</option>
+                                        <option value="COMPLETED">COMPLETED</option>
+                                        <option value=" CANCELLED">CANCELLED</option>
+                                </select>
+                            </li>
+
+                            <li>
+                                <input type="text" id="pName" name={packages.totalSum} placeholder="kr. 00,00" defaultValue={packages.totalSum} disabled/>
                             </li>
 
                             <li>

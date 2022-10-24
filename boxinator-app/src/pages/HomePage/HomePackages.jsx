@@ -31,7 +31,7 @@ const HomePackages = () => {
     return (
         <div id="packGrid">
 
-            {packages.shipments && packages.shipments.map(({id, receiver_name, color, weight, country}) => (
+            {packages.shipments && packages.shipments.map(({id, receiver_name, color, weight, country, status, totalSum}) => (
                 <div key={id}>
                     <ul id="packUl">
 
@@ -47,7 +47,9 @@ const HomePackages = () => {
                         <li id="packLi">{weight}</li>
                         <li id="packLi">{ntc.name(color)[1]}</li>
                         <li id="packLi">{country}</li>
-                    </ul> 
+                        <li id="packLi">{status}</li>
+                        <li id="packSum">kr. {totalSum},00</li>
+                    </ul>
                 </div>
             ))}
 
