@@ -62,6 +62,74 @@ public class PackagesController {
 
     }
 
+    @Operation(summary = "Gets created shipments")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Success",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = PackageDTO.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "No created shipments",
+                    content = @Content)
+    })
+    @GetMapping("/created")
+    public ResponseEntity getCreatedhipments(@AuthenticationPrincipal Jwt jwt) {
+        if (jwt.getClaimAsStringList("roles").contains("admin")) {
+            Collection<PackageDTO> packages = packageMapper.packagesToPackageDTOs(
+                    packageService.findByStatus(Status.CREATED));
+            return ResponseEntity.ok(packages);
+        } else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+    }
+
+
+    @Operation(summary = "Gets recieved shipments")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Success",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = PackageDTO.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "No recieved shipments",
+                    content = @Content)
+    })
+    @GetMapping("/received")
+    public ResponseEntity getRecievedhipments(@AuthenticationPrincipal Jwt jwt) {
+        if (jwt.getClaimAsStringList("roles").contains("admin")) {
+            Collection<PackageDTO> packages = packageMapper.packagesToPackageDTOs(
+                    packageService.findByStatus(Status.RECIEVED));
+            return ResponseEntity.ok(packages);
+        } else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+    }
+
+
+    @Operation(summary = "Gets intransit shipments")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Success",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = PackageDTO.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "No intransit shipments",
+                    content = @Content)
+    })
+    @GetMapping("/intransit")
+    public ResponseEntity getIntransitShipments(@AuthenticationPrincipal Jwt jwt) {
+        if (jwt.getClaimAsStringList("roles").contains("admin")) {
+            Collection<PackageDTO> packages = packageMapper.packagesToPackageDTOs(
+                    packageService.findByStatus(Status.INTRANSIT));
+            return ResponseEntity.ok(packages);
+        } else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+    }
+
     @Operation(summary = "Gets completed shipments")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -72,7 +140,7 @@ public class PackagesController {
                     description = "No completed shipments",
                     content = @Content)
     })
-    @GetMapping("/complete")
+    @GetMapping("/completed")
     public ResponseEntity getCompletedShipments(@AuthenticationPrincipal Jwt jwt) {
         if (jwt.getClaimAsStringList("roles").contains("admin")) {
             Collection<PackageDTO> packages = packageMapper.packagesToPackageDTOs(
