@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("https://boxinatorfrontendtest.herokuapp.com/")
 @RequiredArgsConstructor
 @RequestMapping(path = "api/v1/weight")
 public class WeightController {

@@ -30,6 +30,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin("https://boxinatorfrontendtest.herokuapp.com/")
 @RequiredArgsConstructor
 @RequestMapping(path = "api/v1/shipments")
 public class PackagesController {
