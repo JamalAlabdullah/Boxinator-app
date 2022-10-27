@@ -12,9 +12,14 @@ Boxinator is a web application for shipment delivery to specific locations aroun
 This application is deployed to Heroku at [https://boxinatorfrontendtest.herokuapp.com/](https://boxinatorfrontendtest.herokuapp.com/).
 
 ## Getting started
-Backend:
+Database:
 
-- Clone this repository and open the Boxinator in your IDE (IntelliJ, Eclipse etc.). 
+- Open PGAdmin4 
+- Create a PostgreSQL database called "BoxinatorDb"
+- Open the data.sql file in the resources folder of boxAPI and insert for some dummy data. 
+
+Backend:
+- Clone this repository and open the Boxinator/boxAPI in your IDE (IntelliJ, Eclipse etc.). 
 - Navigate and change src/main/resources/application.properties
     - Replace strings as necessary
         - spring.datasource.username => Your PostgreSQL username
@@ -23,8 +28,26 @@ Backend:
 
 - From within your IDE, you can now run the project. The main method is in BoxApiApplication.
 - The API should now be running on localhost:8080
+- If necessarry, relbuild the build.gradle file to have all the correct dependencies. 
+
+Keycloak:
+- Have docker installed on your computer
+- In your terminal, run: 
+    - docker run -p 8083:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin jboss/keycloak:latest
+- go to localhost:8083, press "Administration console" and log in with:
+    - username "admin" 
+    - password "admin"
+- create yourself a realm "Boxinator" and a client "boxinator-app" with Root URL "https://localhost:3000".
+- go to "installation" and choose format option "Keycloak OIDC JSON" and copy the json to replace in the front-end application keycloak.json file. 
+- you also need to replace REACT_APP_URL to "localhost:3000" and REACT_APP_API_URL to "localhost:8080"
 
 
+Frontend:
+The correct frontend, that is deployed to heroku is at its own [gitrepo](https://gitlab.com/Fredr9/testboxinatorfrontend). This was necesarry for the Heroku deployment. 
+
+- Clone the repository linked above in your IDE (VS Code)
+- Run the command "npm install --force" to install the dependencies. 
+- Run "npm run dev" to run the project. 
 
 ## User Manual 
 [User Manual](https://docs.google.com/document/d/1LV4pKgxJXP5eyoQJtXSAyqhTA6Zex6_mISA42QTl-cM/edit#heading=h.a56wxndf1c5l).
@@ -40,8 +63,6 @@ On some READMEs, you may see small images that convey metadata, such as whether 
 ## Visuals
 Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
 ## Usage
 Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
