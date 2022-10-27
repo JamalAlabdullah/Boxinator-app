@@ -16,7 +16,7 @@ Backend:
 
 - Clone this repository and open the Boxinator in your IDE (IntelliJ, Eclipse etc.). 
 - Navigate and change src/main/resources/application.properties
--- Replace strings as necessary
+    - Replace strings as necessary
 
 
 ## User Manual 
