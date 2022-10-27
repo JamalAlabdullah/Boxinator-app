@@ -17,6 +17,13 @@ Backend:
 - Clone this repository and open the Boxinator in your IDE (IntelliJ, Eclipse etc.). 
 - Navigate and change src/main/resources/application.properties
     - Replace strings as necessary
+        - spring.datasource.username => Your PostgreSQL username
+        - spring.datasourcepassword => Your PostgreSQL password
+        - spring.datasource.url => your local database url
+
+- From within your IDE, you can now run the project. The main method is in BoxApiApplication.
+- The API should now be running on localhost:8080
+
 
 
 ## User Manual 
