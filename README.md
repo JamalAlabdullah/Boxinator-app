@@ -12,6 +12,11 @@ Boxinator is a web application for shipment delivery to specific locations aroun
 This application is deployed to Heroku at [https://boxinatorfrontendtest.herokuapp.com/](https://boxinatorfrontendtest.herokuapp.com/).
 
 ## Getting started
+Backend:
+
+- Clone this repository and open the Boxinator in your IDE (IntelliJ, Eclipse etc.). 
+- Navigate and change src/main/resources/application.properties
+-- Replace strings as necessary
 
 
 ## User Manual 
