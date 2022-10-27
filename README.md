@@ -51,14 +51,12 @@ The correct frontend, that is deployed to heroku is at its own [gitrepo](https:/
 - Run "npm run dev" to run the project. 
 
 ## User Manual 
-[User Manual](https://docs.google.com/document/d/1LV4pKgxJXP5eyoQJtXSAyqhTA6Zex6_mISA42QTl-cM/edit#heading=h.a56wxndf1c5l).
+
+For screenshots of the project and a description of how to use the application please see the [User Manual](https://docs.google.com/document/d/1LV4pKgxJXP5eyoQJtXSAyqhTA6Zex6_mISA42QTl-cM/edit#heading=h.a56wxndf1c5l).
 
 ## API Documentation
-[API](https://docs.google.com/document/d/1eQyTdxrwyswH6cYn63r0N-Ls7-tyxGoWCH34TazgERw/edit)
+We have documented all the endpoints of the API [here](https://docs.google.com/document/d/1eQyTdxrwyswH6cYn63r0N-Ls7-tyxGoWCH34TazgERw/edit).
 
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
 
 ## Authors
 Fredrik Vogt, Pernille Ofte, Jamal Alabdullah, Ole Syverinsen and Thea Rime
